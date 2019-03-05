@@ -13,24 +13,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractGenericDao<T extends Entity> implements GenericDao<T>  {
-    
-    private final ConnectionPool connectionPool;
+
+    protected final ConnectionPool connectionPool;
     protected abstract String getDeleteSQL();
     protected abstract String getUpdateSQL();
-    protected abstract String getSelectSQL();
-    protected abstract String getInsertSQL();
+    protected abstract String getSelectSql();
+    protected abstract String getInsertSql();
+    protected abstract void preparedStatementInsert(PreparedStatement preparedStatement, T object) throws DaoException;
+    protected abstract void preparedStatementUpdate(PreparedStatement preparedStatement, T object) throws DaoException;
+    protected abstract List<T> parseResultSet(ResultSet resultSet, List<T> list) throws DaoException;
 
-    //?
-    AbstractGenericDao() {
+
+    protected AbstractGenericDao() {
         this.connectionPool = ConnectionPool.getInstance ();
     }
 
     @Override
     public List<T> getAll() throws DaoException {
-        String SELECT_SQL = getSelectSQL ();
+        String selectSql = getSelectSql ();
         List<T> list = new ArrayList<> ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
-             PreparedStatement preparedStatement = connection.prepareStatement (SELECT_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement (selectSql)) {
             ResultSet resultSet = preparedStatement.executeQuery ();
             list = parseResultSet(resultSet, list);
         } catch (SQLException e) {
@@ -42,11 +45,13 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
     }
 
 
+
+
     @Override
     public void delete(T object) throws DaoException {
-        String DELETE_SQL = getDeleteSQL();
+        String deleteSql = getDeleteSQL();
         try (ProxyConnection connection = connectionPool.takeConnection ();
-             PreparedStatement preparedStatement = connection.prepareStatement (DELETE_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement (deleteSql)){
             preparedStatement.setLong (1,object.getId ());
             preparedStatement.execute ();
         }catch (SQLException e) {
@@ -56,28 +61,25 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
         }
     }
 
-
     @Override
-    public void update(T object) throws DaoException {
+    public int update(T object) throws DaoException {
         String UPDATE_SQL = getUpdateSQL ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (UPDATE_SQL)){
             preparedStatementUpdate (preparedStatement, object);
-            preparedStatement.execute ();
-        }catch (SQLException e) {
+            return preparedStatement.executeUpdate ();
+        }catch (SQLException | ConnectionPoolException e) {
             throw new DaoException (e);
-        } catch (ConnectionPoolException e) {
-            throw  new DaoException (e);
         }
     }
 
     @Override
     public void insert(T object) throws DaoException {
-        String INSERT_SQL = getInsertSQL ();
+        String INSERT_SQL = getInsertSql ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (INSERT_SQL)){
             preparedStatementInsert(preparedStatement,object);
-            preparedStatement.execute ();
+            preparedStatement.execute();
         }catch (SQLException e) {
             throw new DaoException (e);
         } catch (ConnectionPoolException e) {
@@ -85,7 +87,5 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
         }
     }
 
-    protected abstract void preparedStatementInsert(PreparedStatement preparedStatement, T object) throws DaoException;
-    protected abstract void preparedStatementUpdate(PreparedStatement preparedStatement, T object) throws DaoException;
-    protected abstract List<T> parseResultSet(ResultSet resultSet, List<T> list) throws DaoException;
+
 }

@@ -1,7 +1,17 @@
 package by.training.lihodievski.final_project.bean;
 
-public class Category extends Entity {
+public enum Category implements Entity {
 
+    FOOTBALL(1,"football"),
+    HOCKEY(2,"hockey"),
+    BASKETBALL(3,"basketball");
+
+    Category(long id, String nameCategory) {
+        this.nameCategory = nameCategory;
+        this.id =id;
+    }
+
+    private long id;
     private String nameCategory;
 
 
@@ -9,7 +19,8 @@ public class Category extends Entity {
         return nameCategory;
     }
 
-    public void setNameCategory(String nameCategory) {
-        this.nameCategory = nameCategory;
+    @Override
+    public long getId() {
+        return id;
     }
 }

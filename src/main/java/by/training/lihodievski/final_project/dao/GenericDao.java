@@ -9,7 +9,7 @@ public interface GenericDao<T extends Entity> {
 
     List<T> getAll() throws DaoException;
     void delete(T object) throws DaoException;
-    void update(T object) throws DaoException;
+    int update(T object) throws DaoException;
     void insert(T object ) throws DaoException;
 
 

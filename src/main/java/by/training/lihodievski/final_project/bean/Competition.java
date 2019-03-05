@@ -1,16 +1,26 @@
 package by.training.lihodievski.final_project.bean;
 
-public class Competition extends Entity {
+public class Competition implements Entity {
 
+    private long id;
     private Opponent firstOpponent;
     private Opponent secondOpponent;
     private String status;
     private int firstOpponentResult;
     private int secondOpponentResult;
-
+    private int winner;
     public Competition() {
         firstOpponent = new Opponent ();
         secondOpponent = new Opponent ();
+    }
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Opponent getFirstOpponent() {
@@ -63,5 +73,13 @@ public class Competition extends Entity {
                 ", firstOpponentResult=" + firstOpponentResult +
                 ", secondOpponentResult=" + secondOpponentResult +
                 '}';
+    }
+
+    public void setWinner(int winner) {
+        this.winner = winner;
+    }
+
+    public int getWinner() {
+        return winner;
     }
 }

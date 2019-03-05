@@ -10,11 +10,12 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="/css/style.css" rel="stylesheet"/>
 </head>
 <body>
-    <form>
+   ${competition}
 
-    </form>
-    ${competiton}
+
+
 </body>
 </html>

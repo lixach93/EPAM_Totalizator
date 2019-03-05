@@ -1,12 +1,19 @@
 package by.training.lihodievski.final_project.bean;
 
-public class Opponent {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private Long id;
-    private int nameOpponent;
+public class Opponent implements Entity{
+    @JsonProperty("id")
+    private long id;
+    @JsonProperty("name")
+    private String nameOpponent;
     private League league;
 
-    public Long getId() {
+    public Opponent() {
+
+    }
+    @Override
+    public long getId() {
         return id;
     }
 
@@ -14,11 +21,11 @@ public class Opponent {
         this.id = id;
     }
 
-    public int getNameOpponent() {
+    public String getNameOpponent() {
         return nameOpponent;
     }
 
-    public void setNameOpponent(int nameOpponent) {
+    public void setNameOpponent(String nameOpponent) {
         this.nameOpponent = nameOpponent;
     }
 

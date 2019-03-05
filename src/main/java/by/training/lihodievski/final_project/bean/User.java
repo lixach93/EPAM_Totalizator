@@ -1,34 +1,38 @@
 package by.training.lihodievski.final_project.bean;
 
-public class User {
+public class User implements Entity {
 
-    private int id;
-    private String name;
+    private long id;
     private String login;
+    private String email;
     private String password;
+    private double money;
     private RoleType roleType;
 
-    public User(String name, String login, String password, RoleType roleType) {
-        this.name = name;
-        this.login = login;
-        this.password = password;
-        this.roleType = roleType;
+    public User() {
     }
 
-    public int getId() {
+    public User(String login, String email, String password) {
+        this.login = login;
+        this.email = email;
+        this.password = password;
+    }
+
+    @Override
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getLogin() {
@@ -47,6 +51,14 @@ public class User {
         this.password = password;
     }
 
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
     public RoleType getRoleType() {
         return roleType;
     }
@@ -55,27 +67,6 @@ public class User {
         this.roleType = roleType;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
 
-        if (id != user.id) return false;
-        if (!name.equals(user.name)) return false;
-        if (!login.equals(user.login)) return false;
-        if (!password.equals(user.password)) return false;
-        return roleType == user.roleType;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + login.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + roleType.hashCode();
-        return result;
-    }
 }
