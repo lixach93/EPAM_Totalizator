@@ -13,6 +13,11 @@ public class League implements Entity{
 
     }
 
+    public League(String name, Category category) {
+        this.nameLeague = name;
+        this.category = category;
+    }
+
     @Override
     public long getId() {
         return id;

@@ -8,4 +8,6 @@ public interface UserService {
 
    void registration(String login, String email,String password, String confirmPassword) throws ServiceException, UserException;
    User login(String login , String password) throws ServiceException, UserException;
+
+    User getUserById(long id) throws ServiceException;
 }

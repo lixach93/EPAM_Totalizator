@@ -4,14 +4,12 @@
 
     <c:forEach items="${requestScope.competitions}" var="competition">
         <c:out value="${competition.id}"/>
-        <c:out value="${competition.firstOpponent.nameOpponent}"/>
-        <c:out value="${competition.secondOpponent.nameOpponent}"/>
+        <c:out value="${competition.firstTeam.nameTeam}"/>
+        <c:out value="${competition.secondTeam.nameTeam}"/>
         <c:out value="${competition.firstOpponentResult}"/>
         <c:out value="${competition.secondOpponentResult}"/>
         <button type="button" onclick="closeCompetition(${competition.id})">Закрыть соревнование</button>
-        <div id="info${competition.id}">
-
-        </div>
+        <div id="info${competition.id}"></div>
     </c:forEach>
 
 

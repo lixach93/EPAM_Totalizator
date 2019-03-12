@@ -1,13 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 
-    <c:forEach items="${competitionRates}" var="competitionRate">
-        <c:out value="${competitionRate.id}"/>
-        <c:out value="${competitionRate.competition.firstOpponent.nameOpponent}"/>
-        <c:out value="${competitionRate.competition.secondOpponent.nameOpponent}"/>
+    <c:forEach items="${events}" var="event">
+        <c:out value="${event.id}"/>
+        <c:out value="${event.competition.firstTeam.nameTeam}"/>
+        <c:out value="${event.competition.secondTeam.nameTeam}"/>
         </br>
-        <button type="button" onclick="closeCompetitionRate(${competitionRate.id})">Payment</button>
-        <div id="compRate${competitionRate.id}">
+        <button type="button" onclick="closeCompetitionRate(${event.id})">Payment</button>
+        <div id="compRate${event.id}">
 
         </div>
     </c:forEach>

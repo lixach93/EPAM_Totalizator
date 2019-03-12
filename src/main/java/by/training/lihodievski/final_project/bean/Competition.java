@@ -3,15 +3,15 @@ package by.training.lihodievski.final_project.bean;
 public class Competition implements Entity {
 
     private long id;
-    private Opponent firstOpponent;
-    private Opponent secondOpponent;
+    private Team firstTeam;
+    private Team secondTeam;
     private String status;
     private int firstOpponentResult;
     private int secondOpponentResult;
     private int winner;
     public Competition() {
-        firstOpponent = new Opponent ();
-        secondOpponent = new Opponent ();
+        firstTeam = new Team ();
+        secondTeam = new Team ();
     }
 
     @Override
@@ -23,20 +23,20 @@ public class Competition implements Entity {
         this.id = id;
     }
 
-    public Opponent getFirstOpponent() {
-        return firstOpponent;
+    public Team getFirstTeam() {
+        return firstTeam;
     }
 
-    public void setFirstOpponent(Opponent firstOpponent) {
-        this.firstOpponent = firstOpponent;
+    public void setFirstTeam(Team firstTeam) {
+        this.firstTeam = firstTeam;
     }
 
-    public Opponent getSecondOpponent() {
-        return secondOpponent;
+    public Team getSecondTeam() {
+        return secondTeam;
     }
 
-    public void setSecondOpponent(Opponent secondOpponent) {
-        this.secondOpponent = secondOpponent;
+    public void setSecondTeam(Team secondTeam) {
+        this.secondTeam = secondTeam;
     }
 
     public String getStatus() {
@@ -67,8 +67,8 @@ public class Competition implements Entity {
     public String toString() {
         return "Competition{" +
                 "id=" + getId () +
-                ", firstOpponent=" + firstOpponent +
-                ", secondOpponent=" + secondOpponent +
+                ", firstTeam=" + firstTeam +
+                ", secondTeam=" + secondTeam +
                 ", status='" + status + '\'' +
                 ", firstOpponentResult=" + firstOpponentResult +
                 ", secondOpponentResult=" + secondOpponentResult +

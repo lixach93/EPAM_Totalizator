@@ -6,7 +6,7 @@
 <head>
     <title>EpamTotalizator</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link href="../../resources/styles/style.css" type="text/css" rel="stylesheet" />
+    <link href="../../resources/styles/st.css" type="text/css" rel="stylesheet" />
 </head>
 
 <nav class="navbar navbar-inverse">
@@ -34,6 +34,11 @@
                         <c:when test="${sessionScope.userRole eq 'admin'}">
                             <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator?command=showAdminPage">
                                 <fmt:message bundle="${loc}" key="link.admin"/>
+                            </a>
+                        </c:when>
+                        <c:when test="${sessionScope.userRole eq 'moderator'}">
+                            <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator?command=showModeratorPage">
+                                <fmt:message bundle="${loc}" key="link.moderator"/>
                             </a>
                         </c:when>
                     </c:choose>

@@ -9,6 +9,8 @@ import java.util.List;
 
 public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
 
+    public abstract List<League> getLeaguesByCategory(Category category) throws DaoException;
+    public abstract League getLeagueById(long leagueId) throws DaoException;
     @Override
     protected String getDeleteSQL() {
         return null;
@@ -29,9 +31,13 @@ public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
         return "INSERT into totalizator.league (category_id, name) value (?, ?)";
     }
 
-    protected String getSelectSqlByCategory() {
-        return "SELECT league_id, name FROM totalizator.league where category_id = ?";
+    String getLeagueByCategoryQuery() {
+        return "SELECT league_id,name FROM totalizator.league where category_id = ?";
+    }
+    String getLeagueByIdQuery() {
+        return "SELECT league_id,name FROM totalizator.league where league_id = ?";
     }
 
-    public abstract List<League> getLeaguesByCategory(Category category) throws DaoException;
+
+
 }

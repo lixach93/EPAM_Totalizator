@@ -14,6 +14,6 @@ public class ChangeLocaleCommand extends ActionCommand {
         String lastUrl = request.getHeader ("referer");
         request.setAttribute ("redirect",lastUrl);
         System.out.println (lastUrl);
-        return "/WEB-INF/view/competitionRate.jsp";
+        return "/WEB-INF/view/events.jsp";
     }
 }

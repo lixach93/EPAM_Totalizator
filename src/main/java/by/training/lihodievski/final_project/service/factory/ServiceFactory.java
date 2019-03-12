@@ -5,7 +5,7 @@ import by.training.lihodievski.final_project.service.impl.*;
 
 public class ServiceFactory {
 
-    private final static ServiceFactory INSTANCE = new ServiceFactory ();
+    private static final ServiceFactory INSTANCE = new ServiceFactory ();
 
     private ServiceFactory() {
     }
@@ -13,6 +13,7 @@ public class ServiceFactory {
     public static ServiceFactory getInstance(){
         return INSTANCE;
     }
+
     public UserService getUserService(){
         return UserServiceImpl.getInstance ();
     }
@@ -23,13 +24,13 @@ public class ServiceFactory {
         return LeagueServiceImpl.getInstance ();
     }
 
-    public OpponentService getOpponentService() {
-        return OpponentServiceImpl.getInstance();}
+    public TeamService getOpponentService() {
+        return TeamServiceImpl.getInstance();}
 
-    public CompetitionRateService getCompetitionRateServiceImpl() {
-        return CompetitionRateServiceImpl.getInstance();
+    public EventService getEventService() {
+        return EventServiceImpl.getInstance();
     }
-    public BettingService getBettingServiceImpl(){
+    public BettingService getBettingService(){
         return BettingServiceImpl.getInstance ();
     }
     public CompetitionService getCompetitionService(){

@@ -6,6 +6,10 @@ import by.training.lihodievski.final_project.dao.exception.DaoException;
 
 public abstract class UserDaoAbstract extends AbstractGenericDao<User> {
 
+    public abstract User getUserByLoginAndPassword(String login ,String password) throws DaoException;
+
+    public abstract User getUserById(User user) throws DaoException;
+
     @Override
     protected String getDeleteSQL() {
         return null;
@@ -30,11 +34,9 @@ public abstract class UserDaoAbstract extends AbstractGenericDao<User> {
         return "SELECT user_id,login,email,money, role FROM totalizator.user where login = ? and password = ?";
     }
 
-    protected String getSelectSqlById() {
-        return "SELECT user_id,login,email,money, role FROM totalizator.user  where user_id = ?";
+    protected String getUserByIdQuery() {
+        return "SELECT user_id,login,email,money,role FROM totalizator.user  where user_id = ?";
     }
 
-    public abstract User getUserByLoginAndPassword(String login ,String password) throws DaoException;
 
-    public abstract User getUserById(User user) throws DaoException;
 }

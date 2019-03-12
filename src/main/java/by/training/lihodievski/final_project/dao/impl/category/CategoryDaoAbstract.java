@@ -1,14 +1,15 @@
 package by.training.lihodievski.final_project.dao.impl.category;
 
 import by.training.lihodievski.final_project.bean.Category;
+import by.training.lihodievski.final_project.bean.Competition;
 import by.training.lihodievski.final_project.dao.AbstractGenericDao;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
-
-import javax.naming.OperationNotSupportedException;
 
 
 public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
 
+    public abstract Category getCategoryById(long id) throws DaoException;
+    public abstract Category getCategoryForCompetition(Competition competition) throws DaoException;
     @Override
     protected String getDeleteSQL() {
         return "DELETE FROM totalizator.category  where id = ?";
@@ -21,7 +22,6 @@ public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
 
     @Override
     protected String getSelectSql() {
-
         return "SELECT name FROM totalizator.category";
     }
 
@@ -31,9 +31,25 @@ public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
         return "чуй";
     }
 
-    protected String getSelectCategoryById(){
-        return "select name from totalizator.category where category_id = ? ";
+    protected String getCategoryByIdQuery(){
+        return "SELECT category.name from totalizator.category where category_id = ? ";
+    }
+    protected String getSelectCategoryForCompetition(){
+        return " SELECT category.name from competition c" +
+                " join team t1 on " +
+                " c.team_first = t1.team_id" +
+                " join team t2 on" +
+                " c.team_second = t2.team_id" +
+                " join league l1 on " +
+                " l1.league_id = t1.league_id" +
+                " join league l2 on" +
+                " l2.league_id = t2.league_id" +
+                " join category  on" +
+                " category.category_id = l1.category_id" +
+                " join category category2 on " +
+                " category2.category_id = l2.category_id" +
+                " where  category.name = category2.name and c.competition_id = ?";
     }
 
-    public abstract Category getCategoryById(long id) throws DaoException;
+
 }

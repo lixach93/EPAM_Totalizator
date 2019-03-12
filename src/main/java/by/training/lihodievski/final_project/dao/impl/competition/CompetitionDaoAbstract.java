@@ -13,19 +13,19 @@ public abstract class CompetitionDaoAbstract extends AbstractGenericDao<Competit
 
     @Override
     protected String getUpdateSQL() {
-        return "update competition set status = 'finished' where competition_id =?" ;
+        return "update competition set status = 'finished'," +
+                "team_first_result=?,team_second_result =?, winner=? where competition_id =?" ;
     }
 
     @Override
     protected String getSelectSql () {
-        return "SELECT competition_id, o1.name,o2.name,status," +
-                "                opponent_first_result, opponent_second_result FROM totalizator.competition\n" +
-                "                join opponent o1 on\n" +
-                "                competition.opponent_first = o1.opponent_id\n" +
-                "                join opponent o2 on\n" +
-                "                competition.opponent_second = o2.opponent_id\n" +
-                "\t\t\n" +
-                "                where status = 'new'";
+        return "SELECT competition_id, t1.name,t2.name,status," +
+                "team_first_result, team_second_result FROM totalizator.competition" +
+                " join team t1 on" +
+                " competition.team_first = t1.team_id" +
+                " join team t2 on" +
+                " competition.team_second = t2.team_id" +
+                " where status = 'new'";
     }
 
     @Override

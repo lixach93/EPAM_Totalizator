@@ -1,12 +1,21 @@
 package by.training.lihodievski.final_project.command;
 
+import by.training.lihodievski.final_project.command.exception.CommandException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import static by.training.lihodievski.final_project.util.Constants.FORWARD_MAIN_PAGE;
 
 public class EmptyCommand extends ActionCommand {
 
     @Override
     public String execute() {
-        return "/WEB-INF/view/main.jsp";
+        return null;
+    }
+
+    @Override
+    public Respond execute1() throws CommandException {
+        return new Respond (Respond.PAGE, FORWARD_MAIN_PAGE);
     }
 }

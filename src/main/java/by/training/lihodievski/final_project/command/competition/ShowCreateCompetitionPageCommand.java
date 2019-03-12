@@ -20,7 +20,7 @@ public class ShowCreateCompetitionPageCommand extends ActionCommand {
         request.setAttribute ("action", "createCompetition");
         List<Category> categories;
         try {
-            categories = categoryService.getAll ();
+            categories = categoryService.getCategories ();
         }catch (ServiceException e){
             throw new CommandException (e);
         }

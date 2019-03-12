@@ -3,10 +3,10 @@
 <html>
     <jsp:include page="../fragments/header.jsp"/>
 <body>
-    ${requestScope.competitionRate.id}
-    ${requestScope.competitionRate.competition.firstOpponent.nameOpponent}
-    ${requestScope.competitionRate.competition.secondOpponent.nameOpponent}
-    ${requestScope.competitionRate.rate.value}
-    <a href="<c:url value="totalizator?command=showCompetitionRate&category=${requestScope.competitionRate.competition.firstOpponent.league.category.nameCategory}"/> ">Back</a>
+    ${requestScope.event.id}
+    ${requestScope.event.competition.firstTeam.nameTeam}
+    ${requestScope.event.competition.secondTeam.nameTeam}
+    ${requestScope.event.rate.value}
+    <a href="<c:url value="totalizator?command=showCompetitionRate&category=${requestScope.event.competition.firstTeam.league.category.nameCategory}"/> ">Back</a>
 </body>
 </html>

@@ -12,11 +12,17 @@ public class User implements Entity {
     public User() {
     }
 
+    public User(long id) {
+        this.id = id;
+    }
+
     public User(String login, String email, String password) {
         this.login = login;
         this.email = email;
         this.password = password;
     }
+
+
 
     @Override
     public long getId() {

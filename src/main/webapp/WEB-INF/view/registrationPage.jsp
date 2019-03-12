@@ -5,36 +5,40 @@
     <jsp:include page="../fragments/header.jsp"/>
 <body>
     <div class="container">
-        <c:if test="${not empty requestScope.success}">
+        <c:if test="${not empty sessionScope.success}">
             <div class="alert alert-success">
                 <strong>Success!</strong>${requestScope.success}" user success registration!
             </div>
         </c:if>
-
-        <c:if test="${not empty requestScope.errorMessage}">
+        <c:remove var="success" scope="session"/>
+        <c:if test="${not empty sessionScope.errorMessage}">
             <div class="alert alert-danger">
-                <strong>Danger!</strong>${requestScope.errorMessage}
-                <c:out value="${userError.login}"/>
-                <c:out value="${userError.email}"/>
+                <strong>Danger!</strong>
+                <c:out value="${sessionScope.userError.login}"/>
+                <c:out value="${sessionScope.userError.email}"/>
+                </br>
+                <fmt:message bundle="${loc}" key="${sessionScope.errorMessage}"/>
             </div>
         </c:if>
+        <c:remove var="errorMessage" scope="session"/>
         <form method="post" action="${pageContext.request.contextPath}/totalizator">
+            <input type="hidden" name="redirect" value="<c:url value="/totalizator?command=showRegistrationPage"/>"/>
             <input type="hidden" name="command" value="registration">
             <div class="form-group">
                 <label for="usr"><fmt:message bundle="${loc}" key="label.login"/>:</label>
-                <input type="text" name="login" class="form-control" id="usr">
+                <input type="text" name="login" class="form-control" id="usr" placeholder=" User123">
             </div>
             <div class="form-group">
                 <label for="email"><fmt:message bundle="${loc}" key="label.email"/>:</label>
-                <input type="email" name="email" class="form-control" id="email">
+                <input type="email" name="email" class="form-control" id="email" placeholder=" example@gmail.com">
             </div>
             <div class="form-group">
                 <label for="pwd"><fmt:message bundle="${loc}" key="label.password"/>:</label>
-                <input type="password" name="password" class="form-control" id="pwd">
+                <input type="password" name="password" class="form-control" id="pwd" placeholder=" 300sA">
             </div>
             <div class="form-group">
                 <label for="cpwd"><fmt:message bundle="${loc}" key="label.confirmPassword"/>:</label>
-                <input type="password" name="confirmPassword" class="form-control" id="cpwd">
+                <input type="password" name="confirmPassword" class="form-control" id="cpwd" placeholder=" 300sA">
             </div>
             <div class="form-group">
                 <div class="text-center">

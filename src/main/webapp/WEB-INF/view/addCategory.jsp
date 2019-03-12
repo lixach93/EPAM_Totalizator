@@ -11,7 +11,7 @@
 <head>
     <title></title>
 
-    <link href="../../resources/styles/style.css" type="text/css" rel="stylesheet" />
+    <link href="../../resources/styles/st.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 <h1>FSFDSADA</h1>

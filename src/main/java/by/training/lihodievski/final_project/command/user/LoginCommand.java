@@ -10,6 +10,8 @@ import by.training.lihodievski.final_project.service.factory.ServiceFactory;
 
 import javax.servlet.http.HttpSession;
 
+import static by.training.lihodievski.final_project.util.Constants.SESSION_ATTRIBUTE_ID;
+
 public class LoginCommand extends ActionCommand {
 
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
@@ -30,7 +32,7 @@ public class LoginCommand extends ActionCommand {
             throw new CommandException ("LoginCommand exception ", e);
         }
         HttpSession session = request.getSession (true);
-        session.setAttribute ("userId",user.getId ());
+        session.setAttribute (SESSION_ATTRIBUTE_ID, user.getId ());
         session.setAttribute ("userLogin",user.getLogin ());
         session.setAttribute ("userRole",user.getRoleType ().getValue ());
         page =request.getParameter ("redirect");

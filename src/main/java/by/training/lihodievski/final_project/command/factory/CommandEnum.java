@@ -1,15 +1,23 @@
 package by.training.lihodievski.final_project.command.factory;
 
 import by.training.lihodievski.final_project.command.*;
+import by.training.lihodievski.final_project.command.betting.MakeBettingCommand;
+import by.training.lihodievski.final_project.command.betting.ShowActiveBettingPageCommand;
+import by.training.lihodievski.final_project.command.betting.ShowResultBettingPageCommand;
 import by.training.lihodievski.final_project.command.competition.*;
-import by.training.lihodievski.final_project.command.league.AddLeagueCommand;
-import by.training.lihodievski.final_project.command.league.AddLeaguePageCommand;
+import by.training.lihodievski.final_project.command.event.AddPercentToEventCommand;
+import by.training.lihodievski.final_project.command.event.ShowActiveEventPageCommand;
+import by.training.lihodievski.final_project.command.event.ShowEventPageCommand;
+import by.training.lihodievski.final_project.command.league.CreateLeagueCommand;
+import by.training.lihodievski.final_project.command.league.ShowCreateLeaguePageCommand;
 import by.training.lihodievski.final_project.command.league.GetLeaguesByCategoryCommand;
 import by.training.lihodievski.final_project.command.locale.ChangeLocaleCommand;
-import by.training.lihodievski.final_project.command.opponent.AddTeamCommand;
-import by.training.lihodievski.final_project.command.opponent.GetOpponentsByLeagueIdCommand;
-import by.training.lihodievski.final_project.command.opponent.ShowAddTeamPageCommand;
+import by.training.lihodievski.final_project.command.team.CreateTeamCommand;
+import by.training.lihodievski.final_project.command.team.GetOpponentsByLeagueIdCommand;
+import by.training.lihodievski.final_project.command.team.ShowCreateTeamPageCommand;
 import by.training.lihodievski.final_project.command.user.*;
+import by.training.lihodievski.final_project.command.user.admin.ChooseAdminPageCommand;
+import by.training.lihodievski.final_project.command.user.admin.ShowAdminPageCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,14 +28,14 @@ public enum CommandEnum {
             this.command = new AddCategoryPageCommand ();
         }
     },
-    ADDLEAGUE {
+    CREATELEAGUE {
         {
-            this.command = new AddLeagueCommand ();
+            this.command = new CreateLeagueCommand ();
         }
     },
-    ADDLEAGUEPAGE {
+    SHOWCREATELEAGUEPAGE {
         {
-            this.command = new AddLeaguePageCommand ();
+            this.command = new ShowCreateLeaguePageCommand ();
         }
     },
     ALLCOMPETITION {
@@ -50,9 +58,9 @@ public enum CommandEnum {
             this.command = new LogoutCommand ();
         }
     },
-    MAKERATE {
+    MAKEBETTING {
         {
-            this.command = new MakeRateCommand ();
+            this.command = new MakeBettingCommand ();
         }
     },
     REGISTRATION {
@@ -65,9 +73,9 @@ public enum CommandEnum {
             this.command = new ShowAdminPageCommand ();
         }
     },
-    SHOWCOMPETITIONRATE {
+    SHOWEVENTPAGE {
         {
-            this.command = new ShowCompetitionRateCommand ();
+            this.command = new ShowEventPageCommand ();
         }
     },
     SHOWLOGINPAGE {
@@ -90,17 +98,17 @@ public enum CommandEnum {
             this.command = new ShowRegistrationPageCommand ();
         }
     },
-    SHOWADDTEAMPAGE{
+    SHOWCREATETEAMPAGE{
         {
-            this.command = new ShowAddTeamPageCommand ();
+            this.command = new ShowCreateTeamPageCommand ();
         }
     },
-    ADDTEAM{
+    CREATETEAM{
         {
-            this.command = new AddTeamCommand ();
+            this.command = new CreateTeamCommand ();
         }
     },
-    GETLEAGUESBYCATEGORYID{
+    GETLEAGUESBYCATEGORY{
         {
             this.command = new GetLeaguesByCategoryCommand ();
         }
@@ -144,8 +152,48 @@ public enum CommandEnum {
         {
             this.command = new ChangeLocaleCommand ();
         }
-    };
+    },
+    CHOOSEPERSONALPAGE{
+        {
+            this.command = new ChoosePersonalPageCommand ();
+        }
+    },
 
+    SHOWACTIVEBETTINGPAGE{
+        {
+            this.command = new ShowActiveBettingPageCommand ();
+        }
+    },
+    SHOWRESULTBETTINGPAGE{
+        {
+            this.command = new ShowResultBettingPageCommand ();
+        }
+    },
+    SHOWMODERATORPAGE{
+        {
+            this.command = new ShowModeratorPageCommand();
+        }
+    },
+    CHOOSEMODERATORPAGE {
+        {
+            this.command = new ChooseModeratorPageCommand ();
+        }
+    },
+    SHOWACTIVEEVENTPAGE{
+        {
+            this.command = new ShowActiveEventPageCommand ();
+        }
+    },
+    ADDPERCENTTOEVENT{
+        {
+            this.command = new AddPercentToEventCommand ();
+        }
+    },
+    SHOWUSERPAGE{
+        {
+            this.command = new ShowUserPageCommand ();
+        }
+    };
 
 
     ActionCommand command;

@@ -5,6 +5,8 @@ import by.training.lihodievski.final_project.bean.User;
 import by.training.lihodievski.final_project.connection.ProxyConnection;
 import by.training.lihodievski.final_project.connection.exception.ConnectionPoolException;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +16,8 @@ import java.util.List;
 
 public class UserDaoImpl extends UserDaoAbstract  {
 
-    private final static UserDaoImpl INSTANCE = new UserDaoImpl ();
+    private static final Logger LOGGER = LogManager.getLogger (UserDaoImpl.class);
+    private static final UserDaoImpl INSTANCE = new UserDaoImpl ();
 
     private UserDaoImpl() {
     }
@@ -30,7 +33,8 @@ public class UserDaoImpl extends UserDaoAbstract  {
             preparedStatement.setString (2, object.getEmail ());
             preparedStatement.setString (3, object.getPassword ());
         }catch (SQLException e){
-            throw new DaoException ("Exception create new User ", e);
+            LOGGER.error ("Exception in UserDaoImpl ", e);
+            throw new DaoException (e);
         }
     }
 
@@ -52,6 +56,7 @@ public class UserDaoImpl extends UserDaoAbstract  {
                 list.add (user);
             }
         }catch (SQLException e){
+            LOGGER.error ("Exception in UserDaoImpl ", e);
             throw new DaoException (e);
         }
         return list;
@@ -66,9 +71,8 @@ public class UserDaoImpl extends UserDaoAbstract  {
             preparedStatement.setString (2,password);
             ResultSet resultSet = preparedStatement.executeQuery ();
             list = parseResultSet(resultSet, list);
-        } catch (SQLException e) {
-            throw new DaoException (e);
-        } catch (ConnectionPoolException e) {
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in UserDaoImpl ", e);
             throw new DaoException (e);
         }
         return list.iterator ().next ();
@@ -76,16 +80,15 @@ public class UserDaoImpl extends UserDaoAbstract  {
 
     @Override
     public User getUserById(User user) throws DaoException {
-        String query = getSelectSqlById ();
+        String query = getUserByIdQuery ();
         List<User> list = new ArrayList<> ();
         try (ProxyConnection connection= connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (query)) {
             preparedStatement.setLong (1,user.getId ());
             ResultSet resultSet = preparedStatement.executeQuery ();
             list = parseResultSet(resultSet, list);
-        } catch (SQLException e) {
-            throw new DaoException (e);
-        } catch (ConnectionPoolException e) {
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in UserDaoImpl ", e);
             throw new DaoException (e);
         }
         return list.iterator ().next ();

@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface CategoryService {
 
-    void addCategory(Category category) throws ServiceException;
-    List<Category> getAll() throws ServiceException;
+    List<Category> getCategories() throws ServiceException;
 }

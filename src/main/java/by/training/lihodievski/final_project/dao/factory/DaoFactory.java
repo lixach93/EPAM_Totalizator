@@ -6,18 +6,18 @@ import by.training.lihodievski.final_project.dao.impl.category.CategoryDaoAbstra
 import by.training.lihodievski.final_project.dao.impl.competition.CompetitionDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.category.CategoryDaoImpl;
 import by.training.lihodievski.final_project.dao.impl.competition.CompetitionDaoImpl;
-import by.training.lihodievski.final_project.dao.impl.competition_rate.CompetitionRateAbstract;
-import by.training.lihodievski.final_project.dao.impl.competition_rate.CompetitionRateImpl;
+import by.training.lihodievski.final_project.dao.impl.competition_rate.EventDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.competition_rate.EventDaoImpl;
 import by.training.lihodievski.final_project.dao.impl.league.LeagueDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.league.LeagueDaoImpl;
-import by.training.lihodievski.final_project.dao.impl.opponent.OpponentDaoAbstract;
-import by.training.lihodievski.final_project.dao.impl.opponent.OpponentDaoImpl;
+import by.training.lihodievski.final_project.dao.impl.opponent.TeamDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.opponent.TeamDaoImpl;
 import by.training.lihodievski.final_project.dao.impl.user.UserDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.user.UserDaoImpl;
 
 public class DaoFactory {
 
-    private final static DaoFactory INSTANCE = new DaoFactory ();
+    private static final DaoFactory INSTANCE = new DaoFactory ();
 
     private DaoFactory() {
     }
@@ -34,13 +34,13 @@ public class DaoFactory {
     public CompetitionDaoAbstract getCompetitionDao(){
         return CompetitionDaoImpl.getInstance ();
     }
-    public CompetitionRateAbstract getCompetitionRateDao(){
-        return CompetitionRateImpl.getInstance ();
+    public EventDaoAbstract getEventDao(){
+        return EventDaoImpl.getInstance ();
     }
     public UserDaoAbstract getUserDao(){return UserDaoImpl.getInstance();}
 
-    public OpponentDaoAbstract getOpponentDao() {
-        return OpponentDaoImpl.getInstance();
+    public TeamDaoAbstract getTeamDao() {
+        return TeamDaoImpl.getInstance();
     }
     public BettingDaoAbstract getBettingDao(){
         return BettingDaoImpl.getInstance ();

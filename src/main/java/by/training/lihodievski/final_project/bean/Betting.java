@@ -4,7 +4,7 @@ public class Betting implements Entity {
 
     private long id;
     private User user;
-    private CompetitionRate competitionRate;
+    private Event event;
     private int winner;
     private int opponentFirstScore;
     private int opponentSecondScore;
@@ -14,10 +14,18 @@ public class Betting implements Entity {
     public Betting() {
     }
 
-    public Betting(User user, CompetitionRate competitionRate, int winner, double money) {
+    public Betting(User user, Event event, int winner, double money) {
         this.user = user;
-        this.competitionRate = competitionRate;
+        this.event = event;
         this.winner = winner;
+        this.money = money;
+    }
+
+    public Betting(User user, Event event, int opponentFirstScore, int opponentSecondScore, double money) {
+        this.user = user;
+        this.event = event;
+        this.opponentFirstScore = opponentFirstScore;
+        this.opponentSecondScore = opponentSecondScore;
         this.money = money;
     }
 
@@ -30,12 +38,12 @@ public class Betting implements Entity {
         this.id = id;
     }
 
-    public CompetitionRate getCompetitionRate() {
-        return competitionRate;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setCompetitionRate(CompetitionRate competitionRate) {
-        this.competitionRate = competitionRate;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public int getWinner() {

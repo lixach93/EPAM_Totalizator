@@ -5,6 +5,8 @@ import by.training.lihodievski.final_project.connection.ConnectionPool;
 import by.training.lihodievski.final_project.connection.ProxyConnection;
 import by.training.lihodievski.final_project.connection.exception.ConnectionPoolException;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public abstract class AbstractGenericDao<T extends Entity> implements GenericDao<T>  {
 
+    private static final Logger LOGGER = LogManager.getLogger (AbstractGenericDao.class);
     protected final ConnectionPool connectionPool;
     protected abstract String getDeleteSQL();
     protected abstract String getUpdateSQL();
@@ -36,10 +39,9 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
              PreparedStatement preparedStatement = connection.prepareStatement (selectSql)) {
             ResultSet resultSet = preparedStatement.executeQuery ();
             list = parseResultSet(resultSet, list);
-        } catch (SQLException e) {
-            e.printStackTrace ();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace ();
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in getAll in AbstractGenericDao.class ", e);
+            throw new DaoException (e);
         }
         return list;
     }
@@ -62,12 +64,12 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
     }
 
     @Override
-    public int update(T object) throws DaoException {
+    public void update(T object) throws DaoException {
         String UPDATE_SQL = getUpdateSQL ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (UPDATE_SQL)){
             preparedStatementUpdate (preparedStatement, object);
-            return preparedStatement.executeUpdate ();
+            preparedStatement.executeUpdate ();
         }catch (SQLException | ConnectionPoolException e) {
             throw new DaoException (e);
         }
@@ -75,15 +77,14 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
 
     @Override
     public void insert(T object) throws DaoException {
-        String INSERT_SQL = getInsertSql ();
+        String insertQuery = getInsertSql ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
-             PreparedStatement preparedStatement = connection.prepareStatement (INSERT_SQL)){
+             PreparedStatement preparedStatement = connection.prepareStatement (insertQuery)){
             preparedStatementInsert(preparedStatement,object);
-            preparedStatement.execute();
-        }catch (SQLException e) {
+            preparedStatement.execute ();
+        }catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in insert in AbstractGenericDao.class ", e);
             throw new DaoException (e);
-        } catch (ConnectionPoolException e) {
-            throw  new DaoException (e);
         }
     }
 

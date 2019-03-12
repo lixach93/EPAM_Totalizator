@@ -19,13 +19,13 @@
         <option value="0" >Выберите лигу</option>
     </select>
 
-    <label for="opponentOne">Выберете первой команды</label>
-    <select id="opponentOne" name="opponentOneId">
+    <label for="teamOne">Выберете первой команды</label>
+    <select id="teamOne" name="opponentOneId">
         <option value="0">Выберете команду</option>
     </select>
 
-    <label for="opponentTwo">Выберете второй команды</label>
-    <select id="opponentTwo" name="opponentTwoId">
+    <label for="teamTwo">Выберете второй команды</label>
+    <select id="teamTwo" name="opponentTwoId">
         <option value="0">Выберете команду</option>
     </select>
     <input type="hidden" name="redirect" value="<c:url value="/totalizator?command=showCreateCompetitionPage" />">
@@ -40,10 +40,10 @@
 
     function fillOpponent() {
         var leagueIdOne = document.getElementById("league").value;
-        var selectOne =   document.getElementById("opponentOne");
+        var selectOne =   document.getElementById("teamOne");
         if(leagueIdOne > 0){
-            var opponent = getOpponents(leagueIdOne);
-            createOptions(selectOne, opponent);
+            var team = getOpponents(leagueIdOne);
+            createOptions(selectOne, team);
         } else {
             setDefaultSelect(selectOne);
         }
@@ -52,10 +52,10 @@
 
     function fillSecondOpponent() {
         var leagueIdTwo = document.getElementById("league2").value;
-        var selectTwo =   document.getElementById("opponentTwo");
+        var selectTwo =   document.getElementById("teamTwo");
         if(leagueIdTwo > 0){
-            var opponent = getOpponents(leagueIdTwo);
-            createOptions(selectTwo, opponent);
+            var team = getOpponents(leagueIdTwo);
+            createOptions(selectTwo, team);
          } else {
             setDefaultSelect(selectTwo);
         }
@@ -75,8 +75,8 @@
         var categoryId = document.getElementById("category").value;
         var selectOne = document.getElementById("league");
         var selectTwo = document.getElementById("league2");
-        var selectThree = document.getElementById("opponentOne");
-        var selectFour = document.getElementById("opponentTwo");
+        var selectThree = document.getElementById("teamOne");
+        var selectFour = document.getElementById("teamTwo");
         if(categoryId > 0){
             var league = getLeagues(categoryId);
             createOptions(selectOne, league);
@@ -97,7 +97,7 @@
         var xhttp = new XMLHttpRequest();
         xhttp.open('POST','/totalizator',false);
         xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-        xhttp.send('command=getLeaguesByCategoryId&categoryId=' + categoryId);
+        xhttp.send('command=getLeaguesByCategory&categoryId=' + categoryId);
         if (xhttp.readyState === 4 && xhttp.status === 200) {
             return JSON.parse(xhttp.responseText);
         }

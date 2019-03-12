@@ -1,0 +1,134 @@
+
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    width:95%;
+    margin:0 auto;
+}
+.own-container {
+    background: #ebebeb;
+}
+
+.vertical-menu {
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.vertical-menu a {
+    opacity: 0.8;
+    font-size: 18px;
+    background-color: #d8d4d4;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.vertical-menu a:hover {
+    background-color: #908c8c;
+}
+
+.vertical-menu a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+.right-container{
+    display: inline-block;
+    margin-left: 25px;
+}
+
+.top-block a{
+    font-size: 17px;
+    color: #33b793;
+}
+.top-block a:hover{
+    text-decoration:none;
+    color: #23527c;
+}
+
+.user_name {
+    margin: 0;
+}
+.login-input{
+    border:none;
+    background: none;
+}
+input.login-input:focus {
+    outline: 0;
+}
+
+.content {
+    font-size: 0px;
+}
+.category {
+    font-size: 20px;
+}
+.rate{
+    display: inline-block;
+}
+.buttonRate {
+    margin-left: 15px;
+}
+.span_label{
+    font-style: italic;
+    display: block;
+}
+
+.content-block_1 {
+    width: 460px;
+    margin-left: 55px;
+    display: inline-block;
+    margin-bottom: 16px;
+    position: relative;
+    min-height: 341px;
+    background-size: cover;
+    background: url("../images/total.jpg") no-repeat center;
+    border:0px;
+}
+.content-block_2 {
+    width: 460px;
+    margin-left: 55px;
+    display: inline-block;
+    margin-bottom: 16px;
+    position: relative;
+    min-height: 341px;
+    background-size: cover;
+    background: url("../images/football.jpg") no-repeat center;
+    border:0px;
+}
+.content-block_3 {
+    background: url("../images/hockey.jpeg") no-repeat center;
+    margin-left: 55px;
+    width: 460px;
+    display: inline-block;
+    position: relative;
+    min-height:340px;
+    border:0px;
+}
+.content-block_4 {
+    background: url("../images/basketball.jpg") no-repeat center;
+    width: 460px;
+    display: inline-block;
+    position: relative;
+    min-height:340px;
+    margin-left: 55px;
+    border:0px;
+}
+.top-block .active {
+    color: #23527c !important;
+    font-size: 21px !important;
+}
+
+.link {
+    opacity: 0.7;
+    background: gray;
+    color: #e6e8e3;
+    position: absolute;
+    font-size: 44px;
+    top: 267px;
+    left: 15px;
+}
