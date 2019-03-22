@@ -59,7 +59,7 @@ public class UserDaoImpl extends UserDaoAbstract  {
                 user.setLogin (resultSet.getString ("login"));
                 user.setEmail (resultSet.getString ("email"));
                 user.setPassword (resultSet.getString ("password"));;
-                user.setMoney (resultSet.getInt ("money"));
+                user.setMoney (resultSet.getDouble ("money"));
                 user.setRoleType (RoleType.valueOf (resultSet.getString ("role").toUpperCase ()));
                 list.add (user);
             }

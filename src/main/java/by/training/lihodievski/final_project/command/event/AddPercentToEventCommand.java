@@ -22,8 +22,6 @@ public class AddPercentToEventCommand extends ActionCommand {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private EventService eventService = serviceFactory.getEventService ();
 
-
-
     @Override
     public Respond execute() throws CommandException {
         String eventIdStr = request.getParameter (PARAMETER_EVENT_ID);
@@ -35,7 +33,7 @@ public class AddPercentToEventCommand extends ActionCommand {
         } catch (ServiceException e) {
             throw new CommandException (e);
         }
-        HttpSession session = request.getSession (false);
+        HttpSession session = request.getSession ();
         if(status){
             session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
         }else{

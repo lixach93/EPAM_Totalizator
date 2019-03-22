@@ -1,4 +1,4 @@
-package by.training.lihodievski.final_project.command.user.admin;
+package by.training.lihodievski.final_project.command.user;
 
 import by.training.lihodievski.final_project.bean.RoleType;
 import by.training.lihodievski.final_project.command.ActionCommand;

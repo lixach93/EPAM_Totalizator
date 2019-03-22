@@ -93,4 +93,38 @@ public class Bet implements Entity {
     public void setWinMoney(double winMoney) {
         this.winMoney = winMoney;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass () != o.getClass ()) return false;
+
+        Bet bet = (Bet) o;
+
+        if (id != bet.id) return false;
+        if (winner != bet.winner) return false;
+        if (opponentFirstScore != bet.opponentFirstScore) return false;
+        if (opponentSecondScore != bet.opponentSecondScore) return false;
+        if (Double.compare (bet.money, money) != 0) return false;
+        if (Double.compare (bet.winMoney, winMoney) != 0) return false;
+        if (!user.equals (bet.user)) return false;
+        return event.equals (bet.event);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = (int) (id ^ (id >>> 32));
+        result = 31 * result + user.hashCode ();
+        result = 31 * result + event.hashCode ();
+        result = 31 * result + winner;
+        result = 31 * result + opponentFirstScore;
+        result = 31 * result + opponentSecondScore;
+        temp = Double.doubleToLongBits (money);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits (winMoney);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

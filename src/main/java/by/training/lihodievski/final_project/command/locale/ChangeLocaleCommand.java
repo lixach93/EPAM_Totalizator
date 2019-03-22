@@ -5,15 +5,17 @@ import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
 
 import javax.servlet.http.HttpSession;
-import java.util.Locale;
+
 
 public class ChangeLocaleCommand extends ActionCommand {
 
+    private static final String REFERER = "referer";
+    private static final String LANGUAGE = "language";
     @Override
     public Respond execute() throws CommandException {
-        HttpSession session = request.getSession (false);
-        session.setAttribute ("language",request.getParameter ("language"));
-        String lastUrl = request.getHeader ("referer");
+        HttpSession session = request.getSession ();
+        session.setAttribute (LANGUAGE, request.getParameter (LANGUAGE));
+        String lastUrl = request.getHeader (REFERER);
         return new Respond (Respond.REDIRECT, lastUrl);
     }
 }

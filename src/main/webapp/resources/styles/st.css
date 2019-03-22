@@ -39,7 +39,7 @@ h3{
     font-style: oblique;
 }
 .own-money {
-    border: 1px solid bisque;
+    border: 1px solid #b5a81e;
 }
 .own-media {
     background: #fbf7e4;
@@ -48,8 +48,13 @@ h3{
     padding: 19px;
 }
 .own-group{
-    margin-top: -5px;
-    margin-left: -85px;
+     margin-top: -5px;
+     margin-left: -85px;
+ }
+
+.own-group1{
+    margin-top: 29px;
+    margin-left: -98px;
 }
 .user {
     position: relative;

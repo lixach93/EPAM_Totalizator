@@ -1,4 +1,4 @@
-package by.training.lihodievski.final_project.dao.impl.opponent;
+package by.training.lihodievski.final_project.dao.impl.team;
 
 import by.training.lihodievski.final_project.bean.League;
 import by.training.lihodievski.final_project.bean.Team;
@@ -12,18 +12,18 @@ public abstract class TeamDaoAbstract extends AbstractGenericDao<Team> {
     public abstract List<Team> getTeamByLeague(League league) throws DaoException;
 
     @Override
-    protected String getDeleteSQL() {
-        return null;
+    protected String getDeleteSQL() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
-    protected String getUpdateSql() {
-        return null;
+    protected String getUpdateSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
-    protected String getSelectSql() {
-        return "SELECT ";
+    protected String getSelectSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override

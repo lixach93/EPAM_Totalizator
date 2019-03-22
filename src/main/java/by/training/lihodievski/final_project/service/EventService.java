@@ -16,8 +16,8 @@ public interface EventService {
     boolean createEvent(String teamFirstIdStr, String teamSecondIdStr, String typeRate) throws ServiceException;
     List<Event> getUnPaymentEvents(int numberPage) throws ServiceException;
     boolean payments(String eventIdStr) throws ServiceException;
-    List<Event> getAllActiveEvent() throws ServiceException;
+    List<Event> getActiveEvents() throws ServiceException;
     boolean addPercent(String eventIdStr, String percentStr) throws ServiceException;
-
-
+    List<Event> getClosedEvents(int numberPage) throws ServiceException;
+    int getCountPageClosedEvents() throws ServiceException;
 }

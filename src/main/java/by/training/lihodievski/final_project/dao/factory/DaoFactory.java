@@ -1,17 +1,17 @@
 package by.training.lihodievski.final_project.dao.factory;
 
-import by.training.lihodievski.final_project.dao.impl.betting.BetDaoAbstract;
-import by.training.lihodievski.final_project.dao.impl.betting.BetDaoImpl;
+import by.training.lihodievski.final_project.dao.impl.bet.BetDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.bet.BetDaoImpl;
 import by.training.lihodievski.final_project.dao.impl.category.CategoryDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.competition.CompetitionDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.category.CategoryDaoImpl;
 import by.training.lihodievski.final_project.dao.impl.competition.CompetitionDaoImpl;
-import by.training.lihodievski.final_project.dao.impl.competition_rate.EventDaoAbstract;
-import by.training.lihodievski.final_project.dao.impl.competition_rate.EventDaoImpl;
+import by.training.lihodievski.final_project.dao.impl.event.EventDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.event.EventDaoImpl;
 import by.training.lihodievski.final_project.dao.impl.league.LeagueDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.league.LeagueDaoImpl;
-import by.training.lihodievski.final_project.dao.impl.opponent.TeamDaoAbstract;
-import by.training.lihodievski.final_project.dao.impl.opponent.TeamDaoImpl;
+import by.training.lihodievski.final_project.dao.impl.team.TeamDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.team.TeamDaoImpl;
 import by.training.lihodievski.final_project.dao.impl.user.UserDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.user.UserDaoImpl;
 
@@ -38,7 +38,6 @@ public class DaoFactory {
         return EventDaoImpl.getInstance ();
     }
     public UserDaoAbstract getUserDao(){return UserDaoImpl.getInstance();}
-
     public TeamDaoAbstract getTeamDao() {
         return TeamDaoImpl.getInstance();
     }

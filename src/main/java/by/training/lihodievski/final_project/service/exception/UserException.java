@@ -1,8 +1,10 @@
 package by.training.lihodievski.final_project.service.exception;
 
-import by.training.lihodievski.final_project.bean.User;
+
 
 public class UserException extends Exception {
+
+    private static final long serialVersionUID = -6556436295054472854L;
 
     public UserException() {
     }

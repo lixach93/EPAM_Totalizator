@@ -1,4 +1,4 @@
-package by.training.lihodievski.final_project.dao.impl.opponent;
+package by.training.lihodievski.final_project.dao.impl.team;
 
 import by.training.lihodievski.final_project.bean.League;
 import by.training.lihodievski.final_project.bean.Team;
@@ -38,7 +38,7 @@ public class TeamDaoImpl extends TeamDaoAbstract {
 
     @Override
     protected void preparedStatementUpdate(PreparedStatement preparedStatement, Team object) throws DaoException {
-
+        throw new DaoException ("Operation not supported");
     }
 
     @Override

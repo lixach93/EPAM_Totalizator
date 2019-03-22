@@ -18,9 +18,9 @@ import java.util.List;
 import static by.training.lihodievski.final_project.util.Constants.*;
 import static by.training.lihodievski.final_project.util.Constants.ERROR_PERMISSION_INFO;
 
-public class ShowResultBettingPageCommand extends ActionCommand {
+public class ShowResultPageCommand extends ActionCommand {
 
-    private static final Logger LOGGER = LogManager.getLogger (ShowResultBettingPageCommand.class);
+    private static final Logger LOGGER = LogManager.getLogger (ShowResultPageCommand.class);
     private static final String RESULT_BETTING = "resultBetting";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private BetService betService = serviceFactory.getBettingService ();
@@ -35,15 +35,15 @@ public class ShowResultBettingPageCommand extends ActionCommand {
         }
         HttpSession session = request.getSession ();
         long id = (long) session.getAttribute (SESSION_ATTRIBUTE_USER_ID);
-        List<Bet> bettingList;
+        List<Bet> bets;
         try {
-            bettingList = betService.getResultBetForUser (id);
+            bets = betService.getResultBetForUser (id);
         } catch (ServiceException e) {
-            LOGGER.error ("Error in ShowResultBettingPageCommand.class ", e);
+            LOGGER.error ("Exception in ShowResultPageCommand.class ", e);
             throw new CommandException (e);
         }
 
-        request.setAttribute (REQUEST_ATTRIBUTE_BETS, bettingList);
+        request.setAttribute (REQUEST_ATTRIBUTE_BETS, bets);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_TWO, ACTIVE);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTION, RESULT_BETTING );;
         return new Respond (Respond.PAGE, FORWARD_PERSONAL_PAGE);

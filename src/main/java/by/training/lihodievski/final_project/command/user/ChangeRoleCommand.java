@@ -1,4 +1,4 @@
-package by.training.lihodievski.final_project.command.user.admin;
+package by.training.lihodievski.final_project.command.user;
 
 import by.training.lihodievski.final_project.bean.RoleType;
 import by.training.lihodievski.final_project.command.ActionCommand;
@@ -40,7 +40,7 @@ public class ChangeRoleCommand extends ActionCommand {
             LOGGER.error ("Exception in ChangeRoleCommand.class", e);
             throw new CommandException (e);
         }
-        HttpSession session = request.getSession (false);
+        HttpSession session = request.getSession ();
         if(status){
             session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
         }else{

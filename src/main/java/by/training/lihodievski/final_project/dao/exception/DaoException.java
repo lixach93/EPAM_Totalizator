@@ -2,7 +2,8 @@ package by.training.lihodievski.final_project.dao.exception;
 
 public class DaoException extends Exception {
 
-    //serializible
+
+    private static final long serialVersionUID = -4416566711366229873L;
 
     public DaoException() {
         super ();

@@ -1,4 +1,4 @@
-package by.training.lihodievski.final_project.command.competition;
+package by.training.lihodievski.final_project.command.event;
 
 import by.training.lihodievski.final_project.bean.RoleType;
 import by.training.lihodievski.final_project.command.ActionCommand;

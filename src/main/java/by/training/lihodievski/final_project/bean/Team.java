@@ -3,6 +3,7 @@ package by.training.lihodievski.final_project.bean;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Team implements Entity{
+
     @JsonProperty("id")
     private long id;
     @JsonProperty("name")
@@ -38,11 +39,22 @@ public class Team implements Entity{
     }
 
     @Override
-    public String toString() {
-        return "Team{" +
-                "id=" + id +
-                ", nameTeam=" + nameTeam +
-                ", league=" + league +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass () != o.getClass ()) return false;
+
+        Team team = (Team) o;
+
+        if (id != team.id) return false;
+        if (nameTeam != null ? !nameTeam.equals (team.nameTeam) : team.nameTeam != null) return false;
+        return league != null ? league.equals (team.league) : team.league == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (nameTeam != null ? nameTeam.hashCode () : 0);
+        result = 31 * result + (league != null ? league.hashCode () : 0);
+        return result;
     }
 }

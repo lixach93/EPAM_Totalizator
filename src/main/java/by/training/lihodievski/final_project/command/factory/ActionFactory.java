@@ -13,7 +13,6 @@ public class ActionFactory {
         ActionCommand current = new EmptyCommand ();
         String action = request.getParameter ("command");
         String pathInfo = request.getPathInfo ();
-        System.out.println (action);
         if (action == null || action.isEmpty () ) {
             if(pathInfo == null || pathInfo.isEmpty ()) {
                 return current;
@@ -27,7 +26,7 @@ public class ActionFactory {
             currentEnum.initCommand(request, response);
             current = currentEnum.getCurrentCommand ();
         } catch (IllegalArgumentException e) {
-            //request.setAttribute ("wrongAction", actionMessageManager.getProperty ("message.wrongaction"));
+            return current;
         }
         return current;
     }

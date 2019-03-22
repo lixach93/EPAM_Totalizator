@@ -10,14 +10,15 @@ public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
 
     public abstract Category getCategoryById(long id) throws DaoException;
     public abstract Category getCategoryByCompetition(Competition competition) throws DaoException;
+
     @Override
-    protected String getDeleteSQL() {
-        return "DELETE FROM totalizator.category WHERE id = ?";
+    protected String getDeleteSQL() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
-    protected String getUpdateSql() {
-       return  "UPDATE totalizator.category set name = ? where id = ?";
+    protected String getUpdateSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
@@ -26,12 +27,11 @@ public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
     }
 
     @Override
-    protected String getInsertSql() {
-
-        return null;
+    protected String getInsertSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
-   String getCategoryByIdQuery(){
+    String getCategoryByIdQuery(){
         return "SELECT category.name FROM totalizator.category WHERE category_id = ? ";
     }
     String getCategoryByCompetitionQuery(){

@@ -5,7 +5,7 @@ import by.training.lihodievski.final_project.bean.Event;
 import by.training.lihodievski.final_project.bean.User;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
 import by.training.lihodievski.final_project.dao.factory.DaoFactory;
-import by.training.lihodievski.final_project.dao.impl.betting.BetDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.bet.BetDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.user.UserDaoAbstract;
 import by.training.lihodievski.final_project.service.BetService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
@@ -95,7 +95,7 @@ public class BetServiceImpl implements BetService {
             int countBet = bettingDao.getCountActiveBetForUser (user);
             return PageUtil.getCountPage (countBet);
         } catch (DaoException e) {
-            LOGGER.error ("Error in getCountPageUnPaymentEvents in BetServiceImpl.class ", e);
+            LOGGER.error ("Error in getCountUnPaymentEvents in BetServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }

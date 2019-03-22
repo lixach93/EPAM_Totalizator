@@ -1,8 +1,10 @@
 package by.training.lihodievski.final_project.command.bet;
 
+import by.training.lihodievski.final_project.bean.RoleType;
 import by.training.lihodievski.final_project.command.ActionCommand;
 import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
+import by.training.lihodievski.final_project.command.exception.PermissionException;
 import by.training.lihodievski.final_project.service.BetService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.exception.UserException;
@@ -28,6 +30,11 @@ public class MakeBetCommand extends ActionCommand {
     @Override
     public Respond execute() throws CommandException {
         String redirect = request.getParameter (PARAMETER_REDIRECT);
+        try {
+            checkRole (request,new RoleType[]{RoleType.USER});
+        } catch (PermissionException e) {
+            return new Respond (Respond.REDIRECT, redirect);
+        }
         String moneyStr = request.getParameter (PARAMETER_MONEY);
         String eventIdStr = request.getParameter (PARAMETER_EVENT_ID);
         HttpSession session = request.getSession (false);

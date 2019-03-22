@@ -47,7 +47,7 @@ create table event(
 	competition_id bigint not null,
 	rate_id bigint not null,
     payment TINYINT(4) default '0',
-    percent int(3) default '0',
+    percent double default '0',
     win_percent int default 0,
 	primary key (event_id),
 	foreign key (competition_id) references competition(competition_id),
@@ -59,7 +59,7 @@ create table user (
     login varchar(20) not null unique,
     email varchar(30) not null unique,
     password varchar(255) not null,
-    money int default 0,
+    money double default 0,
     role varchar(20) default 'user',
     primary key (user_id)
 );

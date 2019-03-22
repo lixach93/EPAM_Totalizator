@@ -20,7 +20,7 @@
 <c:forEach items="${events}" var="event">
     <div class="media">
         <form method="post" action="<c:url value="totalizator"/>">
-            <input type="hidden" name="redirect" value="<c:url value="/totalizator?command=showActiveEventPage" />">
+            <input type="hidden" name="redirect" value="<c:url value="/totalizator/activeEvent" />">
             <input type="hidden" name="command" value="addPercentToEvent"/>
             <input type="hidden" name="eventId" value="${event.id}"/>
         <div class="form-row">
@@ -31,7 +31,9 @@
                 <label><c:out value="${event.competition.secondTeam.nameTeam}"/></label>
             </div>
             <div class="form-group col-md-5">
-                <label for="percent${event.id}">Процент</label>
+                <label for="percent${event.id}">
+                    <fmt:message bundle="${loc}" key="label.percent"/>
+                </label>
                 <input class="btn btn-outline-success my-2 my-sm-0" type="text"  name="percent" size="3" required placeholder="0">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                     <fmt:message bundle="${loc}" key="button.confirm"/>
@@ -41,24 +43,3 @@
         </form>
     </div>
 </c:forEach>
-
-<script>
-
-    function addPercentForEvent(id) {
-        var percent = document.getElementById("percent" + id).value;
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                document.getElementById("compRate"+id).innerText=xhttp.responseText;
-
-            }
-        };
-        xhttp.open('POST','/totalizator',true);
-        xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-        xhttp.send('command=addPercentToEvent&eventId=' + id + '&percent=' + percent );
-    }
-
-
-
-</script>
-            <div class="form-group col-md-5"

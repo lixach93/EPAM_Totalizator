@@ -7,7 +7,6 @@ import by.training.lihodievski.final_project.connection.exception.ConnectionPool
 import by.training.lihodievski.final_project.dao.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +38,7 @@ public class LeagueDaoImpl extends LeagueDaoAbstract {
 
     @Override
     protected void preparedStatementUpdate(PreparedStatement preparedStatement, League object) throws DaoException {
-
+        throw new DaoException ("Operation not supported");
     }
 
     @Override

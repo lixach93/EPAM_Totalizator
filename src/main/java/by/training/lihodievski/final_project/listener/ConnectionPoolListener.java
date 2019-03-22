@@ -2,6 +2,8 @@ package by.training.lihodievski.final_project.listener;
 
 import by.training.lihodievski.final_project.connection.ConnectionPool;
 import by.training.lihodievski.final_project.connection.exception.ConnectionPoolException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,6 +12,7 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class ConnectionPoolListener implements ServletContextListener {
 
+    private static final Logger LOGGER = LogManager.getLogger (ConnectionPoolListener.class);
     private ConnectionPool connectionPool = ConnectionPool.getInstance ();
 
     @Override
@@ -17,7 +20,7 @@ public class ConnectionPoolListener implements ServletContextListener {
         try {
             connectionPool.init ();
         } catch (ConnectionPoolException e) {
-            e.printStackTrace ();
+            LOGGER.fatal ("Exception init connectionPool",e);
         }
     }
 
@@ -26,7 +29,7 @@ public class ConnectionPoolListener implements ServletContextListener {
         try {
             connectionPool.destroy ();
         } catch (ConnectionPoolException e) {
-            e.printStackTrace ();
+            LOGGER.fatal ("Exception destroy connectionPool",e);
         }
     }
 }

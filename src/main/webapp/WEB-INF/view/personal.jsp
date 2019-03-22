@@ -15,7 +15,7 @@
         </c:when>
         <c:otherwise>
         <div class="container own-container ">
-            <c:set var="redirect" value="${pageContext.request.contextPath}/totalizator?command=showPersonalPage" scope="application"/>
+            <c:set var="redirect" value="${pageContext.request.contextPath}/totalizator/personal" scope="application"/>
             <nav class="navbar navbar-inverse own-navbar">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -37,7 +37,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<c:url value="/totalizator?command=showResultBettingPage"/>">
+                                    <a href="<c:url value="/totalizator/result"/>">
                                         <fmt:message bundle="${loc}" key="href.result"/>
                                     </a>
                                 </li>
@@ -63,8 +63,8 @@
                     <c:when test="${requestScope.action eq 'activeBet'}">
                         <jsp:include page="../fragments/activeBet.jsp"/>
                     </c:when>
-                    <c:when test="${requestScope.action eq 'resultBetting'}">
-                        <jsp:include page="../fragments/resultBetting.jsp"/>
+                    <c:when test="${requestScope.action eq 'result'}">
+                        <jsp:include page="../fragments/result.jsp"/>
                     </c:when>
                     <c:when test="${requestScope.action eq 'userInfo'}">
                         <jsp:include page="../fragments/userInfo.jsp"/>

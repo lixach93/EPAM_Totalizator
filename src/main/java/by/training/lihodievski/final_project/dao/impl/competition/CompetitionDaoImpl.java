@@ -28,7 +28,7 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
 
     @Override
     protected void preparedStatementInsert(PreparedStatement preparedStatement, Competition object) throws DaoException {
-
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
@@ -36,6 +36,7 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
         try {
             preparedStatement.setLong (1,object.getId ());
         } catch (SQLException e) {
+            LOGGER.error ("Exception in preparedStatementUpdate in CompetitionDaoImpl.class ", e);
             throw new DaoException (e);
         }
     }
@@ -54,7 +55,7 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
                 list.add (competition);
             }
         }catch (SQLException e){
-            LOGGER.error ("Error in CompetitionDaoImpl.class ", e);
+            LOGGER.error ("Exception in parseResultSet in CompetitionDaoImpl.class ", e);
             throw new DaoException ();
         }
         return list;
@@ -84,7 +85,6 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
                 rollback.commit ();
                 return competitions.iterator ().next ();
             }else{
-               autoSetAutoCommit.setOriginalAutoCommit (true);
                return null;
             }
         } catch (SQLException | ConnectionPoolException e) {

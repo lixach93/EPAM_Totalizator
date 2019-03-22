@@ -7,8 +7,6 @@ import by.training.lihodievski.final_project.connection.exception.ConnectionPool
 import by.training.lihodievski.final_project.dao.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,13 +39,12 @@ public class CategoryDaoImpl extends CategoryDaoAbstract {
             return list;
     }
 
-
-
     @Override
      protected void preparedStatementInsert(PreparedStatement preparedStatement, Category object) throws DaoException {
         try {
             preparedStatement.setString (1,object.getCategoryName ());
         } catch (SQLException e) {
+            LOGGER.error ("Exception in preparedStatementInsert in CategoryDaoImpl.class ", e);
             throw new DaoException ();
         }
     }
@@ -58,6 +55,7 @@ public class CategoryDaoImpl extends CategoryDaoAbstract {
             preparedStatement.setString (1,object.getCategoryName ());
             preparedStatement.setLong (2,object.getId ());
         } catch (SQLException e) {
+            LOGGER.error ("Exception in preparedStatementUpdate in CategoryDaoImpl.class ", e);
             throw new DaoException ();
         }
     }
@@ -88,6 +86,7 @@ public class CategoryDaoImpl extends CategoryDaoAbstract {
             ResultSet resultSet = statement.executeQuery ();
             categories = parseResultSet (resultSet, categories);
         }catch (SQLException | ConnectionPoolException e){
+            LOGGER.error ("Exception in getCategoryByCompetition in CategoryDaoImpl.class ", e);
             throw new DaoException (e);
         }
         return categories.iterator ().next ();

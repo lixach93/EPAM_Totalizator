@@ -10,7 +10,7 @@
                 <strong><fmt:message bundle="${loc}" key="${sessionScope.status}"/> </strong>
             </div>
         </c:if>
-        <c:remove var="success" scope="session"/>
+        <c:remove var="status" scope="session"/>
         <c:if test="${not empty sessionScope.errorMessage}">
             <div class="alert alert-danger">
                 <fmt:message bundle="${loc}" key="${sessionScope.errorMessage}"/>

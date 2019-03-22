@@ -29,8 +29,8 @@
         <fmt:message bundle="${loc}" key="label.userMoney"/>
     </span>
             <span class="output">
-        <c:out value="${requestScope.user.money}"/>
-    </span>
+                <fmt:formatNumber value="${requestScope.user.money}" maxFractionDigits="2"/>
+            </span>
         </p>
     </div>
 </div>

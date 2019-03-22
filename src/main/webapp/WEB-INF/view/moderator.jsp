@@ -22,14 +22,14 @@
                         </div>
                         <ul class="nav navbar-nav">
                             <li class="${requestScope.activeOne}">
-                                <a  class="${requestScope.activeOne}" href="<c:url value="/totalizator?command=showActiveEventPage"/>">
+                                <a  class="${requestScope.activeOne}" href="<c:url value="/totalizator/activeEvent"/>">
                                     <fmt:message bundle="${loc}" key="link.percent"/>
                                 </a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav">
                             <li class="${requestScope.activeTwo}">
-                                <a href="${pageContext.request.contextPath}/totalizator?command=showPersonalPage">
+                                <a href="${pageContext.request.contextPath}/totalizator/charges">
                                     <fmt:message bundle="${loc}" key="link.charges"/>
                                 </a>
                             </li>
@@ -41,17 +41,8 @@
                         <c:when test="${requestScope.action eq 'activeEvent'}">
                             <jsp:include page="../fragments/activeEvent.jsp"/>
                         </c:when>
-                        <c:when test="${requestScope.action eq 'resultBetting'}">
-                            <jsp:include page="../fragments/resultBetting.jsp"/>
-                        </c:when>
-                        <c:when test="${requestScope.action eq 'createCompetition'}">
-                            <jsp:include page="../fragments/createCompetition.jsp"/>
-                        </c:when>
-                        <c:when test="${requestScope.action eq 'closeCompetition'}">
-                            <jsp:include page="../fragments/closeCompetition.jsp"/>
-                        </c:when>
-                        <c:when test="${requestScope.action eq 'closeCompRate'}">
-                            <jsp:include page="../fragments/payouts.jsp"/>
+                        <c:when test="${requestScope.action eq 'charges'}">
+                            <jsp:include page="../fragments/charges.jsp"/>
                         </c:when>
                     </c:choose>
                 </div>

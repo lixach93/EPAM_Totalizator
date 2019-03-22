@@ -28,7 +28,7 @@ public class LoginCommand extends ActionCommand {
         String login = request.getParameter (PARAMETER_LOGIN);
         String password = request.getParameter (PARAMETER_PASSWORD);
         User user = null;
-        HttpSession session = request.getSession (true);
+        HttpSession session = request.getSession ();
         try {
             user = userServiceImpl.login (login,password);
         }catch (UserException e) {

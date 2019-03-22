@@ -10,8 +10,8 @@ public abstract class UserDaoAbstract extends AbstractGenericDao<User> {
     public abstract User getUserById(User user) throws DaoException;
 
     @Override
-    protected String getDeleteSQL() {
-        return null;
+    protected String getDeleteSQL() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override

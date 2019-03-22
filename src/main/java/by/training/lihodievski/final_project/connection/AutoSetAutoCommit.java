@@ -14,10 +14,6 @@ public class AutoSetAutoCommit implements AutoCloseable {
         conn.setAutoCommit(autoCommit);
     }
 
-    public void setOriginalAutoCommit(boolean originalAutoCommit) {
-        this.originalAutoCommit = originalAutoCommit;
-    }
-
     @Override
     public void close() throws SQLException {
         conn.setAutoCommit(originalAutoCommit);

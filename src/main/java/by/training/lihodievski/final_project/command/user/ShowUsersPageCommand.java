@@ -1,13 +1,11 @@
-package by.training.lihodievski.final_project.command.user.admin;
+package by.training.lihodievski.final_project.command.user;
 
-import by.training.lihodievski.final_project.bean.Bet;
 import by.training.lihodievski.final_project.bean.RoleType;
 import by.training.lihodievski.final_project.bean.User;
 import by.training.lihodievski.final_project.command.ActionCommand;
 import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
 import by.training.lihodievski.final_project.command.exception.PermissionException;
-import by.training.lihodievski.final_project.command.user.LoginCommand;
 import by.training.lihodievski.final_project.service.UserService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;

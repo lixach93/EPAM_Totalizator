@@ -125,12 +125,12 @@
                                 </c:when>
                                 <c:when test="${event.rate.value eq 'total'}">
                                     <p><fmt:message bundle="${loc}" key="p.total"/></p>
-                                    <input type="text" name="firstScore" class="btn btn-outline-success my-2 my-sm-0" size="1" required>
-                                    <input type="text" name="secondScore" class="btn btn-outline-success my-2 my-sm-0" size="1" required>
+                                    <input type="text" name="firstScore" class="btn btn-outline-success my-2 my-sm-0 own-money" size="1" required>
+                                    <input type="text" name="secondScore" class="btn btn-outline-success my-2 my-sm-0 own-money" size="1" required>
                                 </c:when>
                             </c:choose>
                         </div>
-                        <div class="form-group col-md-4 own-group">
+                        <div class="form-group col-md-4 own-group1">
                             <label for="money"><fmt:message bundle="${loc}" key="label.money"/></label>
                             <input id="money" class="btn btn-outline-success my-2 my-sm-0 own-money" type="text" size="5" name="money" required/>
                             <button type="submit" class="btn btn-outline-success my-2 my-sm-0" >

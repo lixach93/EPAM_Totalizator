@@ -66,12 +66,32 @@ public class Event implements Entity {
     }
 
     @Override
-    public String toString() {
-        return "Event{" +
-                "competition=" + competition +
-                ", rate=" + rate +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass () != o.getClass ()) return false;
+
+        Event event = (Event) o;
+
+        if (id != event.id) return false;
+        if (payment != event.payment) return false;
+        if (Double.compare (event.percent, percent) != 0) return false;
+        if (Double.compare (event.winPercent, winPercent) != 0) return false;
+        if (competition != null ? !competition.equals (event.competition) : event.competition != null) return false;
+        return rate == event.rate;
     }
 
-
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (competition != null ? competition.hashCode () : 0);
+        result = 31 * result + (rate != null ? rate.hashCode () : 0);
+        result = 31 * result + (payment ? 1 : 0);
+        temp = Double.doubleToLongBits (percent);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits (winPercent);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

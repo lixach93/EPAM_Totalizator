@@ -1,4 +1,4 @@
-package by.training.lihodievski.final_project.dao.impl.competition_rate;
+package by.training.lihodievski.final_project.dao.impl.event;
 
 import by.training.lihodievski.final_project.bean.*;
 import by.training.lihodievski.final_project.connection.AutoRollback;
@@ -102,7 +102,24 @@ public class EventDaoImpl extends EventDaoAbstract {
             ResultSet resultSet = preparedStatement.executeQuery ();
             list = parseResultSet(resultSet, list);
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in EventDaoImpl", e);
+            LOGGER.error ("Exception in getEventsByRate in  EventDaoImpl", e);
+            throw new DaoException (e);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Event> getClosedEvents(int page) throws DaoException {
+        String query = getClosedEventsQuery ();
+        List<Event> list = new ArrayList<> ();
+        try (ProxyConnection connection = connectionPool.takeConnection ();
+             PreparedStatement preparedStatement = connection.prepareStatement (query)) {
+            preparedStatement.setInt (1, page);
+            preparedStatement.setInt (2, Constants.PER_PAGE);
+            ResultSet resultSet = preparedStatement.executeQuery ();
+            list = parseResultSet(resultSet, list);
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in getClosedEvents in EventDaoImpl", e);
             throw new DaoException (e);
         }
         return list;
@@ -139,7 +156,7 @@ public class EventDaoImpl extends EventDaoAbstract {
     }
 
     @Override
-    public int getCountPageUnPaymentEvents() throws DaoException {
+    public int getCountUnPaymentEvents() throws DaoException {
         String query = getCountEventByUnPaymentQuery ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (query)) {
@@ -147,7 +164,21 @@ public class EventDaoImpl extends EventDaoAbstract {
             resultSet.next ();
             return resultSet.getInt ("countEvent");
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in EventDaoImpl", e);
+            LOGGER.error ("Exception in getCountUnPaymentEvents in  EventDaoImpl", e);
+            throw new DaoException (e);
+        }
+    }
+
+    @Override
+    public int getCountClosedEvents() throws DaoException {
+        String query = getCountClosedEventsQuery ();
+        try (ProxyConnection connection = connectionPool.takeConnection ();
+             PreparedStatement preparedStatement = connection.prepareStatement (query)) {
+            ResultSet resultSet = preparedStatement.executeQuery ();
+            resultSet.next ();
+            return resultSet.getInt ("countEvent");
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in getCountClosedEvents in EventDaoImpl", e);
             throw new DaoException (e);
         }
     }
@@ -164,7 +195,7 @@ public class EventDaoImpl extends EventDaoAbstract {
             ResultSet resultSet = preparedStatement.executeQuery ();
             events = parseResultSet (resultSet, events);
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in EventDaoImpl", e);
+            LOGGER.error ("Exception in getEventsByCategory in EventDaoImpl", e);
             throw new DaoException (e);
         }
         return events;
@@ -182,7 +213,7 @@ public class EventDaoImpl extends EventDaoAbstract {
             ResultSet resultSet = preparedStatement.executeQuery ();
             list = parseResultSet(resultSet, list);
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in EventDaoImpl", e);
+            LOGGER.error ("Exception in getEventById EventDaoImpl", e);
             throw new DaoException (e);
         }
         return list.iterator ().next ();
@@ -212,7 +243,7 @@ public class EventDaoImpl extends EventDaoAbstract {
             }
             rollback.commit ();
         } catch (ConnectionPoolException | SQLException e) {
-            LOGGER.error ("Exception in EventDaoImpl", e);
+            LOGGER.error ("Exception in createEvent in  EventDaoImpl", e);
             throw new DaoException (e);
         }
     }
@@ -243,7 +274,7 @@ public class EventDaoImpl extends EventDaoAbstract {
             ResultSet resultSet = preparedStatement.executeQuery ();
             events = parseResultSet(resultSet, events);
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in EventDaoImpl", e);
+            LOGGER.error ("Exception in getActiveEvent in EventDaoImpl", e);
             throw new DaoException (e);
         }
         return events;

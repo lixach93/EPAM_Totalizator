@@ -9,6 +9,7 @@ public class Competition implements Entity {
     private int firstOpponentResult;
     private int secondOpponentResult;
     private int winner;
+
     public Competition() {
         firstTeam = new Team ();
         secondTeam = new Team ();
@@ -67,23 +68,39 @@ public class Competition implements Entity {
         this.secondOpponentResult = secondOpponentResult;
     }
 
-    @Override
-    public String toString() {
-        return "Competition{" +
-                "id=" + getId () +
-                ", firstTeam=" + firstTeam +
-                ", secondTeam=" + secondTeam +
-                ", status='" + status + '\'' +
-                ", firstOpponentResult=" + firstOpponentResult +
-                ", secondOpponentResult=" + secondOpponentResult +
-                '}';
-    }
-
     public void setWinner(int winner) {
         this.winner = winner;
     }
 
     public int getWinner() {
         return winner;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass () != o.getClass ()) return false;
+
+        Competition that = (Competition) o;
+
+        if (id != that.id) return false;
+        if (firstOpponentResult != that.firstOpponentResult) return false;
+        if (secondOpponentResult != that.secondOpponentResult) return false;
+        if (winner != that.winner) return false;
+        if (!firstTeam.equals (that.firstTeam)) return false;
+        if (!secondTeam.equals (that.secondTeam)) return false;
+        return status.equals (that.status);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + firstTeam.hashCode ();
+        result = 31 * result + secondTeam.hashCode ();
+        result = 31 * result + status.hashCode ();
+        result = 31 * result + firstOpponentResult;
+        result = 31 * result + secondOpponentResult;
+        result = 31 * result + winner;
+        return result;
     }
 }

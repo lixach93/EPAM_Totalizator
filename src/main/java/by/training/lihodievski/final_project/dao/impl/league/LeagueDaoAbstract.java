@@ -13,18 +13,18 @@ public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
     public abstract League getLeagueById(long leagueId) throws DaoException;
 
     @Override
-    protected String getDeleteSQL() {
-        return null;
+    protected String getDeleteSQL() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
-    protected String getUpdateSql() {
-        return null;
+    protected String getUpdateSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
-    protected String getSelectSql() {
-        return null;
+    protected String getSelectSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override

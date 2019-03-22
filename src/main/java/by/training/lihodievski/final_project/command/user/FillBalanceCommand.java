@@ -45,7 +45,6 @@ public class FillBalanceCommand extends ActionCommand {
         }
 
 
-
         if(status){
             session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
         }else{

@@ -3,7 +3,7 @@ package by.training.lihodievski.final_project.command.factory;
 import by.training.lihodievski.final_project.command.*;
 import by.training.lihodievski.final_project.command.bet.MakeBetCommand;
 import by.training.lihodievski.final_project.command.bet.ShowActiveBetPageCommand;
-import by.training.lihodievski.final_project.command.bet.ShowResultBettingPageCommand;
+import by.training.lihodievski.final_project.command.bet.ShowResultPageCommand;
 import by.training.lihodievski.final_project.command.competition.*;
 import by.training.lihodievski.final_project.command.event.*;
 import by.training.lihodievski.final_project.command.league.CreateLeagueCommand;
@@ -14,9 +14,9 @@ import by.training.lihodievski.final_project.command.team.CreateTeamCommand;
 import by.training.lihodievski.final_project.command.team.GetTeamsByLeagueIdCommand;
 import by.training.lihodievski.final_project.command.team.ShowCreateTeamPageCommand;
 import by.training.lihodievski.final_project.command.user.*;
-import by.training.lihodievski.final_project.command.user.admin.ChangeRoleCommand;
-import by.training.lihodievski.final_project.command.user.admin.ShowAdminPageCommand;
-import by.training.lihodievski.final_project.command.user.admin.ShowUsersPageCommand;
+import by.training.lihodievski.final_project.command.user.ChangeRoleCommand;
+import by.training.lihodievski.final_project.command.user.ShowAdminPageCommand;
+import by.training.lihodievski.final_project.command.user.ShowUsersPageCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -163,9 +163,14 @@ public enum CommandEnum {
             this.command = new ShowActiveBetPageCommand ();
         }
     },
-    SHOWRESULTBETTINGPAGE{
+    RESULT{
         {
-            this.command = new ShowResultBettingPageCommand ();
+            this.command = new ShowResultPageCommand ();
+        }
+    },
+    CHARGES{
+        {
+            this.command = new ShowChargesPage();
         }
     },
     MODERATOR{
@@ -173,7 +178,7 @@ public enum CommandEnum {
             this.command = new ShowModeratorPageCommand();
         }
     },
-    SHOWACTIVEEVENTPAGE{
+    ACTIVEEVENT{
         {
             this.command = new ShowActiveEventPageCommand ();
         }

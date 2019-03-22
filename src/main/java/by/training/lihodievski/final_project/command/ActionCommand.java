@@ -18,7 +18,7 @@ public abstract class ActionCommand {
 
 
     public void checkRole(HttpServletRequest request, RoleType[] permissionRole) throws PermissionException {
-       HttpSession session =  request.getSession (true);
+       HttpSession session =  request.getSession ();
        String currentRole =  (String) session.getAttribute ("userRole");
        for(RoleType role:permissionRole){
             if(role.getValue ().equals (currentRole)){

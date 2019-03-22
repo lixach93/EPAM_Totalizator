@@ -42,7 +42,7 @@ public class CreateLeagueCommand extends ActionCommand {
             LOGGER.error ("Exception in CreateLeagueCommand.class ", e);
             throw new CommandException (e);
         }
-        HttpSession session = request.getSession (false);
+        HttpSession session = request.getSession ();
         if(status){
             session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
         }else{

@@ -12,16 +12,12 @@ public class Constants {
 
     public static final int PER_PAGE = 2;
 
-
-
     public static final String SESSION_ATTRIBUTE_USER_ID = "userId";
     public static final String SESSION_ATTRIBUTE_STATUS = "status";
     public static final String SESSION_ATTRIBUTE_ERROR = "errorMessage";
     public static final String SESSION_ATTRIBUTE_LOGIN = "userLogin";
     public static final String SESSION_ATTRIBUTE_ROLE = "userRole";
 
-    public static final String REQUEST_ATTRIBUTE_ERROR = "errorMessage";
-    public static final String REQUEST_ATTRIBUTE_BACK = "back";
     public static final String REQUEST_ATTRIBUTE_PERMISSION = "permissionMessage";
     public static final String REQUEST_ATTRIBUTE_ACTIVE_ONE = "activeOne";
     public static final String REQUEST_ATTRIBUTE_ACTIVE_TWO = "activeTwo";
@@ -37,8 +33,6 @@ public class Constants {
 
     public static final String RESPONSE_CONTENT_TYPE = "Content-type";
 
-
-
     public static final String FORWARD_PERSONAL_PAGE = "/WEB-INF/view/personal.jsp";
     public static final String FORWARD_MODERATOR_PAGE = "/WEB-INF/view/moderator.jsp";
     public static final String FORWARD_ADMIN_PAGE = "/WEB-INF/view/admin.jsp";
@@ -48,7 +42,6 @@ public class Constants {
     public static final String FORWARD_JSON_PAGE = "/WEB-INF/ajax/json.jsp";
     public static final String FORWARD_LOGIN_PAGE = "/WEB-INF/view/login.jsp";
     public static final String FORWARD_REGISTRATION_PAGE = "/WEB-INF/view/registration.jsp";
-
 
     public static final String ERROR_INPUT_LOGIN_NOT_VALID = "error.login.notValid";
     public static final String ERROR_LOGIN_USED = "error.login.used";
@@ -74,6 +67,15 @@ public class Constants {
     public static final String EVENTS = "events";
     public static final String CATEGORIES = "categories";
     public static final String COMPETITIONS = "competitions";
+
+
+    public static final String DRIVER = "com.mysql.jdbc.Driver";
+    public static final String DATABASE_PROPERTIES = "database";
+    public static final String DB_URL = "db.url";
+    public static final String DB_PASSWORD = "db.password";
+    public static final String DB_USER = "db.user";
+    public static final String DB_POOL = "db.poolSize";
+
 
 
 

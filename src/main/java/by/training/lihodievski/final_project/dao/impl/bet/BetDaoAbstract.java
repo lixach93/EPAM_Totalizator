@@ -1,4 +1,4 @@
-package by.training.lihodievski.final_project.dao.impl.betting;
+package by.training.lihodievski.final_project.dao.impl.bet;
 
 import by.training.lihodievski.final_project.bean.Bet;
 import by.training.lihodievski.final_project.bean.Event;
@@ -6,6 +6,7 @@ import by.training.lihodievski.final_project.bean.User;
 import by.training.lihodievski.final_project.dao.AbstractGenericDao;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.List;
 
 public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
@@ -13,25 +14,25 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
     public abstract int getCountActiveBetForUser(User user) throws DaoException;
     public abstract List<Bet> getActiveBettingLimitForUser(User user, int page) throws DaoException;
     public abstract List<Bet> getResultBettingForUser(User user) throws DaoException;
-    public abstract boolean insertBet(Bet betting) throws DaoException;
+    public abstract boolean insertBet(Bet bet) throws DaoException;
     public abstract Double getBetMoneyByEvent(Event event) throws DaoException;
     public abstract List<Bet> getBetsByEvent(Event event) throws DaoException;
     public abstract boolean setWinner(List<Bet> winner, double winMoney, Event event) throws DaoException;
 
 
     @Override
-    protected String getDeleteSQL() {
-        return null;
+    protected String getDeleteSQL() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
-    protected String getUpdateSql() {
-        return null;
+    protected String getUpdateSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
-    protected String getSelectSql() {
-        return null;
+    protected String getSelectSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
@@ -61,7 +62,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " WHERE event.event_id = ?";
     }
     String getBettingByEvent(){
-        return  "SELECT bet.betting_id,event.event_id,competition.competition_id," +
+        return  "SELECT bet.bet_id,event.event_id,competition.competition_id," +
                 "bet.user_id,t1.name,t2.name,competition.team_first_result," +
                 "competition.team_second_result,competition.winner as winner_result,rate_type.name," +
                 "bet.winner_id,bet.team_first_score,bet.team_second_score," +
@@ -80,12 +81,9 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " where bet.event_id = ? ";
     }
 
-    String getUpdateEventQuery(){
-        return "UPDATE totalizator.event SET payment = ?,win_percent = ? WHERE event_id = ?";
-    }
 
     String getCountActiveBetForUserQuery(){
-        return  "SELECT count(bet.betting_id) as betId" +
+        return  "SELECT count(bet.bet_id) as betId" +
                 " FROM bet join event on" +
                 " event.event_id = bet.event_id" +
                 " join competition on" +
@@ -101,7 +99,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
     }
 
     String getActiveBetLimitQuery() {
-        return  "SELECT bet.betting_id,event.event_id,competition.competition_id," +
+        return  "SELECT bet.bet_id,event.event_id,competition.competition_id," +
                 "bet.user_id,t1.name,t2.name,competition.team_first_result," +
                 "competition.team_second_result,competition.winner as winner_result,rate_type.name," +
                 "bet.winner_id,bet.team_first_score,bet.team_second_score," +
@@ -120,7 +118,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " where competition.status = 'new' and bet.user_id = ? limit ?,?";
     }
     String getSelectSqlResultBetting(){
-        return  "SELECT bet.betting_id,event.event_id,competition.competition_id," +
+        return  "SELECT bet.bet_id,event.event_id,competition.competition_id," +
                 "bet.user_id,t1.name,t2.name,competition.team_first_result," +
                 "competition.team_second_result,competition.winner as winner_result,rate_type.name," +
                 "bet.winner_id,bet.team_first_score,bet.team_second_score," +

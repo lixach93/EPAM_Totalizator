@@ -10,6 +10,9 @@ import by.training.lihodievski.final_project.connection.exception.ConnectionPool
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.training.lihodievski.final_project.util.Constants.DATABASE_PROPERTIES;
+import static by.training.lihodievski.final_project.util.Constants.DB_POOL;
+
 public class ConnectionPool {
 
     private final static Logger LOGGER = LogManager.getLogger (ConnectionPool.class);
@@ -25,7 +28,7 @@ public class ConnectionPool {
     }
 
     public void init() throws ConnectionPoolException {
-        final int POOL_SIZE = Integer.parseInt (ResourceBundle.getBundle ("database").getString ("db.poolSize"));
+        final int POOL_SIZE = Integer.parseInt (ResourceBundle.getBundle (DATABASE_PROPERTIES).getString (DB_POOL ));
         unUseConnections = new ArrayBlockingQueue<> (POOL_SIZE,true);
         useConnections = new ArrayBlockingQueue<> (POOL_SIZE,true);
         for(int i = 0; i < POOL_SIZE; i++) {
@@ -33,8 +36,10 @@ public class ConnectionPool {
                 ProxyConnection connection = new ProxyConnection (ConnectorDB.getConnection ());
                 unUseConnections.offer (connection);
             } catch (SQLException e) {
+                LOGGER.fatal ("Exception create poolConnection ", e);
                 throw new ConnectionPoolException ("Exception create poolConnection ", e);
             } catch (ClassNotFoundException e) {
+                LOGGER.fatal ("Exception register driver ", e);
                 throw new ConnectionPoolException ("Exception register driver ", e);
             }
         }
@@ -46,6 +51,7 @@ public class ConnectionPool {
             connection = unUseConnections.take ();
             useConnections.offer (connection);
         } catch (InterruptedException e) {
+            LOGGER.error ("Exception takeConnection ", e);
             throw new ConnectionPoolException("Failed to take connection from pool.", e);
         }
         return connection;
@@ -64,6 +70,7 @@ public class ConnectionPool {
             try {
                 proxyConnection.closeConnection ();
             } catch (SQLException e) {
+                LOGGER.error ("Exception close using connections ", e);
                 throw new ConnectionPoolException ("Exception close using connections", e);
             }
         }
@@ -71,6 +78,7 @@ public class ConnectionPool {
             try {
                 proxyConnection.closeConnection ();
             } catch (SQLException e) {
+                LOGGER.error ("Exception close unUsing connections ", e);
                 throw new ConnectionPoolException ("Exception close unUsing connections", e);
             }
         }

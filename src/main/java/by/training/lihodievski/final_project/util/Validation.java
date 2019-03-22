@@ -9,8 +9,8 @@ public class Validation {
     private static final String LEAGUE_PATTERN = "[a-zA-Z]+";
     private static final String TEAM_PATTERN = "[a-zA-ZА-я0-9 ]+";
     private static final String MONEY_PATTERN = "\\d+(\\.\\d+)?";
-    private static final String POSITIVE_NUMBER_REG_EXP = "\\d+";
-    private static final String PERCENT_PATTERN = "^\\d+(\\,|\\.\\d+)?$";
+    private static final String POSITIVE_NUMBER_PATTERN = "\\d+";
+    private static final String PERCENT_PATTERN = "^\\d+(\\.)?(\\d+)?$";
     private static final String CARD_NUMBER_PATTERN = "[\\d]{4}\\s[\\d]{4}\\s[\\d]{4}\\s[\\d]{4}";
 
 
@@ -31,7 +31,7 @@ public class Validation {
     }
 
     public static boolean isPositiveNumber(String value) {
-        return value.matches (POSITIVE_NUMBER_REG_EXP);
+        return value.matches (POSITIVE_NUMBER_PATTERN);
     }
     public static boolean isPercent(String value) {
         return value.matches (PERCENT_PATTERN);

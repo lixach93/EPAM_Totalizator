@@ -2,7 +2,7 @@ package by.training.lihodievski.final_project.connection.exception;
 
 public class ConnectionPoolException extends Exception {
 
-    private static final long serialVersionUID = -6212184677700761249L;
+    private static final long serialVersionUID = -3093893470684238040L;
 
     public ConnectionPoolException() {
         super ();

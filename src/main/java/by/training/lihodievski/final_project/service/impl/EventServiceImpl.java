@@ -3,8 +3,8 @@ package by.training.lihodievski.final_project.service.impl;
 import by.training.lihodievski.final_project.bean.*;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
 import by.training.lihodievski.final_project.dao.factory.DaoFactory;
-import by.training.lihodievski.final_project.dao.impl.betting.BetDaoAbstract;
-import by.training.lihodievski.final_project.dao.impl.competition_rate.EventDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.bet.BetDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.event.EventDaoAbstract;
 import by.training.lihodievski.final_project.service.EventService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.util.PageUtil;
@@ -61,7 +61,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public int getCountPageUnPaymentEvents() throws ServiceException {
         try{
-            int countEvent =  eventDao.getCountPageUnPaymentEvents ();
+            int countEvent =  eventDao.getCountUnPaymentEvents ();
             return PageUtil.getCountPage (countEvent);
         } catch (DaoException e) {
             LOGGER.error ("Exception in EventServiceImpl", e);
@@ -159,11 +159,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllActiveEvent() throws ServiceException {
+    public List<Event> getActiveEvents() throws ServiceException {
         try {
             return eventDao.getActiveEvent ();
         } catch (DaoException e) {
-            LOGGER.error ("Exception in getAllActiveEvent in EventServiceImpl", e);
+            LOGGER.error ("Exception in getActiveEvents in EventServiceImpl", e);
             throw new ServiceException (e);
         }
     }
@@ -180,6 +180,27 @@ public class EventServiceImpl implements EventService {
             event.setPercent (percent);
             return eventDao.updatePercent (event);
         }catch (DaoException e){
+            LOGGER.error ("Exception in EventServiceImpl", e);
+            throw new ServiceException (e);
+        }
+    }
+
+    @Override
+    public List<Event> getClosedEvents(int numberPage) throws ServiceException {
+        try {
+            return eventDao.getClosedEvents (numberPage);
+        } catch (DaoException e) {
+            LOGGER.error ("Exception in getEventsByCategory in  EventServiceImpl", e);
+            throw new ServiceException (e);
+        }
+    }
+
+    @Override
+    public int getCountPageClosedEvents() throws ServiceException {
+        try{
+            int countEvent =  eventDao.getCountClosedEvents ();
+            return PageUtil.getCountPage (countEvent);
+        } catch (DaoException e) {
             LOGGER.error ("Exception in EventServiceImpl", e);
             throw new ServiceException (e);
         }

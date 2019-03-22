@@ -9,13 +9,13 @@ public abstract class CompetitionDaoAbstract extends AbstractGenericDao<Competit
     public abstract Competition changeStatus(Competition competition) throws DaoException;
 
     @Override
-    protected String getInsertSql() {
-        return null;
+    protected String getInsertSql() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override
-    protected String getDeleteSQL() {
-        return null;
+    protected String getDeleteSQL() throws DaoException {
+        throw new DaoException ("Operation not supported");
     }
 
     @Override

@@ -12,8 +12,7 @@ public class LogoutCommand extends ActionCommand {
 
     @Override
     public Respond execute() throws CommandException {
-        HttpSession session = request.getSession (false);
-//cделай проверку
+        HttpSession session = request.getSession ();
        session.invalidate ();
         return new Respond (Respond.PAGE, FORWARD_MAIN_PAGE);
     }

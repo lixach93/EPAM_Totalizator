@@ -2,6 +2,8 @@ package by.training.lihodievski.final_project.service.exception;
 
 public class ServiceException extends Exception {
 
+    private static final long serialVersionUID = -4419182900921781655L;
+
     public ServiceException() {
         super ();
     }

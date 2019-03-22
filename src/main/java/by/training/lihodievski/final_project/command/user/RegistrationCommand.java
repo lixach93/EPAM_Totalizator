@@ -23,7 +23,7 @@ public class RegistrationCommand extends ActionCommand {
 
     @Override
     public Respond execute() throws CommandException {
-        HttpSession session = request.getSession (false);
+        HttpSession session = request.getSession ();
         String redirect = request.getParameter (PARAMETER_REDIRECT );
         String login = request.getParameter (PARAMETER_LOGIN);
         String email = request.getParameter (PARAMETER_EMAIL);
