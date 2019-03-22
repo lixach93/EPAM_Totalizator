@@ -9,13 +9,10 @@ import static by.training.lihodievski.final_project.util.Constants.FORWARD_MAIN_
 
 public class EmptyCommand extends ActionCommand {
 
-    @Override
-    public String execute() {
-        return null;
-    }
+
 
     @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         return new Respond (Respond.PAGE, FORWARD_MAIN_PAGE);
     }
 }

@@ -1,9 +1,8 @@
 package by.training.lihodievski.final_project.util;
 
-
 import org.mindrot.jbcrypt.BCrypt;
 
-public  final class BCryptUtil {
+public final class BCryptUtil {
 
     private BCryptUtil(){}
     private static final int HASH_ROUNDS = 12;

@@ -24,14 +24,10 @@ public class ShowActiveEventPageCommand extends ActionCommand {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private EventService eventService = serviceFactory.getEventService ();
 
-    @Override
-    public String execute() throws CommandException {
 
-        return "/WEB-INF/view/adminPage.jsp";
-    }
 
     @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         try {
             checkRole (request,new RoleType[]{RoleType.MODERATOR});
         } catch (PermissionException e) {
@@ -48,9 +44,7 @@ public class ShowActiveEventPageCommand extends ActionCommand {
         }
         request.setAttribute (EVENTS, events);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_ONE, ACTIVE);
-        request.setAttribute (REQUEST_ATTRIBUTE_BLOCK, EVENT);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTION, ACTIVE_EVENT);
-        request.setAttribute (REQUEST_ATTRIBUTE_LINK_ONE, ACTIVE);
         return new Respond (Respond.PAGE, FORWARD_MODERATOR_PAGE);
     }
 }

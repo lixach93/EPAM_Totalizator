@@ -13,14 +13,13 @@ public abstract class ActionCommand {
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
-    public abstract String execute() throws CommandException;
-    public Respond execute1() throws CommandException{
-        return null;
-    }
-    public void checkRole(HttpServletRequest request, RoleType[] permissionRole) throws PermissionException {
-       HttpSession session =  request.getSession (false);
-       String currentRole =  (String) session.getAttribute ("userRole");
 
+    public abstract Respond execute() throws CommandException;
+
+
+    public void checkRole(HttpServletRequest request, RoleType[] permissionRole) throws PermissionException {
+       HttpSession session =  request.getSession (true);
+       String currentRole =  (String) session.getAttribute ("userRole");
        for(RoleType role:permissionRole){
             if(role.getValue ().equals (currentRole)){
                 return;

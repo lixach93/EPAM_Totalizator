@@ -30,9 +30,9 @@ public class LeagueDaoImpl extends LeagueDaoAbstract {
     protected void preparedStatementInsert(PreparedStatement preparedStatement, League object) throws DaoException {
         try {
             preparedStatement.setLong (1, object.getCategory ().getId ());
-            preparedStatement.setString (2, object.getNameLeague ());
+            preparedStatement.setString (2, object.getLeagueName ());
         }catch (SQLException e){
-            LOGGER.error ("Error in insert in LeagueDaoImpl.class ", e);
+            LOGGER.error ("Exception in insert in LeagueDaoImpl.class ", e);
             throw new DaoException (e);
         }
     }
@@ -48,11 +48,11 @@ public class LeagueDaoImpl extends LeagueDaoAbstract {
             while (resultSet.next ()){
                 League league = new League ();
                 league.setId (resultSet.getLong ("league_id"));
-                league.setNameLeague (resultSet.getString ("name"));
+                league.setLeagueName (resultSet.getString ("name"));
                 list.add (league);
             }
         }catch (SQLException e){
-            LOGGER.error ("Error in parseResultSet in LeagueDaoImpl.class ", e);
+            LOGGER.error ("Exception in parseResultSet in LeagueDaoImpl.class ", e);
             throw new DaoException (e);
         }
         return list;
@@ -60,15 +60,15 @@ public class LeagueDaoImpl extends LeagueDaoAbstract {
 
     @Override
     public List<League> getLeaguesByCategory(Category category) throws DaoException {
-        String sqlQuery = getLeagueByCategoryQuery ();
+        String query = getLeagueByCategoryQuery ();
         List<League> leagues = new ArrayList<> ();
         try(ProxyConnection connection = connectionPool.takeConnection ();
-            PreparedStatement statement = connection.prepareStatement (sqlQuery)){
+            PreparedStatement statement = connection.prepareStatement (query)){
             statement.setLong (1,category.getId ());
             ResultSet resultSet = statement.executeQuery ();
             leagues = parseResultSet (resultSet, leagues);
         }catch (SQLException | ConnectionPoolException e){
-            LOGGER.error ("Error in getLeaguesByCategory in LeagueDaoImpl.class ", e);
+            LOGGER.error ("Exception in getLeaguesByCategory in LeagueDaoImpl.class ", e);
             throw new DaoException (e);
         }
         return leagues;
@@ -84,7 +84,7 @@ public class LeagueDaoImpl extends LeagueDaoAbstract {
             ResultSet resultSet = statement.executeQuery ();
             leagues = parseResultSet (resultSet, leagues);
         }catch (SQLException | ConnectionPoolException e){
-            LOGGER.error ("Error in getLeagueById in LeagueDaoImpl.class ", e);
+            LOGGER.error ("Exception in getLeagueById in LeagueDaoImpl.class ", e);
             throw new DaoException (e);
         }
         return leagues.iterator ().next ();

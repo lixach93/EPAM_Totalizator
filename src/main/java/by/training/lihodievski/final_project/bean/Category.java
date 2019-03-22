@@ -6,17 +6,17 @@ public enum Category implements Entity {
     HOCKEY(2,"hockey"),
     BASKETBALL(3,"basketball");
 
-    Category(long id, String nameCategory) {
-        this.nameCategory = nameCategory;
+    Category(long id, String categoryName) {
+        this.categoryName = categoryName;
         this.id =id;
     }
 
     private long id;
-    private String nameCategory;
+    private String categoryName;
 
 
-    public String getNameCategory() {
-        return nameCategory;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     @Override

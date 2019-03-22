@@ -9,14 +9,14 @@ import by.training.lihodievski.final_project.dao.exception.DaoException;
 public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
 
     public abstract Category getCategoryById(long id) throws DaoException;
-    public abstract Category getCategoryForCompetition(Competition competition) throws DaoException;
+    public abstract Category getCategoryByCompetition(Competition competition) throws DaoException;
     @Override
     protected String getDeleteSQL() {
-        return "DELETE FROM totalizator.category  where id = ?";
+        return "DELETE FROM totalizator.category WHERE id = ?";
     }
 
     @Override
-    protected String getUpdateSQL() {
+    protected String getUpdateSql() {
        return  "UPDATE totalizator.category set name = ? where id = ?";
     }
 
@@ -28,27 +28,27 @@ public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
     @Override
     protected String getInsertSql() {
 
-        return "чуй";
+        return null;
     }
 
-    protected String getCategoryByIdQuery(){
-        return "SELECT category.name from totalizator.category where category_id = ? ";
+   String getCategoryByIdQuery(){
+        return "SELECT category.name FROM totalizator.category WHERE category_id = ? ";
     }
-    protected String getSelectCategoryForCompetition(){
-        return " SELECT category.name from competition c" +
-                " join team t1 on " +
+    String getCategoryByCompetitionQuery(){
+        return " SELECT category.name FROM competition c" +
+                " JOIN team t1 on " +
                 " c.team_first = t1.team_id" +
-                " join team t2 on" +
+                " JOIN team t2 on" +
                 " c.team_second = t2.team_id" +
-                " join league l1 on " +
+                " JOIN league l1 on " +
                 " l1.league_id = t1.league_id" +
-                " join league l2 on" +
+                " JOIN league l2 on" +
                 " l2.league_id = t2.league_id" +
-                " join category  on" +
+                " JOIN category  on" +
                 " category.category_id = l1.category_id" +
-                " join category category2 on " +
+                " JOIN category category2 on " +
                 " category2.category_id = l2.category_id" +
-                " where  category.name = category2.name and c.competition_id = ?";
+                " WHERE  category.name = category2.name and c.competition_id = ?";
     }
 
 

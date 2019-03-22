@@ -13,14 +13,7 @@ import static by.training.lihodievski.final_project.util.Constants.REQUEST_ATTRI
 public class ShowAdminPageCommand extends ActionCommand {
 
     @Override
-    public String execute() throws CommandException {
-
-        return "/WEB-INF/view/adminPage.jsp";
-    }
-
-
-    @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         try {
             checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {

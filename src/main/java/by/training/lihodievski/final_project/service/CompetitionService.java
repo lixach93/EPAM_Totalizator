@@ -8,6 +8,5 @@ import java.util.List;
 public interface CompetitionService {
 
     List<Competition> getCompetition() throws ServiceException;
-
-    boolean closeCompetition(int id) throws ServiceException;
+    Competition closeCompetition(String competitionIdStr) throws ServiceException;
 }

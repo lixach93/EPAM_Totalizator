@@ -8,7 +8,6 @@ import by.training.lihodievski.final_project.service.LeagueService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
 import by.training.lihodievski.final_project.util.JsonSerializer;
-import by.training.lihodievski.final_project.util.ValidationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,13 +24,10 @@ public class GetLeaguesByCategoryCommand extends ActionCommand {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private LeagueService leagueService = serviceFactory.getLeagueService ();
 
-    @Override
-    public String execute() throws CommandException {
-        return  null;
-    }
+
 
     @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         long categoryId = Long.parseLong (request.getParameter (CATEGORY_ID));
         List<League> leagues;
         try {

@@ -8,9 +8,7 @@ import by.training.lihodievski.final_project.dao.impl.category.CategoryDaoAbstra
 import by.training.lihodievski.final_project.dao.impl.league.LeagueDaoAbstract;
 import by.training.lihodievski.final_project.service.LeagueService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
-import by.training.lihodievski.final_project.util.Constants;
 import by.training.lihodievski.final_project.util.Validation;
-import by.training.lihodievski.final_project.util.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,20 +30,20 @@ public class LeagueServiceImpl implements LeagueService {
     }
 
     @Override
-    public boolean createLeague(String categoryName, String name) throws ServiceException, ValidationException {
-        if(!Validation.isString (categoryName) || !Validation.isString (name)){
-            LOGGER.error ("Error in validation in LeagueServiceImpl.class ");
-            throw new ValidationException (Constants.ERROR_MESSAGE);
+    public boolean createLeague(String categoryName, String leagueName) throws ServiceException {
+        if(!Validation.isCategory (categoryName) || !Validation.isLeague (leagueName)){
+            return false;
         }
         Category category = Category.valueOf (categoryName.toUpperCase ());
-        League league = new League (name, category);
+        League league = new League (leagueName, category);
         try {
-           leagueDao.insert (league);
+            leagueDao.insert (league);
+            return true;
         } catch (DaoException e) {
-            LOGGER.error ("Error in createLeague in LeagueServiceImpl.class ", e);
+            LOGGER.error ("Exception in createLeague in LeagueServiceImpl.class ", e);
             throw new ServiceException (e);
         }
-        return true;
+
     }
     @Override
     public List<League> getLeagueByCategory(long categoryId) throws ServiceException {
@@ -53,7 +51,7 @@ public class LeagueServiceImpl implements LeagueService {
             Category category = categoryDao.getCategoryById(categoryId);
             return leagueDao.getLeaguesByCategory (category);
         } catch (DaoException e) {
-            LOGGER.error ("Error in getLeagueByCategory in LeagueServiceImpl.class ", e);
+            LOGGER.error ("Exception in getLeagueByCategory in LeagueServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }

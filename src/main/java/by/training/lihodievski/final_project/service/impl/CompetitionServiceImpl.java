@@ -8,12 +8,16 @@ import by.training.lihodievski.final_project.dao.factory.DaoFactory;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
 import by.training.lihodievski.final_project.service.CompetitionService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
+import by.training.lihodievski.final_project.util.Validation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Random;
 
 public class CompetitionServiceImpl implements CompetitionService {
 
+    private static final Logger LOGGER = LogManager.getLogger (CompetitionServiceImpl.class);
     private final static CompetitionServiceImpl INSTANCE = new CompetitionServiceImpl ();
     private final DaoFactory daoFactory = DaoFactory.getInstance ();
     private final CompetitionDaoAbstract competitionDao = daoFactory.getCompetitionDao ();
@@ -37,20 +41,23 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public boolean closeCompetition(int id) throws ServiceException {
-        Competition competition = new Competition ();
-        competition.setId (id);
+    public Competition closeCompetition(String competitionIdStr) throws ServiceException {
+        if(!Validation.isId (competitionIdStr)){
+            return null;
+        }
+        long competitionId = Long.valueOf (competitionIdStr);
+        Competition competition = new Competition (competitionId);
         try {
-            Category category = categoryDao.getCategoryForCompetition(competition);
+            Category category = categoryDao.getCategoryByCompetition (competition);
             randomResult(competition, category);
-            return competitionDao.updateStatus (competition);
+            return competitionDao.changeStatus (competition);
         } catch (DaoException e) {
+            LOGGER.error ("Error in closeCompetition in CompetitionServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }
 
     private void randomResult(Competition competition, Category category) {
-
         switch (category){
             case FOOTBALL:
                 findWinner(competition, 4);
@@ -64,10 +71,10 @@ public class CompetitionServiceImpl implements CompetitionService {
         }
     }
 
-    private void findWinner(Competition competition, int total) {
+    private void findWinner(Competition competition, int score) {
         Random random = new Random ();
-        competition.setFirstOpponentResult (random.nextInt (total));
-        competition.setSecondOpponentResult (random.nextInt (total));
+        competition.setFirstOpponentResult (random.nextInt (score));
+        competition.setSecondOpponentResult (random.nextInt (score));
         if(competition.getFirstOpponentResult () > competition.getSecondOpponentResult ()){
             competition.setWinner (1);
         }else if(competition.getFirstOpponentResult () < competition.getSecondOpponentResult ()){

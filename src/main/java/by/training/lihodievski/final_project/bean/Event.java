@@ -72,4 +72,6 @@ public class Event implements Entity {
                 ", rate=" + rate +
                 '}';
     }
+
+
 }

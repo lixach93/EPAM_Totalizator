@@ -6,7 +6,7 @@ public class League implements Entity{
     @JsonProperty("id")
     private long id;
     @JsonProperty("name")
-    private String nameLeague;
+    private String leagueName;
     private Category category;
 
     public League() {
@@ -14,7 +14,7 @@ public class League implements Entity{
     }
 
     public League(String name, Category category) {
-        this.nameLeague = name;
+        this.leagueName = name;
         this.category = category;
     }
 
@@ -27,12 +27,12 @@ public class League implements Entity{
         this.id = id;
     }
 
-    public String getNameLeague() {
-        return nameLeague;
+    public String getLeagueName() {
+        return leagueName;
     }
 
-    public void setNameLeague(String nameLeague) {
-        this.nameLeague = nameLeague;
+    public void setLeagueName(String leagueName) {
+        this.leagueName = leagueName;
     }
 
     public Category getCategory() {

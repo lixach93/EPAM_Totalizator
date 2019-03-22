@@ -2,7 +2,7 @@ package by.training.lihodievski.final_project.bean;
 
 public enum  RoleType {
 
-    ADMINISTRATOR("admin"),
+    ADMINISTRATOR("administrator"),
     MODERATOR("moderator"),
     USER("user");
 

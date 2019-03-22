@@ -33,14 +33,21 @@ public class UserDaoImpl extends UserDaoAbstract  {
             preparedStatement.setString (2, object.getEmail ());
             preparedStatement.setString (3, object.getPassword ());
         }catch (SQLException e){
-            LOGGER.error ("Exception in UserDaoImpl ", e);
+            LOGGER.error ("Exception in preparedStatementInsert UserDaoImpl ", e);
             throw new DaoException (e);
         }
     }
 
     @Override
     protected void preparedStatementUpdate(PreparedStatement preparedStatement, User object) throws DaoException {
-
+        try {
+            preparedStatement.setDouble (1, object.getMoney ());
+            preparedStatement.setString (2, object.getRoleType ().getValue ());
+            preparedStatement.setLong (3, object.getId ());
+        }catch (SQLException e){
+            LOGGER.error ("Exception in preparedStatementUpdate UserDaoImpl ", e);
+            throw new DaoException (e);
+        }
     }
 
     @Override
@@ -51,31 +58,35 @@ public class UserDaoImpl extends UserDaoAbstract  {
                 user.setId (resultSet.getLong ("user_id"));
                 user.setLogin (resultSet.getString ("login"));
                 user.setEmail (resultSet.getString ("email"));
+                user.setPassword (resultSet.getString ("password"));;
                 user.setMoney (resultSet.getInt ("money"));
                 user.setRoleType (RoleType.valueOf (resultSet.getString ("role").toUpperCase ()));
                 list.add (user);
             }
         }catch (SQLException e){
-            LOGGER.error ("Exception in UserDaoImpl ", e);
+            LOGGER.error ("Exception in parseResultSet in UserDaoImpl ", e);
             throw new DaoException (e);
         }
         return list;
     }
 
-    public User getUserByLoginAndPassword(String login ,String password) throws DaoException {
-        String query = getSelectSqlByLoginAndPassword ();
+    public User getUserByLogin(String login) throws DaoException {
+        String query = getUserByLoginQuery ();
         List<User> list = new ArrayList<> ();
         try (ProxyConnection connection= connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (query)) {
             preparedStatement.setString (1,login);
-            preparedStatement.setString (2,password);
             ResultSet resultSet = preparedStatement.executeQuery ();
             list = parseResultSet(resultSet, list);
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in UserDaoImpl ", e);
+            LOGGER.error ("Exception in getUserByLogin UserDaoImpl ", e);
             throw new DaoException (e);
         }
-        return list.iterator ().next ();
+        if(list.size () == 0){
+            return null;
+        }else {
+            return list.iterator ().next ();
+        }
     }
 
     @Override
@@ -88,7 +99,7 @@ public class UserDaoImpl extends UserDaoAbstract  {
             ResultSet resultSet = preparedStatement.executeQuery ();
             list = parseResultSet(resultSet, list);
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in UserDaoImpl ", e);
+            LOGGER.error ("Exception in getUserById in UserDaoImpl ", e);
             throw new DaoException (e);
         }
         return list.iterator ().next ();

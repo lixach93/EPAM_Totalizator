@@ -7,9 +7,7 @@ import by.training.lihodievski.final_project.dao.factory.DaoFactory;
 import by.training.lihodievski.final_project.dao.impl.league.LeagueDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.opponent.TeamDaoAbstract;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
-import by.training.lihodievski.final_project.util.Constants;
 import by.training.lihodievski.final_project.util.Validation;
-import by.training.lihodievski.final_project.util.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +20,7 @@ public class TeamServiceImpl implements TeamService {
     private final DaoFactory daoFactory = DaoFactory.getInstance ();
     private LeagueDaoAbstract leagueDao = daoFactory.getLeagueDao ();
     private final TeamDaoAbstract teamDao = daoFactory.getTeamDao ();
+
     private TeamServiceImpl() {
     }
 
@@ -30,10 +29,9 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public boolean addTeam(String leagueIdStr, String teamName) throws ServiceException, ValidationException {
-        if(!Validation.isPositiveNumber (leagueIdStr) || !Validation.isString (teamName)){
-            LOGGER.error ("Error in validation in LeagueServiceImpl.class ");
-            throw new ValidationException (Constants.ERROR_MESSAGE);
+    public boolean addTeam(String leagueIdStr, String teamName) throws ServiceException {
+        if(!Validation.isId (leagueIdStr) || !Validation.isTeam (teamName)){
+            return false;
         }
         long leagueId = Long.parseLong (leagueIdStr);
         try {
@@ -43,19 +41,20 @@ public class TeamServiceImpl implements TeamService {
             team.setNameTeam (teamName);
             teamDao.insert (team);
         } catch (DaoException e) {
-            LOGGER.error ("Error in addTeam in TeamServiceImpl.class ", e);
+            LOGGER.error ("Exception in addTeam in TeamServiceImpl.class ", e);
             throw new ServiceException (e);
         }
         return true;
     }
 
     @Override
-    public List<Team> getOpponentByLeague(long id) throws ServiceException {
+    public List<Team> getTeamByLeague(long id) throws ServiceException {
         League league = new League ();
         league.setId (id);
         try {
-            return teamDao.getOpponentByLeague(league);
+            return teamDao.getTeamByLeague (league);
         } catch (DaoException e) {
+            LOGGER.error ("Exception in getTeamByLeague in TeamServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }

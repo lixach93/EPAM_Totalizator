@@ -9,13 +9,15 @@ import java.util.List;
 
 public abstract class TeamDaoAbstract extends AbstractGenericDao<Team> {
 
+    public abstract List<Team> getTeamByLeague(League league) throws DaoException;
+
     @Override
     protected String getDeleteSQL() {
         return null;
     }
 
     @Override
-    protected String getUpdateSQL() {
+    protected String getUpdateSql() {
         return null;
     }
 
@@ -26,11 +28,11 @@ public abstract class TeamDaoAbstract extends AbstractGenericDao<Team> {
 
     @Override
     protected String getInsertSql() {
-        return "INSERT into totalizator.team (league_id, name) value (?, ?)";
+        return "INSERT into totalizator.team (league_id, name) VALUE (?, ?)";
     }
 
-    protected String getSelectSqlOpponentByLeague(){
-        return "SELECT team_id, name from totalizator.team where league_id = ?";
+    String getTeamByLeagueQuery(){
+        return "SELECT team_id, name FROM totalizator.team WHERE league_id = ?";
     }
-    public abstract List<Team> getOpponentByLeague(League league) throws DaoException;
+
 }

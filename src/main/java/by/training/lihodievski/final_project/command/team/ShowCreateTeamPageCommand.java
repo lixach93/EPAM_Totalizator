@@ -26,29 +26,23 @@ public class ShowCreateTeamPageCommand extends ActionCommand {
     private CategoryService categoryService = serviceFactory.getCategoryService ();
 
     @Override
-    public String execute() throws CommandException {
-
-        return "/WEB-INF/view/adminPage.jsp";
-    }
-
-    @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         try {
             checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
-        request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_TWO, ACTIVE);
-        request.setAttribute (REQUEST_ATTRIBUTE_BLOCK, TEAM);
-        request.setAttribute (REQUEST_ATTRIBUTE_ACTION, CREATE_TEAM);
         List<Category> categories;
         try {
             categories = categoryService.getCategories ();
         }catch (ServiceException e){
-            LOGGER.error ("Error in ShowCreateTeamPageCommand.class ", e);
+            LOGGER.error ("Exception in ShowCreateTeamPageCommand.class ", e);
             throw new CommandException (e);
         }
+
+        request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_TWO, ACTIVE);
+        request.setAttribute (REQUEST_ATTRIBUTE_ACTION, CREATE_TEAM);
         request.setAttribute (CATEGORIES, categories);
         return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
     }

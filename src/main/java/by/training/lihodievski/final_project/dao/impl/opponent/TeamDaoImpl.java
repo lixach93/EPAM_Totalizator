@@ -31,7 +31,7 @@ public class TeamDaoImpl extends TeamDaoAbstract {
             preparedStatement.setLong (1, object.getLeague ().getId ());
             preparedStatement.setString (2, object.getNameTeam ());
         }catch (SQLException e){
-            LOGGER.error ("Error in insert in TeamDaoImpl.class ", e);
+            LOGGER.error ("Exception in insert in TeamDaoImpl.class ", e);
             throw new DaoException (e);
         }
     }
@@ -51,6 +51,7 @@ public class TeamDaoImpl extends TeamDaoAbstract {
                 list.add (team);
             }
         } catch (SQLException e) {
+            LOGGER.error ("Exception in parseResultSet in TeamDaoImpl.class ", e);
             throw new DaoException (e);
         }
         return list;
@@ -58,15 +59,16 @@ public class TeamDaoImpl extends TeamDaoAbstract {
 
 
     @Override
-    public List<Team> getOpponentByLeague(League league) throws DaoException {
-        String sqlQuery = getSelectSqlOpponentByLeague ();
+    public List<Team> getTeamByLeague(League league) throws DaoException {
+        String query = getTeamByLeagueQuery ();
         List<Team> teams = new ArrayList<> ();
         try(ProxyConnection connection = connectionPool.takeConnection ();
-            PreparedStatement statement = connection.prepareStatement (sqlQuery)){
+            PreparedStatement statement = connection.prepareStatement (query)){
             statement.setLong (1,league.getId ());
             ResultSet resultSet = statement.executeQuery ();
             teams = parseResultSet (resultSet, teams);
         }catch (SQLException | ConnectionPoolException e){
+            LOGGER.error ("Exception in getTeamByLeague in TeamDaoImpl.class ", e);
             throw new DaoException (e);
         }
         return teams;

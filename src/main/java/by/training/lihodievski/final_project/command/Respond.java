@@ -1,13 +1,10 @@
 package by.training.lihodievski.final_project.command;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Respond {
 
     public static final String PAGE = "page";
     public static final String REDIRECT = "redirect";
-    public static final String AJAX = "ajax";
     private String status;
     private String value;
 

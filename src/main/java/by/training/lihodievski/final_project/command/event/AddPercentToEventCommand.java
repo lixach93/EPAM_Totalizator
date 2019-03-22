@@ -3,50 +3,45 @@ package by.training.lihodievski.final_project.command.event;
 import by.training.lihodievski.final_project.command.ActionCommand;
 import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
-import by.training.lihodievski.final_project.dao.exception.DaoException;
 import by.training.lihodievski.final_project.service.EventService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
-import by.training.lihodievski.final_project.util.ValidationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
 
-import static by.training.lihodievski.final_project.util.Constants.PARAMETER_EVENT_ID;
+import static by.training.lihodievski.final_project.util.Constants.*;
+import static by.training.lihodievski.final_project.util.Constants.SESSION_ATTRIBUTE_STATUS;
+import static by.training.lihodievski.final_project.util.Constants.STATUS_UN_SUCCESS;
 
 public class AddPercentToEventCommand extends ActionCommand {
 
+    private static final Logger LOGGER = LogManager.getLogger (AddPercentToEventCommand.class);
+    private static final String PERCENT = "percent";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private EventService eventService = serviceFactory.getEventService ();
 
-    @Override
-    public String execute() throws CommandException {
-        return null;
-    }
+
 
     @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         String eventIdStr = request.getParameter (PARAMETER_EVENT_ID);
-        String percentStr = request.getParameter ("percent");
+        String percentStr = request.getParameter (PERCENT);
+        String redirect = request.getParameter (PARAMETER_REDIRECT);
         boolean status;
         try {
             status = eventService.addPercent(eventIdStr, percentStr);
-            if(status){
-                response.getWriter ().write ("Процент назначен");
-            }else{
-                response.getWriter ().write ("Уже имеются проценты");
-            }
         } catch (ServiceException e) {
             throw new CommandException (e);
-        }catch (ValidationException e) {
-            try {
-                response.getWriter ().write ("Данные не корректны");
-            } catch (IOException e1) {
-                throw new CommandException (e);
-            }
-        } catch (IOException e) {
-            throw new CommandException (e);
         }
-        return new Respond (Respond.AJAX);
+        HttpSession session = request.getSession (false);
+        if(status){
+            session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
+        }else{
+            session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_UN_SUCCESS );
+        }
+        return new Respond (Respond.REDIRECT, redirect);
 
     }
 }

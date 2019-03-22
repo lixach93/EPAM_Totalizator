@@ -24,23 +24,15 @@ public class ShowCreateLeaguePageCommand extends ActionCommand {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private CategoryService categoryService = serviceFactory.getCategoryService ();
 
-    @Override
-    public String execute() throws CommandException {
-
-        return null;
-    }
 
     @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         try {
             checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
-        request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_ONE, ACTIVE);
-        request.setAttribute (REQUEST_ATTRIBUTE_BLOCK, LEAGUE);
-        request.setAttribute (REQUEST_ATTRIBUTE_ACTION, CREATE_LEAGUE);
 
         List<Category> categories;
         try {
@@ -50,6 +42,8 @@ public class ShowCreateLeaguePageCommand extends ActionCommand {
             throw new CommandException (e);
         }
         request.setAttribute (CATEGORIES, categories);
+        request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_ONE, ACTIVE);
+        request.setAttribute (REQUEST_ATTRIBUTE_ACTION, CREATE_LEAGUE);
         return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
     }
 }

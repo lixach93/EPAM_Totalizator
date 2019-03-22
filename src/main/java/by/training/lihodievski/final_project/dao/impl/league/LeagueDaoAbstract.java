@@ -11,13 +11,14 @@ public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
 
     public abstract List<League> getLeaguesByCategory(Category category) throws DaoException;
     public abstract League getLeagueById(long leagueId) throws DaoException;
+
     @Override
     protected String getDeleteSQL() {
         return null;
     }
 
     @Override
-    protected String getUpdateSQL() {
+    protected String getUpdateSql() {
         return null;
     }
 
@@ -28,14 +29,14 @@ public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
 
     @Override
     protected String getInsertSql() {
-        return "INSERT into totalizator.league (category_id, name) value (?, ?)";
+        return "INSERT into totalizator.league (category_id, name) VALUE (?, ?)";
     }
 
     String getLeagueByCategoryQuery() {
-        return "SELECT league_id,name FROM totalizator.league where category_id = ?";
+        return "SELECT league_id,name FROM totalizator.league WHERE category_id = ?";
     }
     String getLeagueByIdQuery() {
-        return "SELECT league_id,name FROM totalizator.league where league_id = ?";
+        return "SELECT league_id,name FROM totalizator.league WHERE league_id = ?";
     }
 
 

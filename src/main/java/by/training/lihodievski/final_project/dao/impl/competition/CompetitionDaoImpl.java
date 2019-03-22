@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompetitionDaoImpl extends CompetitionDaoAbstract {
@@ -59,30 +60,35 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
         return list;
     }
 
-    public boolean updateStatus(Competition competition) throws DaoException {
-        String selectQuery = getSelectSqlCompetitionById ();
-        String updateQuery = getUpdateSQL ();
+    public Competition changeStatus(Competition competition) throws DaoException {
+        String competitionByIdQuery = getCompetitionByIdQuery ();
+        String updateCategoryQuery = getUpdateSql ();
+        List<Competition> competitions = new ArrayList<> ();
         try(ProxyConnection connection = connectionPool.takeConnection ();
             AutoSetAutoCommit autoSetAutoCommit = new AutoSetAutoCommit (connection,false);
             AutoRollback rollback = new AutoRollback (connection);
-            PreparedStatement select = connection.prepareStatement (selectQuery);
-            PreparedStatement update = connection.prepareStatement (updateQuery);){
+            PreparedStatement update = connection.prepareStatement (updateCategoryQuery);
+            PreparedStatement select = connection.prepareStatement (competitionByIdQuery);){
 
             select.setLong (1,competition.getId ());
             ResultSet resultSet = select.executeQuery ();
-            if(resultSet.next ()){
+            if(resultSet.next () && resultSet.getString ("status").equals ("new")){
                 update.setInt (1,competition.getFirstOpponentResult ());
                 update.setInt (2,competition.getSecondOpponentResult ());
                 update.setInt (3,competition.getWinner ());
                 update.setLong (4,competition.getId ());
                 update.executeUpdate ();
+                select.setLong (1,competition.getId ());
+                resultSet = select.executeQuery ();
+                parseResultSet (resultSet, competitions);
                 rollback.commit ();
-                return true;
+                return competitions.iterator ().next ();
             }else{
                autoSetAutoCommit.setOriginalAutoCommit (true);
-               return false;
+               return null;
             }
         } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in changeStatus in  CompetitionDaoImpl.class ", e);
             throw new DaoException (e);
         }
     }

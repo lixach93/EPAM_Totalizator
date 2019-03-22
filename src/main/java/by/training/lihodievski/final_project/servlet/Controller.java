@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/totalizator")
+@WebServlet( urlPatterns = {"/totalizator","/totalizator/*"})
 public class Controller extends HttpServlet {
 
     @Override
@@ -28,65 +28,22 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Respond respond = null;
-        String page = null;
         ActionFactory client = new ActionFactory ();
         ActionCommand command = client.defineCommand (request, response);
 
         try {
-            respond = command.execute1 ();
+            respond = command.execute ();
         } catch (CommandException e) {
-            e.printStackTrace ();
+            throw new ServletException (e);
         }
-        if (respond != null){
-            switch (respond.getStatus ()) {
-                case Respond.PAGE:
-                    RequestDispatcher dispatcher = getServletContext ().getRequestDispatcher (respond.getValue ());
-                    dispatcher.forward (request, response);
-                    break;
-                case Respond.REDIRECT:
-                    response.sendRedirect (respond.getValue ());
-                    break;
-                case Respond.AJAX:
-                    return;
-            }
-    }
-        if(respond == null) {
-            try {
-                page = command.execute ();
-            } catch (CommandException e) {
-                throw new ServletException (e);
-            }
-            if (request.getAttribute ("fail") != null) {
-                String f = (String) request.getAttribute ("fail");
-                if (f.equals ("fail")) {
-                    return;
-                }
-            }
-
-            if (request.getAttribute ("ajax") != null) {
-                String f = (String) request.getAttribute ("ajax");
-                if (f.equals ("sync")) {
-                    return;
-                }
-            }
-
-
-// метод возвращает страницу ответа
-// page = null; // поэксперементировать!
-            if (page != null) {
-                if (request.getAttribute ("redirect") != null) {
-                    response.sendRedirect (request.getAttribute ("redirect").toString ());
-                } else {
-                    RequestDispatcher dispatcher = getServletContext ().getRequestDispatcher (page);
-                    dispatcher.forward (request, response);
-                }
-// вызов страницы ответа на запрос
-
-            } else {
-// установка страницы c cообщением об ошибке
-
-                request.getRequestDispatcher ("/WEB-INF/error/error500.jsp").forward (request, response);
-            }
+        switch (respond.getStatus ()) {
+            case Respond.PAGE:
+                RequestDispatcher dispatcher = getServletContext ().getRequestDispatcher (respond.getValue ());
+                dispatcher.forward (request, response);
+                break;
+            case Respond.REDIRECT:
+                response.sendRedirect (respond.getValue ());
+                break;
         }
     }
 }

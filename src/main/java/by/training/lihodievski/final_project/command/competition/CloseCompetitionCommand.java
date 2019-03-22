@@ -1,36 +1,55 @@
 package by.training.lihodievski.final_project.command.competition;
 
+import by.training.lihodievski.final_project.bean.Competition;
+import by.training.lihodievski.final_project.bean.RoleType;
 import by.training.lihodievski.final_project.command.ActionCommand;
+import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
+import by.training.lihodievski.final_project.command.exception.PermissionException;
 import by.training.lihodievski.final_project.service.CompetitionService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
+import by.training.lihodievski.final_project.util.Validation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import javax.servlet.http.HttpSession;
 
-import java.io.IOException;
+
+import static by.training.lihodievski.final_project.util.Constants.*;
 
 public class CloseCompetitionCommand extends ActionCommand {
 
+    private static final Logger LOGGER = LogManager.getLogger (CloseCompetitionCommand.class);
+    private static final String COMPETITION_ID = "competitionId";
+    private static final String COMPETITION = "competition";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private CompetitionService competitionService = serviceFactory.getCompetitionService ();
 
     @Override
-    public String execute() throws CommandException {
-        System.out.println ("closecomp");
-        int id = Integer.parseInt (request.getParameter ("competitionId"));
-        boolean update;
+    public Respond execute() throws CommandException {
         try {
-           update =  competitionService.closeCompetition (id);
-            if(update){
-                response.getWriter ().write ("update success");
+            checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
+        } catch (PermissionException e) {
+            request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
+            return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
+        }
+
+        String  competitionIdStr = request.getParameter (COMPETITION_ID);
+        String redirect = request.getParameter (PARAMETER_REDIRECT);
+        Competition competition;
+        try {
+            HttpSession session = request.getSession ();
+            competition = competitionService.closeCompetition (competitionIdStr);
+            if(!Validation.isNull (competition)){
+                session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
+                session.setAttribute (COMPETITION, competition );
             }else{
-                response.getWriter ().write ("update was");
+                session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_UN_SUCCESS );
             }
         } catch (ServiceException e) {
-            throw new CommandException (e);
-        }catch (IOException e){
+            LOGGER.error ("Exception in CloseCompetitionCommand.class ", e);
             throw new CommandException (e);
         }
-        request.setAttribute ("ajax","sync");
-        return "page";
+        return new Respond (Respond.REDIRECT, redirect);
     }
 }

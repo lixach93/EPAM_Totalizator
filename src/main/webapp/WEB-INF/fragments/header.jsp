@@ -6,6 +6,8 @@
 <head>
     <title>EpamTotalizator</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link href="../../resources/styles/st.css" type="text/css" rel="stylesheet" />
 </head>
 
@@ -21,29 +23,29 @@
         <div class="navbar-right">
             <c:choose>
                 <c:when test="${empty sessionScope.userLogin}">
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator?command=showLoginPage"><fmt:message bundle="${loc}" key="link.login"/> </a>
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator?command=showRegistrationPage"><fmt:message bundle="${loc}" key="link.registration"/></a>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator/login"><fmt:message bundle="${loc}" key="link.login"/> </a>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator/registration"><fmt:message bundle="${loc}" key="link.registration"/></a>
                 </c:when>
                 <c:otherwise>
                     <c:choose>
                         <c:when test="${sessionScope.userRole eq 'user'}">
-                            <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator?command=showPersonalPage">
+                            <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator/personal">
                                 <fmt:message bundle="${loc}" key="link.personal"/>
                             </a>
                         </c:when>
-                        <c:when test="${sessionScope.userRole eq 'admin'}">
-                            <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator?command=showAdminPage">
+                        <c:when test="${sessionScope.userRole eq 'administrator'}">
+                            <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator/admin">
                                 <fmt:message bundle="${loc}" key="link.admin"/>
                             </a>
                         </c:when>
                         <c:when test="${sessionScope.userRole eq 'moderator'}">
-                            <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator?command=showModeratorPage">
+                            <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator/moderator">
                                 <fmt:message bundle="${loc}" key="link.moderator"/>
                             </a>
                         </c:when>
                     </c:choose>
                     <h2 class="navbar-brand user_name">${sessionScope.userLogin}</h2>
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator?command=logout">
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/totalizator/logout">
                         <fmt:message bundle="${loc}" key="link.exit"/>
                     </a>
                 </c:otherwise>

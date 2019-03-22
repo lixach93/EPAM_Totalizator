@@ -8,8 +8,6 @@
 
     <div class="container">
         <h2>Exception 500</h2>
-            <fmt:message bundle="${loc}" key="${requestScope.errorMessage}"/>
-        <a href="${requestScope.back}">Back</a>
 
         <br/>
         Request from ${pageContext.errorData.requestURI} is failed

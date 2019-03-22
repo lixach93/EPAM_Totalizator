@@ -9,8 +9,58 @@ body {
     margin:0 auto;
 }
 .own-container {
-    background: #ebebeb;
+    background:#ebebeb;
+    height:400px;
+    padding-left: 0;
+    padding-right: 0;
 }
+.block {
+    display: block;
+}
+.own-info{
+    display: inline-block;
+    margin-bottom: 7px;
+    padding: 4px;
+}
+.own-navbar{
+    margin-bottom:58px;
+}
+
+.avatar {
+    width: 170px;
+    height: 170px;
+    display: block;
+}
+
+.own-media-body {
+    padding-top: 26px;
+}
+h3{
+    font-style: oblique;
+}
+.own-money {
+    border: 1px solid bisque;
+}
+.own-media {
+    background: #fbf7e4;
+    border: 1px solid #e3e3e3;
+    border-radius: 9px;
+    padding: 19px;
+}
+.own-group{
+    margin-top: -5px;
+    margin-left: -85px;
+}
+.user {
+    position: relative;
+    top:1px;
+    font-size: 16px;
+    font-weight: 400;
+}
+.output{
+    position: relative;
+    top:1px;}
+
 
 .vertical-menu {
     width: 200px;
@@ -40,7 +90,23 @@ body {
     display: inline-block;
     margin-left: 25px;
 }
-
+.own-form_2{
+    margin-left: 15px;
+}
+.form-control{
+    padding: 0;
+}
+.type_rate{
+    font-weight:700;
+}
+.own-form {
+    position: relative;
+    top: 56px;
+}
+.own-form_1 {
+    position: relative;
+    top: 25px;
+}
 .top-block a{
     font-size: 17px;
     color: #33b793;

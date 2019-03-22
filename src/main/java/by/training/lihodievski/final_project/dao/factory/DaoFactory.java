@@ -1,7 +1,7 @@
 package by.training.lihodievski.final_project.dao.factory;
 
-import by.training.lihodievski.final_project.dao.impl.betting.BettingDaoAbstract;
-import by.training.lihodievski.final_project.dao.impl.betting.BettingDaoImpl;
+import by.training.lihodievski.final_project.dao.impl.betting.BetDaoAbstract;
+import by.training.lihodievski.final_project.dao.impl.betting.BetDaoImpl;
 import by.training.lihodievski.final_project.dao.impl.category.CategoryDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.competition.CompetitionDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.category.CategoryDaoImpl;
@@ -42,8 +42,8 @@ public class DaoFactory {
     public TeamDaoAbstract getTeamDao() {
         return TeamDaoImpl.getInstance();
     }
-    public BettingDaoAbstract getBettingDao(){
-        return BettingDaoImpl.getInstance ();
+    public BetDaoAbstract getBetDao(){
+        return BetDaoImpl.getInstance ();
     }
 }
 

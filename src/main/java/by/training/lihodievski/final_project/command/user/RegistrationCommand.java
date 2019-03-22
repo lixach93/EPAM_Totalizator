@@ -7,55 +7,38 @@ import by.training.lihodievski.final_project.service.UserService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.exception.UserException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
-import by.training.lihodievski.final_project.service.impl.UserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpSession;
 
+import static by.training.lihodievski.final_project.util.Constants.*;
+
 public class RegistrationCommand extends ActionCommand {
 
+    private static final Logger LOGGER = LogManager.getLogger (RegistrationCommand.class);
+    private static final String CONFIRM_PASSWORD = "confirmPassword";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private UserService userServiceImpl = serviceFactory.getUserService ();
 
     @Override
-    public String execute() throws CommandException {
-        String url = request.getParameter ("redirect");
-        String page = "/WEB-INF/view/registrationPage.jsp";
-        String login = request.getParameter ("login");
-        String email = request.getParameter ("email");
-        String password = request.getParameter ("password");
-        String confirmPassword = request.getParameter ("confirmPassword");
-        try {
-            userServiceImpl.registration (login, email, password, confirmPassword);
-        } catch (UserException e) {
-            request.setAttribute ("errorMessage", e.getMessage ());
-            request.setAttribute ("userError",e.getUser ());
-            return null;
-        }catch (ServiceException e) {
-            throw new CommandException ("RegistrationCommand exception ", e);
-        }
-        request.setAttribute ("success", login);
-
-        return null;
-    }
-
-    @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         HttpSession session = request.getSession (false);
-        String url = request.getParameter ("redirect");
-        String login = request.getParameter ("login");
-        String email = request.getParameter ("email");
-        String password = request.getParameter ("password");
-        String confirmPassword = request.getParameter ("confirmPassword");
+        String redirect = request.getParameter (PARAMETER_REDIRECT );
+        String login = request.getParameter (PARAMETER_LOGIN);
+        String email = request.getParameter (PARAMETER_EMAIL);
+        String password = request.getParameter (PARAMETER_PASSWORD);
+        String confirmPassword = request.getParameter (CONFIRM_PASSWORD);
         try {
             userServiceImpl.registration (login, email, password, confirmPassword);
         } catch (UserException e) {
-            session.setAttribute ("errorMessage", e.getMessage ());
-            session.setAttribute ("userError", e.getUser ());
-            return new Respond (Respond.REDIRECT, url);
+            session.setAttribute (SESSION_ATTRIBUTE_ERROR, e.getMessage ());
+            return new Respond (Respond.REDIRECT, redirect);
         }catch (ServiceException e) {
+            LOGGER.error ("Exception in RegistrationCommand.class ", e);
             throw new CommandException ("RegistrationCommand exception ", e);
         }
-        session.setAttribute ("success", login);
-        return new Respond (Respond.REDIRECT, url);
+        session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
+        return new Respond (Respond.REDIRECT, redirect);
     }
 }

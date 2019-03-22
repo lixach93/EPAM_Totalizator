@@ -8,7 +8,6 @@ import by.training.lihodievski.final_project.command.exception.PermissionExcepti
 import by.training.lihodievski.final_project.service.LeagueService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
-import by.training.lihodievski.final_project.util.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,12 +24,7 @@ public class CreateLeagueCommand extends ActionCommand {
     private LeagueService leagueService = serviceFactory.getLeagueService ();
 
     @Override
-    public String execute() throws CommandException {
-        return "/WEB-INF/view/adminPage.jsp";
-    }
-
-    @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         try {
             checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {
@@ -47,10 +41,6 @@ public class CreateLeagueCommand extends ActionCommand {
         } catch (ServiceException e) {
             LOGGER.error ("Exception in CreateLeagueCommand.class ", e);
             throw new CommandException (e);
-        } catch (ValidationException e) {
-            request.setAttribute (REQUEST_ATTRIBUTE_BACK, redirect);
-            request.setAttribute (REQUEST_ATTRIBUTE_ERROR, e.getMessage ());
-            return new Respond (Respond.PAGE, FORWARD_ERROR_PAGE);
         }
         HttpSession session = request.getSession (false);
         if(status){

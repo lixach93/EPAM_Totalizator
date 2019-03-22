@@ -46,7 +46,7 @@ public class CategoryDaoImpl extends CategoryDaoAbstract {
     @Override
      protected void preparedStatementInsert(PreparedStatement preparedStatement, Category object) throws DaoException {
         try {
-            preparedStatement.setString (1,object.getNameCategory ());
+            preparedStatement.setString (1,object.getCategoryName ());
         } catch (SQLException e) {
             throw new DaoException ();
         }
@@ -55,7 +55,7 @@ public class CategoryDaoImpl extends CategoryDaoAbstract {
     @Override
     protected void preparedStatementUpdate(PreparedStatement preparedStatement, Category object) throws DaoException {
         try {
-            preparedStatement.setString (1,object.getNameCategory ());
+            preparedStatement.setString (1,object.getCategoryName ());
             preparedStatement.setLong (2,object.getId ());
         } catch (SQLException e) {
             throw new DaoException ();
@@ -79,11 +79,11 @@ public class CategoryDaoImpl extends CategoryDaoAbstract {
     }
 
     @Override
-    public Category getCategoryForCompetition(Competition competition) throws DaoException {
-        String sqlQuery = getSelectCategoryForCompetition ();
+    public Category getCategoryByCompetition(Competition competition) throws DaoException {
+        String query = getCategoryByCompetitionQuery ();
         List<Category> categories = new ArrayList<> ();
         try(ProxyConnection connection = connectionPool.takeConnection ();
-            PreparedStatement statement = connection.prepareStatement (sqlQuery)){
+            PreparedStatement statement = connection.prepareStatement (query)){
             statement.setLong (1,competition.getId ());
             ResultSet resultSet = statement.executeQuery ();
             categories = parseResultSet (resultSet, categories);

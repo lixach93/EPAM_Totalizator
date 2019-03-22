@@ -11,14 +11,10 @@ import static by.training.lihodievski.final_project.util.Constants.FORWARD_MAIN_
 public class LogoutCommand extends ActionCommand {
 
     @Override
-    public String execute() throws CommandException {
-        return null;
-    }
-
-    @Override
-    public Respond execute1() throws CommandException {
+    public Respond execute() throws CommandException {
         HttpSession session = request.getSession (false);
-        session.invalidate ();
+//cделай проверку
+       session.invalidate ();
         return new Respond (Respond.PAGE, FORWARD_MAIN_PAGE);
     }
 }

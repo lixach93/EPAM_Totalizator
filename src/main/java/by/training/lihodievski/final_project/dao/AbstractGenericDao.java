@@ -19,7 +19,7 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
     private static final Logger LOGGER = LogManager.getLogger (AbstractGenericDao.class);
     protected final ConnectionPool connectionPool;
     protected abstract String getDeleteSQL();
-    protected abstract String getUpdateSQL();
+    protected abstract String getUpdateSql();
     protected abstract String getSelectSql();
     protected abstract String getInsertSql();
     protected abstract void preparedStatementInsert(PreparedStatement preparedStatement, T object) throws DaoException;
@@ -46,9 +46,6 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
         return list;
     }
 
-
-
-
     @Override
     public void delete(T object) throws DaoException {
         String deleteSql = getDeleteSQL();
@@ -56,16 +53,14 @@ public abstract class AbstractGenericDao<T extends Entity> implements GenericDao
              PreparedStatement preparedStatement = connection.prepareStatement (deleteSql)){
             preparedStatement.setLong (1,object.getId ());
             preparedStatement.execute ();
-        }catch (SQLException e) {
+        }catch (SQLException | ConnectionPoolException e) {
             throw new DaoException (e);
-        } catch (ConnectionPoolException e) {
-            throw  new DaoException (e);
         }
     }
 
     @Override
     public void update(T object) throws DaoException {
-        String UPDATE_SQL = getUpdateSQL ();
+        String UPDATE_SQL = getUpdateSql ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (UPDATE_SQL)){
             preparedStatementUpdate (preparedStatement, object);

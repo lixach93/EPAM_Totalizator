@@ -14,6 +14,10 @@ public class Competition implements Entity {
         secondTeam = new Team ();
     }
 
+    public Competition(long id) {
+        this.id = id;
+    }
+
     @Override
     public long getId() {
         return id;

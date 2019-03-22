@@ -6,8 +6,7 @@ import by.training.lihodievski.final_project.dao.exception.DaoException;
 
 public abstract class UserDaoAbstract extends AbstractGenericDao<User> {
 
-    public abstract User getUserByLoginAndPassword(String login ,String password) throws DaoException;
-
+    public abstract User getUserByLogin(String login) throws DaoException;
     public abstract User getUserById(User user) throws DaoException;
 
     @Override
@@ -16,26 +15,26 @@ public abstract class UserDaoAbstract extends AbstractGenericDao<User> {
     }
 
     @Override
-    protected String getUpdateSQL() {
-        return null;
+    protected String getUpdateSql() {
+        return "UPDATE totalizator.user SET money = ?,role = ?  WHERE user_id = ?";
     }
 
     @Override
     protected String getSelectSql() {
-        return null;
+        return "SELECT user_id,login,email,password,money,role FROM totalizator.user";
     }
 
     @Override
     protected String getInsertSql() {
-        return "INSERT INTO totalizator.user (login,email,password) value(?, ?, ?)";
+        return "INSERT INTO totalizator.user (login,email,password) VALUE (?, ?, ?)";
     }
 
-    protected String getSelectSqlByLoginAndPassword() {
-        return "SELECT user_id,login,email,money, role FROM totalizator.user where login = ? and password = ?";
+    String getUserByLoginQuery() {
+        return "SELECT user_id,login,email,password,money, role FROM totalizator.user WHERE login = ?";
     }
 
-    protected String getUserByIdQuery() {
-        return "SELECT user_id,login,email,money,role FROM totalizator.user  where user_id = ?";
+    String getUserByIdQuery() {
+        return "SELECT user_id,login,email,password,money,role FROM totalizator.user WHERE user_id = ?";
     }
 
 

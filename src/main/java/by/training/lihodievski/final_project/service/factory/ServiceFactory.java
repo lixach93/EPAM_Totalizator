@@ -30,8 +30,8 @@ public class ServiceFactory {
     public EventService getEventService() {
         return EventServiceImpl.getInstance();
     }
-    public BettingService getBettingService(){
-        return BettingServiceImpl.getInstance ();
+    public BetService getBettingService(){
+        return BetServiceImpl.getInstance ();
     }
     public CompetitionService getCompetitionService(){
         return CompetitionServiceImpl.getInstance();
