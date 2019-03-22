@@ -28,9 +28,9 @@ create table competition(
 	team_first bigint not null,
     team_second bigint not null,
     status varchar(10) not null default 'new',
-    winner int default '0',
-    team_first_result int(2) default 0,
-    team_second_result int(2) default 0,
+    winner int default 0,
+    team_first_result int(3) default 0,
+    team_second_result int(3) default 0,
     primary key (competition_id),
     foreign key (team_first) references team(team_id),
     foreign key (team_second) references team(team_id)
@@ -48,7 +48,7 @@ create table event(
 	rate_id bigint not null,
     payment TINYINT(4) default '0',
     percent int(3) default '0',
-    win_percent int default '0',
+    win_percent int default 0,
 	primary key (event_id),
 	foreign key (competition_id) references competition(competition_id),
 	foreign key (rate_id) references rate_type (rate_id)
@@ -56,27 +56,38 @@ create table event(
 
 create table user (
 	user_id bigint not null auto_increment,
-    login varchar(10) not null unique,
+    login varchar(20) not null unique,
     email varchar(30) not null unique,
-    password varchar(10) not null,
+    password varchar(255) not null,
     money int default 0,
-    role varchar(255) default 'user',
+    role varchar(20) default 'user',
     primary key (user_id)
 );
 
-create table betting (
-	betting_id bigint not null auto_increment,
+create table bet (
+	bet_id bigint not null auto_increment,
     user_id bigint not null,
 	event_id bigint not null,
     winner_id bigint default null,
     team_first_score int(2) default null,
     team_second_score int(2) default null,
     money double not null,
-    win_money double not null,
-    primary key (betting_id),
+    win_money double default 0,
+    primary key (bet_id),
     foreign key (event_id) references event(event_id),
     foreign key (user_id) references user(user_id)
 );
+
+drop table bet;
+drop table user;
+drop table event;
+drop table competition;
+drop table team;
+drop table league;
+drop table category;
+drop table rate_type
+
+
 
 
 
