@@ -52,6 +52,8 @@ public class ShowActiveBetPageCommand extends ActionCommand {
             LOGGER.error ("Exception in ShowActiveBetPageCommand.class ", e);
             throw new CommandException (e);
         }
+
+        request.setAttribute (REQUEST_ATTRIBUTE_SIZE, bets.size ());
         request.setAttribute (REQUEST_ATTRIBUTE_COUNT_PAGE, countPage);
         request.setAttribute (REQUEST_ATTRIBUTE_BETS, bets);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_TWO, ACTIVE);

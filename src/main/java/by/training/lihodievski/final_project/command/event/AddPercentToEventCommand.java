@@ -31,6 +31,7 @@ public class AddPercentToEventCommand extends ActionCommand {
         try {
             status = eventService.addPercent(eventIdStr, percentStr);
         } catch (ServiceException e) {
+            LOGGER.error ("Exception in AddPercentToEventCommand.class ", e);
             throw new CommandException (e);
         }
         HttpSession session = request.getSession ();

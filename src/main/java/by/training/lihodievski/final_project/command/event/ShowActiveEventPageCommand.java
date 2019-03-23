@@ -40,6 +40,7 @@ public class ShowActiveEventPageCommand extends ActionCommand {
             LOGGER.error ("Exception in ShowActiveEventPageCommand.class ", e);
             throw new CommandException (e);
         }
+        request.setAttribute (REQUEST_ATTRIBUTE_SIZE, events.size ());
         request.setAttribute (EVENTS, events);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_ONE, ACTIVE);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTION, ACTIVE_EVENT);

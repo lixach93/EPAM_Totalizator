@@ -2,7 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
+<c:if test="${requestScope.size == 0}">
+    <h3><fmt:message bundle="${loc}" key="size.empty"/></h3>
+</c:if>
 <c:forEach items="${events}" var="event">
     <div class="media">
         <div class="form-row">

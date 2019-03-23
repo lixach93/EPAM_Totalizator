@@ -17,6 +17,9 @@
     </c:choose>
     <c:remove var="status" scope="session"/>
 </c:if>
+<c:if test="${requestScope.size == 0}">
+    <h3><fmt:message bundle="${loc}" key="size.empty"/></h3>
+</c:if>
 <c:forEach items="${events}" var="event">
     <div class="media">
         <form method="post" action="<c:url value="totalizator"/>">

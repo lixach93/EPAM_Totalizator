@@ -34,7 +34,7 @@ public class BetServiceImpl implements BetService {
     }
 
     @Override
-    public boolean makeRate(long userId, String eventIdStr, String opponentStr, String moneyStr) throws ServiceException, UserException {
+    public boolean makeBet(long userId, String eventIdStr, String opponentStr, String moneyStr) throws ServiceException, UserException {
         if (!Validation.isPositiveNumber (eventIdStr) || !Validation.isPositiveNumber (opponentStr)
                 || !Validation.isMoney (moneyStr)) {
             return false;
@@ -54,13 +54,13 @@ public class BetServiceImpl implements BetService {
             Bet betting = new Bet (user, event, opponent, money);
             return bettingDao.insertBet (betting);
         } catch (DaoException e) {
-            LOGGER.error ("Exception in makeRate in BetServiceImpl.class ", e);
+            LOGGER.error ("Exception in makeBet in BetServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }
 
     @Override
-    public boolean makeRate(long userId, String eventIdStr, String firstScoreStr, String secondScoreStr, String moneyStr) throws ServiceException, UserException {
+    public boolean makeBet(long userId, String eventIdStr, String firstScoreStr, String secondScoreStr, String moneyStr) throws ServiceException, UserException {
         if (!Validation.isId (eventIdStr) || !Validation.isPositiveNumber (firstScoreStr)
                 || !Validation.isMoney (moneyStr) || !Validation.isPositiveNumber (secondScoreStr)) {
             return false;
@@ -81,7 +81,7 @@ public class BetServiceImpl implements BetService {
             Bet bet = new Bet (user, event, firstScore, secondScore, money);
             return bettingDao.insertBet (bet);
         } catch (DaoException e) {
-            LOGGER.error ("Exception in makeRate in BetServiceImpl.class ", e);
+            LOGGER.error ("Exception in makeBet in BetServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }

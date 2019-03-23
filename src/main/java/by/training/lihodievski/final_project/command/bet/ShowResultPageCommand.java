@@ -21,7 +21,7 @@ import static by.training.lihodievski.final_project.util.Constants.ERROR_PERMISS
 public class ShowResultPageCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ShowResultPageCommand.class);
-    private static final String RESULT_BETTING = "resultBetting";
+    private static final String RESULT_BETTING = "result";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private BetService betService = serviceFactory.getBettingService ();
 
@@ -42,7 +42,7 @@ public class ShowResultPageCommand extends ActionCommand {
             LOGGER.error ("Exception in ShowResultPageCommand.class ", e);
             throw new CommandException (e);
         }
-
+        request.setAttribute (REQUEST_ATTRIBUTE_SIZE, bets.size ());
         request.setAttribute (REQUEST_ATTRIBUTE_BETS, bets);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_TWO, ACTIVE);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTION, RESULT_BETTING );;

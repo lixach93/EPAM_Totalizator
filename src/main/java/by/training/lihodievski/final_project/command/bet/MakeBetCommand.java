@@ -45,9 +45,9 @@ public class MakeBetCommand extends ActionCommand {
             if(Validation.isNull (teamStr)){
                 String firstScoreStr = request.getParameter (PARAMETER_FIRST_SCORE);
                 String secondScoreStr = request.getParameter (PARAMETER_SECOND_SCORE);
-                status = betServiceImpl.makeRate(userId, eventIdStr, firstScoreStr, secondScoreStr, moneyStr);
+                status = betServiceImpl.makeBet (userId, eventIdStr, firstScoreStr, secondScoreStr, moneyStr);
             }else{
-                status = betServiceImpl.makeRate(userId, eventIdStr, teamStr, moneyStr);
+                status = betServiceImpl.makeBet (userId, eventIdStr, teamStr, moneyStr);
             }
         }catch (ServiceException e){
             LOGGER.error ("Exception in MakeBetCommand ",e);

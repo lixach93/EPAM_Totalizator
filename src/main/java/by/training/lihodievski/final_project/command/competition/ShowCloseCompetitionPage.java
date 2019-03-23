@@ -39,6 +39,7 @@ public class ShowCloseCompetitionPage extends ActionCommand {
             LOGGER.error ("Exception in ShowCloseCompetitionPage.class ", e);
             throw new CommandException (e);
         }
+        request.setAttribute (REQUEST_ATTRIBUTE_SIZE, competitions.size ());
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_THREE, ACTIVE);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTION, CLOSE_COMPETITION );
         request.setAttribute (COMPETITIONS, competitions);

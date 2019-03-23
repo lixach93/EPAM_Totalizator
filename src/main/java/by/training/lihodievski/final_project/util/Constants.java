@@ -30,6 +30,7 @@ public class Constants {
     public static final String REQUEST_ATTRIBUTE_USER = "user";
     public static final String REQUEST_ATTRIBUTE_USERS = "users";
     public static final String REQUEST_ATTRIBUTE_COUNT_PAGE = "countPage";
+    public static final String REQUEST_ATTRIBUTE_SIZE = "size";
 
     public static final String RESPONSE_CONTENT_TYPE = "Content-type";
 

@@ -52,6 +52,7 @@ public class ShowChargesPage extends ActionCommand {
             LOGGER.error ("Exception in ShowChargesPage.class ", e);
             throw new CommandException (e);
         }
+        request.setAttribute (REQUEST_ATTRIBUTE_SIZE, events.size ());
         request.setAttribute (REQUEST_ATTRIBUTE_COUNT_PAGE, countPage);
         request.setAttribute (EVENTS, events);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_TWO, ACTIVE);

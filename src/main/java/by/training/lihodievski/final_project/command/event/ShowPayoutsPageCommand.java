@@ -48,6 +48,7 @@ public class ShowPayoutsPageCommand extends ActionCommand {
             LOGGER.error ("Exception in ShowPayoutsPageCommand.class ", e);
             throw new CommandException (e);
         }
+        request.setAttribute (REQUEST_ATTRIBUTE_SIZE, events.size ());
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_FOUR, ACTIVE);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTION, PAYOUTS);
         request.setAttribute (REQUEST_ATTRIBUTE_COUNT_PAGE, countPage);
