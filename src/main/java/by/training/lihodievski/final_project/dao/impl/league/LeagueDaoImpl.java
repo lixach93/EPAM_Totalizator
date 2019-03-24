@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.training.lihodievski.final_project.util.Constants.LEAGUE_ID;
+import static by.training.lihodievski.final_project.util.Constants.LEAGUE_NAME;
+
 public class LeagueDaoImpl extends LeagueDaoAbstract {
 
     private static final Logger LOGGER = LogManager.getLogger (LeagueDaoImpl.class);
@@ -46,8 +49,8 @@ public class LeagueDaoImpl extends LeagueDaoAbstract {
         try {
             while (resultSet.next ()){
                 League league = new League ();
-                league.setId (resultSet.getLong ("league_id"));
-                league.setLeagueName (resultSet.getString ("name"));
+                league.setId (resultSet.getLong (LEAGUE_ID));
+                league.setLeagueName (resultSet.getString (LEAGUE_NAME));
                 list.add (league);
             }
         }catch (SQLException e){

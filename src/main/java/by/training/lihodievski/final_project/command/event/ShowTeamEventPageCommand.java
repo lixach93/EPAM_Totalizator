@@ -46,6 +46,9 @@ public class ShowTeamEventPageCommand extends ActionCommand {
         } catch (ServiceException e) {
             LOGGER.error ("Exception in ShowTeamEventPageCommand",e);
             throw new CommandException (e);
+        }catch (IllegalArgumentException e){
+            LOGGER.error ("Exception in category VALUE ",e);
+            return new Respond (Respond.PAGE, FORWARD_MAIN_PAGE);
         }
 
         request.setAttribute ("countPage", countPage);

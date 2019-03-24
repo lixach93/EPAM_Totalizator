@@ -9,7 +9,7 @@ import by.training.lihodievski.final_project.dao.impl.user.UserDaoAbstract;
 import by.training.lihodievski.final_project.service.UserService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.util.BCryptUtil;
-import by.training.lihodievski.final_project.util.Validation;
+import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateBalance(long id, String cardNumberStr, String moneyStr) throws ServiceException {
-        if(!Validation.isCardNumber (cardNumberStr) || !Validation.isMoney (moneyStr)){
+        if(!Validator.isCardNumber (cardNumberStr) || !Validator.isMoney (moneyStr)){
             return false;
         }
         User user = new User ();
@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean changeRole(String role, String idStr) throws ServiceException {
-        if(!Validation.isRole(role)|| !Validation.isId (idStr)){
+        if(!Validator.isRole(role)|| !Validator.isId (idStr)){
             return false;
         }
         long userId = Long.parseLong (idStr);

@@ -37,7 +37,7 @@
                 <label for="percent${event.id}">
                     <fmt:message bundle="${loc}" key="label.percent"/>
                 </label>
-                <input class="btn btn-outline-success my-2 my-sm-0" type="text"  name="percent" size="3" required placeholder="0">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="text"  name="percent" size="" pattern="^([0-9]|[1][0-9]|20)$" required placeholder="0-20">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                     <fmt:message bundle="${loc}" key="button.confirm"/>
                 </button>

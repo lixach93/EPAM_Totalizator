@@ -16,7 +16,8 @@
                     <c:out value="${bet.event.competition.secondTeam.nameTeam}"/>
                 </label>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
+                <label><fmt:message bundle="${loc}" key="p.bet"/></label>
         <c:if test="${bet.event.rate.value eq 'total'}">
             <label><fmt:message bundle="${loc}" key="p.score"/></label>
             <c:out value="${bet.opponentFirstScore}"/> :

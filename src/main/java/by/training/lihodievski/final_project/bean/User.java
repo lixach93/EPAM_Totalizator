@@ -73,16 +73,30 @@ public class User implements Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass () != o.getClass ()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass () != o.getClass ()) {
+            return false;
+        }
 
         User user = (User) o;
 
-        if (id != user.id) return false;
-        if (Double.compare (user.money, money) != 0) return false;
-        if (login != null ? !login.equals (user.login) : user.login != null) return false;
-        if (email != null ? !email.equals (user.email) : user.email != null) return false;
-        if (password != null ? !password.equals (user.password) : user.password != null) return false;
+        if (id != user.id) {
+            return false;
+        }
+        if (Double.compare (user.money, money) != 0) {
+            return false;
+        }
+        if (login != null ? !login.equals (user.login) : user.login != null){
+            return false;
+        }
+        if (email != null ? !email.equals (user.email) : user.email != null) {
+            return false;
+        }
+        if (password != null ? !password.equals (user.password) : user.password != null) {
+            return false;
+        }
         return roleType == user.roleType;
     }
 
@@ -99,4 +113,5 @@ public class User implements Entity {
         result = 31 * result + (roleType != null ? roleType.hashCode () : 0);
         return result;
     }
+
 }

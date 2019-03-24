@@ -9,10 +9,6 @@ public class Respond {
     private String value;
 
 
-    public Respond(String status) {
-        this.status = status;
-    }
-
     public Respond(String status, String value) {
         this.status = status;
         this.value = value;

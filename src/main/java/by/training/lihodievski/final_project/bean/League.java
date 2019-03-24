@@ -46,13 +46,20 @@ public class League implements Entity{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass () != o.getClass ()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass () != o.getClass ()){
+            return false;
+        }
         League league = (League) o;
 
-        if (id != league.id) return false;
-        if (leagueName != null ? !leagueName.equals (league.leagueName) : league.leagueName != null) return false;
+        if (id != league.id) {
+            return false;
+        }
+        if (leagueName != null ? !leagueName.equals (league.leagueName) : league.leagueName != null) {
+            return false;
+        }
         return category == league.category;
     }
 

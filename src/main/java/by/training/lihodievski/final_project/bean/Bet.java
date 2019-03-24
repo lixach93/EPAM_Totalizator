@@ -96,18 +96,36 @@ public class Bet implements Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass () != o.getClass ()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass () != o.getClass ()) {
+            return false;
+        }
 
         Bet bet = (Bet) o;
 
-        if (id != bet.id) return false;
-        if (winner != bet.winner) return false;
-        if (opponentFirstScore != bet.opponentFirstScore) return false;
-        if (opponentSecondScore != bet.opponentSecondScore) return false;
-        if (Double.compare (bet.money, money) != 0) return false;
-        if (Double.compare (bet.winMoney, winMoney) != 0) return false;
-        if (!user.equals (bet.user)) return false;
+        if (id != bet.id) {
+            return false;
+        }
+        if (winner != bet.winner) {
+            return false;
+        }
+        if (opponentFirstScore != bet.opponentFirstScore) {
+            return false;
+        }
+        if (opponentSecondScore != bet.opponentSecondScore) {
+            return false;
+        }
+        if (Double.compare (bet.money, money) != 0){
+            return false;
+        }
+        if (Double.compare (bet.winMoney, winMoney) != 0) {
+            return false;
+        }
+        if (!user.equals (bet.user)) {
+            return false;
+        }
         return event.equals (bet.event);
     }
 

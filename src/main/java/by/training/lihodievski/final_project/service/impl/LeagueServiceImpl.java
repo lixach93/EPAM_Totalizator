@@ -8,7 +8,7 @@ import by.training.lihodievski.final_project.dao.impl.category.CategoryDaoAbstra
 import by.training.lihodievski.final_project.dao.impl.league.LeagueDaoAbstract;
 import by.training.lihodievski.final_project.service.LeagueService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
-import by.training.lihodievski.final_project.util.Validation;
+import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,7 +31,7 @@ public class LeagueServiceImpl implements LeagueService {
 
     @Override
     public boolean createLeague(String categoryName, String leagueName) throws ServiceException {
-        if(!Validation.isCategory (categoryName) || !Validation.isLeague (leagueName)){
+        if(!Validator.isCategory (categoryName) || !Validator.isLeague (leagueName)){
             return false;
         }
         Category category = Category.valueOf (categoryName.toUpperCase ());

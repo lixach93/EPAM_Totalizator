@@ -35,15 +35,25 @@ public class ShowResultPageCommand extends ActionCommand {
         }
         HttpSession session = request.getSession ();
         long id = (long) session.getAttribute (SESSION_ATTRIBUTE_USER_ID);
+        String numberPageStr =  request.getParameter (PARAMETER_PAGE);
+        int numberPage;
+        if(numberPageStr != null){
+            numberPage = (Integer.parseInt (numberPageStr)-1)*2;
+        }else{
+            numberPage = 0;
+        }
         List<Bet> bets;
+        int countPage;
         try {
-            bets = betService.getResultBetForUser (id);
+            countPage = betService.getCountResultForUser(id);
+            bets = betService.getResultForUser (id, numberPage);
         } catch (ServiceException e) {
             LOGGER.error ("Exception in ShowResultPageCommand.class ", e);
             throw new CommandException (e);
         }
         request.setAttribute (REQUEST_ATTRIBUTE_SIZE, bets.size ());
         request.setAttribute (REQUEST_ATTRIBUTE_BETS, bets);
+        request.setAttribute (REQUEST_ATTRIBUTE_COUNT_PAGE, countPage);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_TWO, ACTIVE);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTION, RESULT_BETTING );;
         return new Respond (Respond.PAGE, FORWARD_PERSONAL_PAGE);

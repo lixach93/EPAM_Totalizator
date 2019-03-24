@@ -8,7 +8,7 @@ import by.training.lihodievski.final_project.dao.impl.event.EventDaoAbstract;
 import by.training.lihodievski.final_project.service.EventService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.util.PageUtil;
-import by.training.lihodievski.final_project.util.Validation;
+import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,7 +45,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public int getCountPage(String categoryName) throws ServiceException {
-        if(!Validation.isCategory(categoryName)){
+        if(!Validator.isCategory(categoryName)){
             return 0;
         }
         try{
@@ -84,7 +84,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean createEvent(String teamFirstIdStr, String teamSecondIdStr, String  typeRate) throws ServiceException {
-        if(!Validation.isId (teamFirstIdStr) || !Validation.isId (teamSecondIdStr) || !Validation.isRate (typeRate)){
+        if(!Validator.isId (teamFirstIdStr) || !Validator.isId (teamSecondIdStr) || !Validator.isRate (typeRate)){
                 return false;
             }
         try{
@@ -120,7 +120,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean payments(String eventIdStr) throws ServiceException {
-        if(!Validation.isId (eventIdStr)){
+        if(!Validator.isId (eventIdStr)){
             return false;
         }
         try {
@@ -170,7 +170,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean addPercent(String eventIdStr, String percentStr) throws ServiceException {
-        if(!Validation.isId (eventIdStr) || !Validation.isPercent (percentStr)){
+        if(!Validator.isId (eventIdStr) || !Validator.isPercent (percentStr)){
             return false;
         }
         try {
@@ -208,6 +208,9 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> getEventsByCategory(String categoryParameter, int numberPage) throws ServiceException {
+        if(!Validator.isCategory (categoryParameter)){
+            throw new IllegalArgumentException ("Category doesn't exist");
+        }
         try {
             Category category = Category.valueOf (categoryParameter.toUpperCase ());
             return eventDao.getEventsByCategory (category, numberPage);

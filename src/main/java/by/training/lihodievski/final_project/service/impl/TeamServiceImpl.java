@@ -7,7 +7,7 @@ import by.training.lihodievski.final_project.dao.factory.DaoFactory;
 import by.training.lihodievski.final_project.dao.impl.league.LeagueDaoAbstract;
 import by.training.lihodievski.final_project.dao.impl.team.TeamDaoAbstract;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
-import by.training.lihodievski.final_project.util.Validation;
+import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,7 +30,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public boolean addTeam(String leagueIdStr, String teamName) throws ServiceException {
-        if(!Validation.isId (leagueIdStr) || !Validation.isTeam (teamName)){
+        if(!Validator.isId (leagueIdStr) || !Validator.isTeam (teamName)){
             return false;
         }
         long leagueId = Long.parseLong (leagueIdStr);

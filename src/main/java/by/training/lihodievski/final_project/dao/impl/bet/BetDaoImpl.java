@@ -6,7 +6,6 @@ import by.training.lihodievski.final_project.connection.AutoSetAutoCommit;
 import by.training.lihodievski.final_project.connection.ProxyConnection;
 import by.training.lihodievski.final_project.connection.exception.ConnectionPoolException;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
-import by.training.lihodievski.final_project.util.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static by.training.lihodievski.final_project.util.Constants.*;
 
 public class BetDaoImpl extends BetDaoAbstract {
 
@@ -45,32 +46,32 @@ public class BetDaoImpl extends BetDaoAbstract {
                 Bet bet = new Bet ();
                 Event event = new Event ();
                 Team teamFirst = new Team ();
-                teamFirst.setNameTeam (resultSet.getString ("t1.name"));
+                teamFirst.setNameTeam (resultSet.getString (TEAM_FIRST_NAME ));
                 Team teamSecond = new Team ();
-                teamSecond.setNameTeam (resultSet.getString ("t2.name"));
+                teamSecond.setNameTeam (resultSet.getString (TEAM_SECOND_NAME));
                 Competition competition = new Competition ();
                 competition.setFirstTeam (teamFirst);
                 competition.setSecondTeam (teamSecond);
-                competition.setFirstOpponentResult (resultSet.getInt ("team_first_result"));
-                competition.setSecondOpponentResult (resultSet.getInt ("team_second_result"));
-                competition.setWinner (resultSet.getInt ("winner_result"));
-                Rate rate = Rate.valueOf (resultSet.getString ("rate_type.name").toUpperCase ());
+                competition.setFirstOpponentResult (resultSet.getInt (TEAM_FIRST_RESULT));
+                competition.setSecondOpponentResult (resultSet.getInt (TEAM_SECOND_RESULT));
+                competition.setWinner (resultSet.getInt (WINNER_RESULT));
+                Rate rate = Rate.valueOf (resultSet.getString (RATE_TYPE_NAME).toUpperCase ());
                 event.setRate (rate);
                 event.setCompetition (competition);
                 User user = new User ();
-                user.setId (resultSet.getLong ("user_id"));
-                bet.setId (resultSet.getLong ("bet_id"));
-                bet.setWinner (resultSet.getInt ("winner_id"));
-                bet.setOpponentFirstScore (resultSet.getInt ("team_first_score"));
-                bet.setOpponentSecondScore (resultSet.getInt ("team_second_score"));
-                bet.setMoney (resultSet.getDouble ("betMoney"));
-                bet.setWinMoney (resultSet.getDouble ("win_money"));
+                user.setId (resultSet.getLong (USER_ID));
+                bet.setId (resultSet.getLong (BET_ID));
+                bet.setWinner (resultSet.getInt (WINNER_ID));
+                bet.setOpponentFirstScore (resultSet.getInt (TEAM_FIRST_SCORE));
+                bet.setOpponentSecondScore (resultSet.getInt (TEAM_SECOND_SCORE));
+                bet.setMoney (resultSet.getDouble (BET_MONEY));
+                bet.setWinMoney (resultSet.getDouble (WIN_MONEY));
                 bet.setUser (user);
                 bet.setEvent (event);
                 list.add (bet);
             }
         }catch (SQLException e) {
-            LOGGER.error ("Exception in UserDaoImpl.class ", e);
+            LOGGER.error ("Exception in BetDaoImpl.class ", e);
            throw new DaoException (e);
         }
         return list;
@@ -93,7 +94,7 @@ public class BetDaoImpl extends BetDaoAbstract {
 
             select.setLong (1, object.getEvent ().getId ());
             ResultSet rS = select.executeQuery ();
-            if(rS.next () && rS.getString ("competition.status").equals ("new")) {
+            if(rS.next () && rS.getString (COMPETITION_STATUS).equals (STATUS_NEW)) {
                 insert.setLong (1, object.getUser ().getId ());
                 insert.setLong (2, object.getEvent ().getId ());
                 insert.setLong (3, object.getWinner ());
@@ -165,10 +166,12 @@ public class BetDaoImpl extends BetDaoAbstract {
                 updateStatement.setLong (6, event.getId ());
                 updateStatement.setBoolean (3, event.isPayment ());
                 updateStatement.setDouble (4, event.getWinPercent ());
-                for (Bet betting : winner) {
+                for (Bet bet : winner) {
                     updateStatement.setDouble (1, winMoney);
                     updateStatement.setDouble (2, winMoney);
-                    updateStatement.setLong (5, betting.getUser ().getId ());
+                    updateStatement.setLong (5, bet.getUser ().getId ());
+                    updateStatement.setLong (7, bet.getId ());
+
                     updateStatement.executeUpdate ();
                 }
                 rollback.commit ();
@@ -177,7 +180,7 @@ public class BetDaoImpl extends BetDaoAbstract {
                 return false;
             }
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in BetDaoImpl.class ", e);
+            LOGGER.error ("Exception in setWinner in BetDaoImpl.class ", e);
             throw new DaoException (e);
         }
     }
@@ -190,9 +193,9 @@ public class BetDaoImpl extends BetDaoAbstract {
             preparedStatement.setLong (1,user.getId ());
             ResultSet resultSet = preparedStatement.executeQuery ();
             resultSet.next ();
-            return  resultSet.getInt ("betId");
+            return  resultSet.getInt (BET_ID_ALIAS );
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in BetDaoImpl.class ", e);
+            LOGGER.error ("Exception in getCountActiveBetForUser in BetDaoImpl.class ", e);
             throw new DaoException (e);
         }
     }
@@ -205,11 +208,11 @@ public class BetDaoImpl extends BetDaoAbstract {
              PreparedStatement preparedStatement = connection.prepareStatement (query);){
             preparedStatement.setLong (1,user.getId ());
             preparedStatement.setInt (2, page);
-            preparedStatement.setInt (3, Constants.PER_PAGE);
+            preparedStatement.setInt (3, PER_PAGE);
             ResultSet resultSet = preparedStatement.executeQuery ();
             bettingList = parseResultSet (resultSet, bettingList);
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in BetDaoImpl.class ", e);
+            LOGGER.error ("Exception in getActiveBettingLimitForUser in BetDaoImpl.class ", e);
             throw new DaoException (e);
         }
         return bettingList;
@@ -217,18 +220,35 @@ public class BetDaoImpl extends BetDaoAbstract {
 
 
     @Override
-    public List<Bet> getResultBettingForUser(User user) throws DaoException {
-        String query = getSelectSqlResultBetting ();
+    public List<Bet> getResultForUser(User user, int page) throws DaoException {
+        String query = getResultQuery ();
         List<Bet> bettingList = new ArrayList<> ();
+        try (ProxyConnection connection = connectionPool.takeConnection ();
+             PreparedStatement preparedStatement = connection.prepareStatement (query);){
+            preparedStatement.setLong (1, user.getId ());
+            preparedStatement.setLong (2, page);
+            preparedStatement.setLong (3, PER_PAGE);
+            ResultSet resultSet = preparedStatement.executeQuery ();
+            bettingList = parseResultSet (resultSet, bettingList);
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in getResultForUser in  BetDaoImpl.class ", e);
+            throw new DaoException (e);
+        }
+        return bettingList;
+    }
+
+    @Override
+    public int getCountResultForUser(User user) throws DaoException {
+        String query = getCountResultQuery ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (query);){
             preparedStatement.setLong (1,user.getId ());
             ResultSet resultSet = preparedStatement.executeQuery ();
-            bettingList = parseResultSet (resultSet, bettingList);
+            resultSet.next ();
+            return  resultSet.getInt (BET_ID_ALIAS );
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.error ("Exception in BetDaoImpl.class ", e);
+            LOGGER.error ("Exception in getCountResultForUser in BetDaoImpl.class ", e);
             throw new DaoException (e);
         }
-        return bettingList;
     }
 }

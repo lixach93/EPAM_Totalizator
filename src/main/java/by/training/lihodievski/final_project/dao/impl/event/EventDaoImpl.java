@@ -17,6 +17,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.training.lihodievski.final_project.util.Constants.*;
+
 public class EventDaoImpl extends EventDaoAbstract {
 
     private static final Logger LOGGER = LogManager.getLogger (EventDaoImpl.class);
@@ -49,29 +51,29 @@ public class EventDaoImpl extends EventDaoAbstract {
         try {
             while (resultSet.next ()){
                 Event event = new Event ();
-                event.setId (resultSet.getLong ("e.event_id"));
+                event.setId (resultSet.getLong (EVENT_ID));
                 Competition competition = new Competition ();
-                competition.setId (resultSet.getLong ("e.competition_id"));
+                competition.setId (resultSet.getLong (EVENT_COMPETITION_ID));
                 Team teamOne = new Team ();
-                teamOne.setId (resultSet.getLong ("team_first_id"));
-                teamOne.setNameTeam (resultSet.getString ("team_first_name"));
+                teamOne.setId (resultSet.getLong (TEAM_FIRST_ID));
+                teamOne.setNameTeam (resultSet.getString (EVENT_TEAM_FIRST_NAME));
                 League leagueOne = new League ();
-                leagueOne.setLeagueName (resultSet.getString ("league_first_name"));
-                Category categoryOne = Category.valueOf (resultSet.getString ("category_first_name").toUpperCase ());
+                leagueOne.setLeagueName (resultSet.getString (EVENT_LEAGUE_FIRST_NAME));
+                Category categoryOne = Category.valueOf (resultSet.getString (EVENT_CATEGORY_FIRST_NAME).toUpperCase ());
                 Team teamTwo = new Team ();
-                teamTwo.setId (resultSet.getLong ("team_second_id"));
-                teamTwo.setNameTeam (resultSet.getString ("team_second_name"));
+                teamTwo.setId (resultSet.getLong (TEAM_SECOND_ID));
+                teamTwo.setNameTeam (resultSet.getString (EVENT_TEAM_SECOND_NAME));
                 League leagueTwo= new League ();
-                leagueTwo.setLeagueName (resultSet.getString ("league_second_name"));
-                Category categoryTwo = Category.valueOf (resultSet.getString ("category_second_name").toUpperCase ());
-                competition.setStatus (resultSet.getString ("c.status"));
-                competition.setFirstOpponentResult (resultSet.getInt ("c.team_first_result"));
-                competition.setSecondOpponentResult (resultSet.getInt ("c.team_second_result"));
-                competition.setWinner(resultSet.getInt ("c.winner"));
-                event.setPayment (resultSet.getBoolean ("e.payment"));
-                event.setPercent (resultSet.getDouble ("e.percent"));
-                event.setWinPercent (resultSet.getDouble ("e.win_percent"));
-                Rate rate = Rate.valueOf (resultSet.getString ("rate_value").toUpperCase ());
+                leagueTwo.setLeagueName (resultSet.getString (EVENT_LEAGUE_SECOND_NAME));
+                Category categoryTwo = Category.valueOf (resultSet.getString (EVENT_CATEGORY_SECOND_NAME).toUpperCase ());
+                competition.setStatus (resultSet.getString (EVENT_STATUS));
+                competition.setFirstOpponentResult (resultSet.getInt (EVENT_TEAM_FIRST_RESULT));
+                competition.setSecondOpponentResult (resultSet.getInt (EVENT_TEAM_SECOND_RESULT));
+                competition.setWinner(resultSet.getInt (EVENT_WINNER ));
+                event.setPayment (resultSet.getBoolean (EVENT_PAYMENT));
+                event.setPercent (resultSet.getDouble (EVENT_PERCENT));
+                event.setWinPercent (resultSet.getDouble (EVENT_WIN_PERCENT));
+                Rate rate = Rate.valueOf (resultSet.getString (RATE_VALUE).toUpperCase ());
                 leagueOne.setCategory (categoryOne);
                 leagueTwo.setCategory (categoryTwo);
                 teamOne.setLeague (leagueOne);
@@ -133,7 +135,7 @@ public class EventDaoImpl extends EventDaoAbstract {
             preparedStatement.setString (1,category.getCategoryName ());
             ResultSet resultSet = preparedStatement.executeQuery ();
             resultSet.next ();
-            return resultSet.getInt ("countEvent");
+            return resultSet.getInt (COUNT_EVENT );
         } catch (SQLException | ConnectionPoolException e) {
             LOGGER.error ("Exception in EventDaoImpl", e);
             throw new DaoException (e);
@@ -148,7 +150,7 @@ public class EventDaoImpl extends EventDaoAbstract {
             preparedStatement.setString (1,rate.getValue ());
             ResultSet resultSet = preparedStatement.executeQuery ();
             resultSet.next ();
-            return resultSet.getInt ("countEvent");
+            return resultSet.getInt (COUNT_EVENT );
         } catch (SQLException | ConnectionPoolException e) {
             LOGGER.error ("Exception in EventDaoImpl", e);
             throw new DaoException (e);
@@ -162,7 +164,7 @@ public class EventDaoImpl extends EventDaoAbstract {
              PreparedStatement preparedStatement = connection.prepareStatement (query)) {
             ResultSet resultSet = preparedStatement.executeQuery ();
             resultSet.next ();
-            return resultSet.getInt ("countEvent");
+            return resultSet.getInt (COUNT_EVENT );
         } catch (SQLException | ConnectionPoolException e) {
             LOGGER.error ("Exception in getCountUnPaymentEvents in  EventDaoImpl", e);
             throw new DaoException (e);
@@ -176,7 +178,7 @@ public class EventDaoImpl extends EventDaoAbstract {
              PreparedStatement preparedStatement = connection.prepareStatement (query)) {
             ResultSet resultSet = preparedStatement.executeQuery ();
             resultSet.next ();
-            return resultSet.getInt ("countEvent");
+            return resultSet.getInt (COUNT_EVENT);
         } catch (SQLException | ConnectionPoolException e) {
             LOGGER.error ("Exception in getCountClosedEvents in EventDaoImpl", e);
             throw new DaoException (e);
@@ -185,7 +187,7 @@ public class EventDaoImpl extends EventDaoAbstract {
 
     @Override
     public List<Event> getEventsByCategory(Category category, int numberPage) throws DaoException {
-        String query = getEventsByCategory ();
+        String query = getEventsByCategoryQuery ();
         List<Event> events = new ArrayList<> ();
         try (ProxyConnection connection = connectionPool.takeConnection ();
              PreparedStatement preparedStatement = connection.prepareStatement (query)) {
@@ -319,8 +321,8 @@ public class EventDaoImpl extends EventDaoAbstract {
 
             selectStatement.setLong (1, event.getId ());
             ResultSet resultSet = selectStatement.executeQuery ();
-            if(resultSet.next () && resultSet.getString ("c.status").equals ("finished")
-                    && !resultSet.getBoolean ("e.payment")){
+            if(resultSet.next () && resultSet.getString (COMPETITION_STATUS_ALIAS).equals (STATUS_FINISHED)
+                    && !resultSet.getBoolean (EVENT_PAYMENT)){
                 updateStatement.setBoolean (1, event.isPayment ());;
                 updateStatement.setDouble (2, event.getWinPercent ());
                 updateStatement.setLong (3, event.getId ());

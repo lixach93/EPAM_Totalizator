@@ -1,5 +1,6 @@
 package by.training.lihodievski.final_project.command.user;
 
+
 import by.training.lihodievski.final_project.bean.RoleType;
 import by.training.lihodievski.final_project.bean.User;
 import by.training.lihodievski.final_project.command.ActionCommand;

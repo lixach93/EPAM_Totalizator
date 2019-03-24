@@ -4,6 +4,7 @@ import by.training.lihodievski.final_project.bean.User;
 import by.training.lihodievski.final_project.dao.AbstractGenericDao;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
 
+
 public abstract class UserDaoAbstract extends AbstractGenericDao<User> {
 
     public abstract User getUserByLogin(String login) throws DaoException;

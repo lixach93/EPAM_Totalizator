@@ -8,7 +8,7 @@ import by.training.lihodievski.final_project.dao.factory.DaoFactory;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
 import by.training.lihodievski.final_project.service.CompetitionService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
-import by.training.lihodievski.final_project.util.Validation;
+import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +42,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public Competition closeCompetition(String competitionIdStr) throws ServiceException {
-        if(!Validation.isId (competitionIdStr)){
+        if(!Validator.isId (competitionIdStr)){
             return null;
         }
         long competitionId = Long.valueOf (competitionIdStr);

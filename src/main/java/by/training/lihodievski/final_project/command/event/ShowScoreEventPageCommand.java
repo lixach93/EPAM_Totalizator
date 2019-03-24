@@ -8,7 +8,6 @@ import by.training.lihodievski.final_project.command.exception.CommandException;
 import by.training.lihodievski.final_project.service.EventService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
-import by.training.lihodievski.final_project.util.Validation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

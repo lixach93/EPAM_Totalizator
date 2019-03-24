@@ -14,6 +14,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.training.lihodievski.final_project.util.Constants.TEAM_ID;
+import static by.training.lihodievski.final_project.util.Constants.TEAM_NAME;
+
 public class TeamDaoImpl extends TeamDaoAbstract {
 
     private static final Logger LOGGER = LogManager.getLogger (TeamDaoImpl.class);
@@ -46,8 +49,8 @@ public class TeamDaoImpl extends TeamDaoAbstract {
         try{
             while (resultSet.next ()){
                 Team team = new Team ();
-                team.setId (resultSet.getLong ("team_id"));
-                team.setNameTeam (resultSet.getString ("name"));
+                team.setId (resultSet.getLong (TEAM_ID));
+                team.setNameTeam (resultSet.getString (TEAM_NAME));
                 list.add (team);
             }
         } catch (SQLException e) {

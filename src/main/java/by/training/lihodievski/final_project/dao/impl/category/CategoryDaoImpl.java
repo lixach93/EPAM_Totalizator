@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.training.lihodievski.final_project.util.Constants.CATEGORY_NAME;
+
 public class CategoryDaoImpl extends CategoryDaoAbstract {
 
     private static final Logger LOGGER = LogManager.getLogger (CategoryDaoImpl.class);
@@ -29,7 +31,7 @@ public class CategoryDaoImpl extends CategoryDaoAbstract {
     protected List<Category> parseResultSet(ResultSet resultSet, List<Category> list) throws DaoException {
         try{
             while (resultSet.next ()){
-                Category category = Category.valueOf (resultSet.getString ("category.name").toUpperCase ());
+                Category category = Category.valueOf (resultSet.getString (CATEGORY_NAME).toUpperCase ());
                 list.add (category);
             }
             }catch (SQLException e){

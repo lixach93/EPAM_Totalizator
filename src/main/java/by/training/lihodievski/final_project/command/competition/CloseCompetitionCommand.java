@@ -9,7 +9,7 @@ import by.training.lihodievski.final_project.command.exception.PermissionExcepti
 import by.training.lihodievski.final_project.service.CompetitionService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
-import by.training.lihodievski.final_project.util.Validation;
+import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpSession;
@@ -40,7 +40,7 @@ public class CloseCompetitionCommand extends ActionCommand {
         try {
             HttpSession session = request.getSession ();
             competition = competitionService.closeCompetition (competitionIdStr);
-            if(!Validation.isNull (competition)){
+            if(!Validator.isNull (competition)){
                 session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
                 session.setAttribute (COMPETITION, competition );
             }else{

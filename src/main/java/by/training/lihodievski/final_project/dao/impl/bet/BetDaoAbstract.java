@@ -13,12 +13,12 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
 
     public abstract int getCountActiveBetForUser(User user) throws DaoException;
     public abstract List<Bet> getActiveBettingLimitForUser(User user, int page) throws DaoException;
-    public abstract List<Bet> getResultBettingForUser(User user) throws DaoException;
+    public abstract List<Bet> getResultForUser(User user, int page) throws DaoException;
     public abstract boolean insertBet(Bet bet) throws DaoException;
     public abstract Double getBetMoneyByEvent(Event event) throws DaoException;
     public abstract List<Bet> getBetsByEvent(Event event) throws DaoException;
     public abstract boolean setWinner(List<Bet> winner, double winMoney, Event event) throws DaoException;
-
+    public abstract int getCountResultForUser(User user) throws DaoException;
 
     @Override
     protected String getDeleteSQL() throws DaoException {
@@ -50,7 +50,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " join event e on" +
                 " b.event_id = e.event_id" +
                 " SET  b.win_money = ?,u.money = u.money + ?,e.payment = ?,e.win_percent = ?" +
-                " WHERE b.user_id = ? and b.event_id = ?";
+                " WHERE b.user_id = ? and b.event_id = ? and b.bet_id = ?";
     }
     String getBetMoneyByEventQuery(){
         return "SELECT sum(money) as money from totalizator.bet where event_id = ?";
@@ -117,7 +117,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " rate_type.rate_id = event.rate_id"+
                 " where competition.status = 'new' and bet.user_id = ? limit ?,?";
     }
-    String getSelectSqlResultBetting(){
+    String getResultQuery(){
         return  "SELECT bet.bet_id,event.event_id,competition.competition_id," +
                 "bet.user_id,t1.name,t2.name,competition.team_first_result," +
                 "competition.team_second_result,competition.winner as winner_result,rate_type.name," +
@@ -134,7 +134,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " competition.team_second = t2.team_id" +
                 " join rate_type on" +
                 " rate_type.rate_id = event.rate_id"+
-                " where event.payment = 1 and bet.user_id = ?";
+                " where event.payment = 1 and bet.user_id = ? limit ?,?";
     }
 
     String getEventByPaymentQuery(){
@@ -143,5 +143,11 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " where event.event_id = ? and payment = 0 and  competition.status = 'finished'";
     }
 
+    String getCountResultQuery(){
+        return  "SELECT count(bet.bet_id) as betId" +
+                " FROM bet join event on" +
+                " event.event_id = bet.event_id" +
+                " where event.payment = 1 and bet.user_id = ?";
+    }
 
 }

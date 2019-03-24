@@ -67,16 +67,30 @@ public class Event implements Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass () != o.getClass ()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass () != o.getClass ()) {
+            return false;
+        }
 
         Event event = (Event) o;
 
-        if (id != event.id) return false;
-        if (payment != event.payment) return false;
-        if (Double.compare (event.percent, percent) != 0) return false;
-        if (Double.compare (event.winPercent, winPercent) != 0) return false;
-        if (competition != null ? !competition.equals (event.competition) : event.competition != null) return false;
+        if (id != event.id) {
+            return false;
+        }
+        if (payment != event.payment) {
+            return false;
+        }
+        if (Double.compare (event.percent, percent) != 0){
+            return false;
+        }
+        if (Double.compare (event.winPercent, winPercent) != 0){
+            return false;
+        }
+        if (competition != null ? !competition.equals (event.competition) : event.competition != null){
+            return false;
+        }
         return rate == event.rate;
     }
 

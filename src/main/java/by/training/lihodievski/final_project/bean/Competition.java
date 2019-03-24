@@ -76,20 +76,37 @@ public class Competition implements Entity {
         return winner;
     }
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass () != o.getClass ()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass () != o.getClass ()) {
+            return false;
+        }
 
         Competition that = (Competition) o;
 
-        if (id != that.id) return false;
-        if (firstOpponentResult != that.firstOpponentResult) return false;
-        if (secondOpponentResult != that.secondOpponentResult) return false;
-        if (winner != that.winner) return false;
-        if (!firstTeam.equals (that.firstTeam)) return false;
-        if (!secondTeam.equals (that.secondTeam)) return false;
-        return status.equals (that.status);
+        if (id != that.id) {
+            return false;
+        }
+        if (firstOpponentResult != that.firstOpponentResult) {
+            return false;
+        }
+        if (secondOpponentResult != that.secondOpponentResult) {
+            return false;
+        }
+        if (winner != that.winner) {
+            return false;
+        }
+        if (firstTeam != null ? !firstTeam.equals (that.firstTeam) : that.firstTeam != null) {
+            return false;
+        }
+        if (secondTeam != null ? !secondTeam.equals (that.secondTeam) : that.secondTeam != null) {
+            return false;
+        }
+        return status != null ? status.equals (that.status) : that.status == null;
     }
 
     @Override

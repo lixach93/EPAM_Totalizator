@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.training.lihodievski.final_project.util.Constants.*;
+
 public class CompetitionDaoImpl extends CompetitionDaoAbstract {
 
     private static final Logger LOGGER = LogManager.getLogger (CompetitionDaoImpl.class);
@@ -46,12 +48,12 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
         try {
             while (resultSet.next ()){
                 Competition competition = new Competition ();
-                competition.setId (resultSet.getLong ("competition_id"));
-                competition.getFirstTeam ().setNameTeam (resultSet.getString ("t1.name"));
-                competition.getSecondTeam ().setNameTeam (resultSet.getString ("t2.name"));
-                competition.setStatus (resultSet.getString ("status"));
-                competition.setFirstOpponentResult (resultSet.getInt ("team_first_result"));
-                competition.setSecondOpponentResult (resultSet.getInt ("team_second_result"));
+                competition.setId (resultSet.getLong (COMPETITION_ID));
+                competition.getFirstTeam ().setNameTeam (resultSet.getString (TEAM_FIRST_NAME));
+                competition.getSecondTeam ().setNameTeam (resultSet.getString (TEAM_SECOND_NAME));
+                competition.setStatus (resultSet.getString (STATUS));
+                competition.setFirstOpponentResult (resultSet.getInt (TEAM_FIRST_RESULT));
+                competition.setSecondOpponentResult (resultSet.getInt (TEAM_SECOND_RESULT));
                 list.add (competition);
             }
         }catch (SQLException e){
@@ -73,7 +75,7 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
 
             select.setLong (1,competition.getId ());
             ResultSet resultSet = select.executeQuery ();
-            if(resultSet.next () && resultSet.getString ("status").equals ("new")){
+            if(resultSet.next () && resultSet.getString (STATUS).equals (STATUS_NEW)){
                 update.setInt (1,competition.getFirstOpponentResult ());
                 update.setInt (2,competition.getSecondOpponentResult ());
                 update.setInt (3,competition.getWinner ());
@@ -92,6 +94,5 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
             throw new DaoException (e);
         }
     }
-
 
 }

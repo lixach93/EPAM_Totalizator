@@ -67,7 +67,7 @@
                             </div>
                         </c:if>
                         <c:if test="${sessionScope.userRole ne 'user'}">
-                            <div class="alert alert-warning">
+                            <div class="alert alert-warning own-warning">
                                 <h4><fmt:message bundle="${loc}" key="h.level"/></h4>
                             </div>
                         </c:if>

@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.training.lihodievski.final_project.util.Constants.*;
+
 public class UserDaoImpl extends UserDaoAbstract  {
 
     private static final Logger LOGGER = LogManager.getLogger (UserDaoImpl.class);
@@ -55,12 +57,12 @@ public class UserDaoImpl extends UserDaoAbstract  {
         try{
             while (resultSet.next ()){
                 User user = new User ();
-                user.setId (resultSet.getLong ("user_id"));
-                user.setLogin (resultSet.getString ("login"));
-                user.setEmail (resultSet.getString ("email"));
-                user.setPassword (resultSet.getString ("password"));;
-                user.setMoney (resultSet.getDouble ("money"));
-                user.setRoleType (RoleType.valueOf (resultSet.getString ("role").toUpperCase ()));
+                user.setId (resultSet.getLong (USER_ID));
+                user.setLogin (resultSet.getString (USER_LOGIN));
+                user.setEmail (resultSet.getString (USER_EMAIL));
+                user.setPassword (resultSet.getString (USER_PASSWORD));;
+                user.setMoney (resultSet.getDouble (USER_MONEY ));
+                user.setRoleType (RoleType.valueOf (resultSet.getString (USER_ROLE).toUpperCase ()));
                 list.add (user);
             }
         }catch (SQLException e){

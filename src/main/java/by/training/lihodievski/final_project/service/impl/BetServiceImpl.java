@@ -12,7 +12,7 @@ import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.exception.UserException;
 import by.training.lihodievski.final_project.util.Constants;
 import by.training.lihodievski.final_project.util.PageUtil;
-import by.training.lihodievski.final_project.util.Validation;
+import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,8 +35,8 @@ public class BetServiceImpl implements BetService {
 
     @Override
     public boolean makeBet(long userId, String eventIdStr, String opponentStr, String moneyStr) throws ServiceException, UserException {
-        if (!Validation.isPositiveNumber (eventIdStr) || !Validation.isPositiveNumber (opponentStr)
-                || !Validation.isMoney (moneyStr)) {
+        if (!Validator.isPositiveNumber (eventIdStr) || !Validator.isPositiveNumber (opponentStr)
+                || !Validator.isMoney (moneyStr)) {
             return false;
         }
         User user = new User (userId);
@@ -61,8 +61,8 @@ public class BetServiceImpl implements BetService {
 
     @Override
     public boolean makeBet(long userId, String eventIdStr, String firstScoreStr, String secondScoreStr, String moneyStr) throws ServiceException, UserException {
-        if (!Validation.isId (eventIdStr) || !Validation.isPositiveNumber (firstScoreStr)
-                || !Validation.isMoney (moneyStr) || !Validation.isPositiveNumber (secondScoreStr)) {
+        if (!Validator.isId (eventIdStr) || !Validator.isPositiveNumber (firstScoreStr)
+                || !Validator.isMoney (moneyStr) || !Validator.isPositiveNumber (secondScoreStr)) {
             return false;
         }
         User user = new User (userId);
@@ -95,20 +95,20 @@ public class BetServiceImpl implements BetService {
             int countBet = bettingDao.getCountActiveBetForUser (user);
             return PageUtil.getCountPage (countBet);
         } catch (DaoException e) {
-            LOGGER.error ("Error in getCountUnPaymentEvents in BetServiceImpl.class ", e);
+            LOGGER.error ("Exception in getCountUnPaymentEvents in BetServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }
 
     @Override
-    public List<Bet> getResultBetForUser(long userId) throws ServiceException {
+    public List<Bet> getResultForUser(long userId, int page) throws ServiceException {
         User user = new User ();
         user.setId (userId);
         try {
             user = userDao.getUserById (user);
-            return bettingDao.getResultBettingForUser (user);
+            return bettingDao.getResultForUser (user, page);
         } catch (DaoException e) {
-            LOGGER.error ("Error in getResultBetForUser in BetServiceImpl.class ", e);
+            LOGGER.error ("Error in getResultForUser in BetServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }
@@ -122,6 +122,20 @@ public class BetServiceImpl implements BetService {
             return bettingDao.getActiveBettingLimitForUser (user, numberPage);
         } catch (DaoException e) {
             LOGGER.error ("Error in getActiveBet in BetServiceImpl.class ", e);
+            throw new ServiceException (e);
+        }
+    }
+
+    @Override
+    public int getCountResultForUser(long id) throws ServiceException {
+        User user = new User ();
+        user.setId (id);
+        try {
+            user = userDao.getUserById (user);
+            int countBet = bettingDao.getCountResultForUser (user);
+            return PageUtil.getCountPage (countBet);
+        } catch (DaoException e) {
+            LOGGER.error ("Error in getCountResultForUser in BetServiceImpl.class ", e);
             throw new ServiceException (e);
         }
     }

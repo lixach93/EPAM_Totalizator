@@ -4,14 +4,14 @@ import by.training.lihodievski.final_project.bean.Category;
 import by.training.lihodievski.final_project.bean.Rate;
 import by.training.lihodievski.final_project.bean.RoleType;
 
-public class Validation {
+public class Validator {
 
-    private static final String LEAGUE_PATTERN = "[a-zA-Z]+";
-    private static final String TEAM_PATTERN = "[a-zA-ZА-я0-9 ]+";
-    private static final String MONEY_PATTERN = "\\d+(\\.\\d+)?";
+    private static final String LEAGUE_PATTERN = "[a-zA-Z]+( [a-zA-Z]+)?";
+    private static final String TEAM_PATTERN = "[a-zA-Z0-9]+( [a-zA-Z0-9]+)?";
+    private static final String MONEY_PATTERN = "^[1-9]\\d+([.][0-9]+)?$";
     private static final String POSITIVE_NUMBER_PATTERN = "\\d+";
-    private static final String PERCENT_PATTERN = "^\\d+(\\.)?(\\d+)?$";
-    private static final String CARD_NUMBER_PATTERN = "[\\d]{4}\\s[\\d]{4}\\s[\\d]{4}\\s[\\d]{4}";
+    private static final String PERCENT_PATTERN = "^([0-9]|[1][0-9]|20)$";
+    private static final String CARD_NUMBER_PATTERN = "([\\d]{4}\\s[\\d]{4}\\s[\\d]{4}\\s[\\d]{4})|(\\d{4}){4}";
 
 
     public static boolean isLeague(String value){

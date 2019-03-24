@@ -51,5 +51,4 @@ public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
                 " WHERE  category.name = category2.name and c.competition_id = ?";
     }
 
-
 }

@@ -17,10 +17,10 @@
             </div>
             <div class="form-group col-md-3">
                 <c:if test="${event.rate.value eq 'total'}">
-                    <label><fmt:message bundle="${loc}" key="label.betTeam"/></label>
+                    <label><fmt:message bundle="${loc}" key="label.betScore"/></label>
                 </c:if>
                 <c:if test="${event.rate.value eq 'team'}">
-                    <label><fmt:message bundle="${loc}" key="label.betScore"/></label>
+                    <label><fmt:message bundle="${loc}" key="label.betTeam"/></label>
                 </c:if>
             </div>
             <div class="form-group col-md-3">

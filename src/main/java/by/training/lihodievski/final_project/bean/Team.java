@@ -40,13 +40,21 @@ public class Team implements Entity{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass () != o.getClass ()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass () != o.getClass ()) {
+            return false;
+        }
 
         Team team = (Team) o;
 
-        if (id != team.id) return false;
-        if (nameTeam != null ? !nameTeam.equals (team.nameTeam) : team.nameTeam != null) return false;
+        if (id != team.id) {
+            return false;
+        }
+        if (nameTeam != null ? !nameTeam.equals (team.nameTeam) : team.nameTeam != null) {
+            return false;
+        }
         return league != null ? league.equals (team.league) : team.league == null;
     }
 

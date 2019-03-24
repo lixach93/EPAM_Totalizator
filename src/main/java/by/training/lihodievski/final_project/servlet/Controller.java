@@ -16,6 +16,8 @@ import java.io.IOException;
 @WebServlet( urlPatterns = {"/totalizator","/totalizator/*"})
 public class Controller extends HttpServlet {
 
+    private static final long serialVersionUID = 7301674936598633360L;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest (req,resp);

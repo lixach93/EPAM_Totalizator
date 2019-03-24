@@ -9,7 +9,7 @@ import by.training.lihodievski.final_project.service.BetService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.exception.UserException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
-import by.training.lihodievski.final_project.util.Validation;
+import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +42,7 @@ public class MakeBetCommand extends ActionCommand {
         boolean status;
         try{
             String teamStr = request.getParameter (PARAMETER_TEAM);
-            if(Validation.isNull (teamStr)){
+            if(Validator.isNull (teamStr)){
                 String firstScoreStr = request.getParameter (PARAMETER_FIRST_SCORE);
                 String secondScoreStr = request.getParameter (PARAMETER_SECOND_SCORE);
                 status = betServiceImpl.makeBet (userId, eventIdStr, firstScoreStr, secondScoreStr, moneyStr);

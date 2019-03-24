@@ -8,6 +8,9 @@ body {
     width:95%;
     margin:0 auto;
 }
+.own-form_3 {
+    margin: 24px;
+}
 .own-container {
     background:#ebebeb;
     height:400px;
@@ -24,6 +27,10 @@ body {
 }
 .own-navbar{
     margin-bottom:58px;
+}
+.own-warning {
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
 }
 
 .avatar {
@@ -99,7 +106,7 @@ h3{
     margin-left: 15px;
 }
 .form-control{
-    padding: 0;
+
 }
 .type_rate{
     font-weight:700;

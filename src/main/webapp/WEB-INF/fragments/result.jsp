@@ -7,14 +7,22 @@
 </c:if>
 
 <c:forEach items="${bets}" var="bet">
-    <p>ID: <c:out value="${betting.id}"/></p>
-    <c:out value="${bet.event.competition.firstTeam.nameTeam}"/>
-    <c:out value="${bet.event.competition.firstOpponentResult}"/> :
-    <c:out value="${bet.event.competition.secondOpponentResult}"/>
-    <c:out value="${bet.event.competition.secondTeam.nameTeam}"/>
-    <br/>
-    <fmt:message bundle="${loc}" key="href.betting"/>
-    <br/>
+    <div class="media">
+    <p><label>ID:</label> <c:out value="${bet.id}"/></p>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label> <c:out value="${bet.event.competition.firstTeam.nameTeam}"/></label>
+            <c:out value="${bet.event.competition.firstOpponentResult}"/> :
+            <c:out value="${bet.event.competition.secondOpponentResult}"/>
+            <label><c:out value="${bet.event.competition.secondTeam.nameTeam}"/></label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+    <label><fmt:message bundle="${loc}" key="p.moneyRate"/></label> <c:out value="${bet.money}"/>
+        </div>
+        <div class="form-group col-md-3">
+            <label><fmt:message bundle="${loc}" key="p.bet"/></label>
     <c:choose>
         <c:when test="${bet.event.rate.value eq 'total'}">
             <fmt:message bundle="${loc}" key="p.score"/>
@@ -33,7 +41,13 @@
             </c:choose>
         </c:when>
     </c:choose>
-    <fmt:message bundle="${loc}" key="p.moneyRate"/> <c:out value="${bet.money}"/>
-    <fmt:message bundle="${loc}" key="p.winMoney"/> <c:out value="${bet.winMoney}"/>
-    <p/>
+        </div>
+        <div class="form-group col-md-3">
+            <label><fmt:message bundle="${loc}" key="p.winMoney"/></label>
+            <fmt:formatNumber value="${bet.winMoney}" maxFractionDigits="2"/>
+        </div>
+    </div>
+    </div>
 </c:forEach>
+<c:set var="command" value="result" scope="request"/>
+<jsp:include page="../fragments/pagination.jsp"/>
