@@ -40,7 +40,7 @@ public class FillBalanceCommand extends ActionCommand {
         try {
              status = userServiceImpl.updateBalance(id, cardNumberStr, moneyStr);
         } catch (ServiceException e) {
-            LOGGER.error ("Error in ShowUserPageCommand " ,e);
+            LOGGER.error ("Error in ShowUserInfoPageCommand " ,e);
             throw new CommandException (e);
         }
 

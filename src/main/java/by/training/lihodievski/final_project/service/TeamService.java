@@ -1,4 +1,4 @@
-package by.training.lihodievski.final_project.service.impl;
+package by.training.lihodievski.final_project.service;
 
 import by.training.lihodievski.final_project.bean.Team;
 import by.training.lihodievski.final_project.service.exception.ServiceException;

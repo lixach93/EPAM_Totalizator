@@ -6,9 +6,7 @@ import by.training.lihodievski.final_project.command.bet.ShowActiveBetPageComman
 import by.training.lihodievski.final_project.command.bet.ShowResultPageCommand;
 import by.training.lihodievski.final_project.command.competition.*;
 import by.training.lihodievski.final_project.command.event.*;
-import by.training.lihodievski.final_project.command.league.CreateLeagueCommand;
-import by.training.lihodievski.final_project.command.league.ShowCreateLeaguePageCommand;
-import by.training.lihodievski.final_project.command.league.GetLeaguesByCategoryCommand;
+import by.training.lihodievski.final_project.command.league.*;
 import by.training.lihodievski.final_project.command.locale.ChangeLocaleCommand;
 import by.training.lihodievski.final_project.command.team.CreateTeamCommand;
 import by.training.lihodievski.final_project.command.team.GetTeamsByLeagueIdCommand;
@@ -23,24 +21,64 @@ import javax.servlet.http.HttpServletResponse;
 
 public enum CommandEnum {
 
-    USERS{
+    ACTIVEBET {
         {
-            this.command = new ShowUsersPageCommand ();
+            this.command = new ShowActiveBetPageCommand ();
         }
     },
-    FILLBALANCE{
+    ACTIVEEVENT {
         {
-            this.command = new FillBalanceCommand ();
+            this.command = new ShowActiveEventPageCommand ();
         }
     },
-    UPDATEBALANCE{
+    ADDPERCENTTOEVENT {
         {
-            this.command = new ShowUpdateBalancePage ();
+            this.command = new AddPercentToEventCommand ();
         }
     },
-    CREATELEAGUEACTION {
+    ADMIN {
         {
-            this.command = new CreateLeagueCommand ();
+            this.command = new ShowAdminPageCommand ();
+        }
+    },
+    CHANGELOCALE {
+        {
+            this.command = new ChangeLocaleCommand ();
+        }
+    },
+    CHANGEROLE {
+        {
+            this.command = new ChangeRoleCommand ();
+        }
+    },
+    CHARGES {
+        {
+            this.command = new ShowChargesPage ();
+        }
+    },
+    CLOSECOMPETITION {
+        {
+            this.command = new ShowCloseCompetitionPage ();
+        }
+    },
+    CLOSECOMPETITIONACTION {
+        {
+            this.command = new CloseCompetitionCommand ();
+        }
+    },
+    CLOSEEVENT {
+        {
+            this.command = new CloseEventCommand ();
+        }
+    },
+    CREATECOMPETITION {
+        {
+            this.command = new ShowCreateCompetitionPageCommand ();
+        }
+    },
+    CREATECOMPETITIONACTION {
+        {
+            this.command = new CreateCompetitionCommand ();
         }
     },
     CREATELEAGUE {
@@ -48,14 +86,54 @@ public enum CommandEnum {
             this.command = new ShowCreateLeaguePageCommand ();
         }
     },
+    CREATELEAGUEACTION {
+        {
+            this.command = new CreateLeagueCommand ();
+        }
+    },
+    CREATETEAM {
+        {
+            this.command = new ShowCreateTeamPageCommand ();
+        }
+    },
+    CREATETEAMACTION {
+        {
+            this.command = new CreateTeamCommand ();
+        }
+    },
+    DELETELEAGUE {
+        {
+            this.command = new ShowDeleteLeaguePageCommand ();
+        }
+    },
+    DELETELEAGUEACTION {
+        {
+            this.command = new DeleteLeagueCommand ();
+        }
+    },
+    FILLBALANCE {
+        {
+            this.command = new FillBalanceCommand ();
+        }
+    },
+    GETLEAGUESBYCATEGORY {
+        {
+            this.command = new GetLeaguesByCategoryCommand ();
+        }
+    },
+    GETTEAMSBYLEAGUEID {
+        {
+            this.command = new GetTeamsByLeagueIdCommand ();
+        }
+    },
+    LOGIN {
+        {
+            this.command = new ShowLoginPageCommand ();
+        }
+    },
     LOGINACTION {
         {
             this.command = new LoginCommand ();
-        }
-    },
-    CHANGEROLE{
-        {
-            this.command = new ChangeRoleCommand ();
         }
     },
     LOGOUT {
@@ -68,29 +146,14 @@ public enum CommandEnum {
             this.command = new MakeBetCommand ();
         }
     },
-    REGISTRATIONACTION {
+    MODERATOR {
         {
-            this.command = new RegistrationCommand ();
+            this.command = new ShowModeratorPageCommand ();
         }
     },
-    ADMIN {
+    PAYOUTS {
         {
-            this.command = new ShowAdminPageCommand ();
-        }
-    },
-    TEAMEVENT {
-        {
-            this.command = new ShowTeamEventPageCommand ();
-        }
-    },
-    SCOREEVENT {
-        {
-            this.command = new ShowScoreEventPageCommand ();
-        }
-    },
-    LOGIN {
-        {
-            this.command = new ShowLoginPageCommand ();
+            this.command = new ShowPayoutsPageCommand ();
         }
     },
     PERSONAL {
@@ -103,94 +166,34 @@ public enum CommandEnum {
             this.command = new ShowRegistrationPageCommand ();
         }
     },
-    CREATETEAM{
+    REGISTRATIONACTION {
         {
-            this.command = new ShowCreateTeamPageCommand ();
+            this.command = new RegistrationCommand ();
         }
     },
-    CREATETEAMACTION{
-        {
-            this.command = new CreateTeamCommand ();
-        }
-    },
-    GETLEAGUESBYCATEGORY{
-        {
-            this.command = new GetLeaguesByCategoryCommand ();
-        }
-    },
-    CREATECOMPETITION{
-        {
-            this.command = new ShowCreateCompetitionPageCommand ();
-        }
-    },
-    CREATECOMPETITIONACTION{
-        {
-            this.command = new CreateCompetitionCommand ();
-        }
-    },
-    GETTEAMSBYLEAGUEID {
-        {
-            this.command = new GetTeamsByLeagueIdCommand ();
-        }
-    },
-    CLOSECOMPETITION{
-        {
-            this.command = new ShowCloseCompetitionPage ();
-        }
-    },
-    CLOSECOMPETITIONACTION{
-        {
-            this.command = new CloseCompetitionCommand ();
-        }
-    },
-    PAYOUTS {
-        {
-            this.command = new ShowPayoutsPageCommand ();
-        }
-    },
-    CLOSEEVENT{
-        {
-            this.command = new CloseEventCommand ();
-        }
-    },
-    CHANGELOCALE{
-        {
-            this.command = new ChangeLocaleCommand ();
-        }
-    },
-    ACTIVEBET{
-        {
-            this.command = new ShowActiveBetPageCommand ();
-        }
-    },
-    RESULT{
+    RESULT {
         {
             this.command = new ShowResultPageCommand ();
         }
     },
-    CHARGES{
+    SCOREEVENT {
         {
-            this.command = new ShowChargesPage();
+            this.command = new ShowScoreEventPageCommand ();
         }
     },
-    MODERATOR{
+    TEAMEVENT {
         {
-            this.command = new ShowModeratorPageCommand();
+            this.command = new ShowTeamEventPageCommand ();
         }
     },
-    ACTIVEEVENT{
+    UPDATEBALANCE {
         {
-            this.command = new ShowActiveEventPageCommand ();
+            this.command = new ShowUpdateBalancePage ();
         }
     },
-    ADDPERCENTTOEVENT{
+    USERS {
         {
-            this.command = new AddPercentToEventCommand ();
-        }
-    },
-    SHOWUSERPAGE{
-        {
-            this.command = new ShowUserPageCommand ();
+            this.command = new ShowUsersPageCommand ();
         }
     };
 
@@ -204,4 +207,4 @@ public enum CommandEnum {
     public void initCommand(HttpServletRequest request, HttpServletResponse response) {
         this.command.init (request, response);
     }
-    }
+}

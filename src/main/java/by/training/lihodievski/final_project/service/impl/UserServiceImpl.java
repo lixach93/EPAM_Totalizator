@@ -9,6 +9,7 @@ import by.training.lihodievski.final_project.dao.impl.user.UserDaoAbstract;
 import by.training.lihodievski.final_project.service.UserService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.util.BCryptUtil;
+import by.training.lihodievski.final_project.util.PageUtil;
 import by.training.lihodievski.final_project.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger (UserServiceImpl.class);
     private static final  UserServiceImpl INSTANCE = new UserServiceImpl ();
     private DaoFactory daoFactory = DaoFactory.getInstance ();
-    private UserDaoAbstract userDaoAbstract = daoFactory.getUserDao ();
+    private UserDaoAbstract userDao = daoFactory.getUserDao ();
 
     private UserServiceImpl() {
     }
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         password = BCryptUtil.hashString (password);
         User user = new User (login, email, password);
         try {
-            userDaoAbstract.insert (user);
+            userDao.insert (user);
         } catch (DaoException e) {
             if(((SQLException) e.getCause ()).getSQLState ().equals ("23000")) {
                 String error = e.getMessage ();
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
         checkPassword (password);
         User user = null;
         try {
-            user = userDaoAbstract.getUserByLogin (login);
+            user = userDao.getUserByLogin (login);
             if(user != null && BCryptUtil.isValidHash (password, user.getPassword ())){
                 return user;
             }else{
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService {
         User user = new User ();
         user.setId (id);
         try {
-            return userDaoAbstract.getUserById (user);
+            return userDao.getUserById (user);
         } catch (DaoException e) {
             LOGGER.error ("Exception  in getUserById in UserServiceImpl.class", e);
             throw new ServiceException (e);
@@ -93,10 +94,10 @@ public class UserServiceImpl implements UserService {
         User user = new User ();
         user.setId (id);
         try {
-            user = userDaoAbstract.getUserById (user);
+            user = userDao.getUserById (user);
             double money = Double.parseDouble (moneyStr);
             user.setMoney (user.getMoney () + money);
-            userDaoAbstract.update (user);
+            userDao.update (user);
         } catch (DaoException e) {
             LOGGER.error ("Exception  in updateBalance in UserServiceImpl.class", e);
             throw new ServiceException (e);
@@ -105,9 +106,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers() throws ServiceException {
+    public List<User> getUsers(int numberPage) throws ServiceException {
         try {
-            return userDaoAbstract.getAll ();
+            return userDao.getLimitUsers (numberPage);
         } catch (DaoException e) {
             LOGGER.error ("Exception in getUsers in UserServiceImpl.class", e);
             throw new ServiceException (e);
@@ -122,14 +123,26 @@ public class UserServiceImpl implements UserService {
         long userId = Long.parseLong (idStr);
         User user = new User (userId);
         try {
-            user = userDaoAbstract.getUserById (user);
+            user = userDao.getUserById (user);
             user.setRoleType (RoleType.valueOf (role.toUpperCase ()));
-            userDaoAbstract.update (user);
+            userDao.update (user);
             return true;
         } catch (DaoException e) {
             LOGGER.error ("Exception in changeRole in UserServiceImpl.class", e);
             throw new ServiceException (e);
         }
+    }
+
+    @Override
+    public int getCountUsers() throws ServiceException {
+        try {
+            int countUsers = userDao.getCountUsers ();
+            return PageUtil.getCountPage (countUsers);
+        } catch (DaoException e) {
+            LOGGER.error ("Error in getCountUsers in UserServiceImpl.class ", e);
+            throw new ServiceException (e);
+        }
+
     }
 
     private void checkPassword(String password, String confirmPassword) throws UserException {

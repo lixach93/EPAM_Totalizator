@@ -35,7 +35,7 @@
                     <label for="cdn">
                         <fmt:message bundle="${loc}" key="enter.money"/>
                     </label>
-            <input class="form-control mr-sm-2" type="tel" name="money" pattern="^[1-9]\d+([.][0-9]+)?$" maxlength="5" placeholder="<fmt:message bundle="${loc}" key="input.money" />" aria-label="Money" required>
+            <input class="form-control mr-sm-2" type="tel" name="money" pattern="[1-9](\d+)?(\.\d+)?" maxlength="5" placeholder="<fmt:message bundle="${loc}" key="input.money" />" aria-label="Money" required>
                 </div>
             </div>
             <div class="form-row">

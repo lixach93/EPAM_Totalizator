@@ -134,23 +134,23 @@ public class EventServiceImpl implements EventService {
                 for (Bet currentBet : bets) {
                     checkWin (winner, currentBet, competition, rate);
                 }
-            double usersWinMoney;
+            double userWinMoney;
             if(winner.size () == 0){
-                usersWinMoney = 0;
+                userWinMoney = 0;
             }else {
                 if (event.getPercent () != 0) {
-                    usersWinMoney = (betMoney - (betMoney * (event.getPercent () / 100))) / winner.size ();
+                    userWinMoney = (betMoney - (betMoney * (event.getPercent () / 100))) / winner.size ();
                 }else{
-                    usersWinMoney = betMoney / winner.size ();
+                    userWinMoney = betMoney / winner.size ();
                 }
             }
-            double totalizatorWinMoney = betMoney - (usersWinMoney * winner.size ());
+            double totalizatorWinMoney = betMoney - (userWinMoney * winner.size ());
             event.setPayment (true);
             event.setWinPercent (totalizatorWinMoney);
             if(winner.size () == 0){
                 return eventDao.closeEvent (event);
             }else {
-                return betDao.setWinner (winner, usersWinMoney, event);
+                return betDao.setWinner (winner, userWinMoney, event);
             }
         }catch (DaoException e){
             LOGGER.error ("Exception in payments in EventServiceImpl", e);

@@ -1,53 +1,50 @@
-package by.training.lihodievski.final_project.command.user;
+package by.training.lihodievski.final_project.command.league;
 
+import by.training.lihodievski.final_project.bean.League;
 import by.training.lihodievski.final_project.bean.RoleType;
-import by.training.lihodievski.final_project.bean.User;
 import by.training.lihodievski.final_project.command.ActionCommand;
 import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
 import by.training.lihodievski.final_project.command.exception.PermissionException;
-import by.training.lihodievski.final_project.service.UserService;
+import by.training.lihodievski.final_project.service.LeagueService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import static by.training.lihodievski.final_project.util.Constants.*;
-import static by.training.lihodievski.final_project.util.Constants.FORWARD_PERSONAL_PAGE;
+import static by.training.lihodievski.final_project.util.Constants.ACTIVE;
 import static by.training.lihodievski.final_project.util.Constants.REQUEST_ATTRIBUTE_ACTION;
 
-public class ShowUserPageCommand extends ActionCommand {
+public class ShowDeleteLeaguePageCommand extends ActionCommand {
 
-    private static final Logger LOGGER = LogManager.getLogger (ShowUserPageCommand.class);
-    private static final String USER_INFO = "userInfo";
+    private static final Logger LOGGER = LogManager.getLogger (ShowDeleteLeaguePageCommand.class);
+    private static final String DELETE_LEAGUE = "deleteLeague";
+    private static final String LEAGUES = "leagues";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private UserService userServiceImpl = serviceFactory.getUserService ();
-
+    private LeagueService leagueService = serviceFactory.getLeagueService ();
 
     @Override
     public Respond execute() throws CommandException {
         try {
-            checkRole (request,new RoleType[]{RoleType.USER});
+            checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
-            return new Respond (Respond.PAGE, FORWARD_PERSONAL_PAGE);
+            return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
-
-        HttpSession session = request.getSession ();
-        long id = (long) session.getAttribute (SESSION_ATTRIBUTE_USER_ID);
-        User user;
+        List<League> leagues;
         try {
-            user = userServiceImpl.getUserById(id);
+             leagues =  leagueService.getLeagues();
         } catch (ServiceException e) {
-            LOGGER.error ("Error in ShowUserPageCommand " ,e);
+            LOGGER.error ("Exception in ShowDeleteLeaguePageCommand.class ", e);
             throw new CommandException (e);
         }
-
-        request.setAttribute (REQUEST_ATTRIBUTE_USER, user);
+        request.setAttribute (LEAGUES, leagues);
+        request.setAttribute (REQUEST_ATTRIBUTE_SIZE, leagues.size ());
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_ONE, ACTIVE);
-        request.setAttribute (REQUEST_ATTRIBUTE_ACTION, USER_INFO);
-        return new Respond (Respond.PAGE, FORWARD_PERSONAL_PAGE);
+        request.setAttribute (REQUEST_ATTRIBUTE_ACTION, DELETE_LEAGUE);
+        return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
     }
 }

@@ -3,14 +3,14 @@ use totalizator;
 
 create table category (
 	category_id bigint not null auto_increment,
-    name varchar (20) not null,
+    name varchar(30) not null,
     primary key (category_id)
 );
 
 create table league (
 	league_id bigint not null auto_increment,
     category_id bigint not null,
-    name varchar(20) not null,
+    name varchar(30) not null,
     primary key (league_id),
     foreign key (category_id) references category(category_id)
 );
@@ -18,7 +18,7 @@ create table league (
 create table team(
 	team_id bigint not null auto_increment,
     league_id bigint not null,
-    name varchar(64) not null,
+    name varchar(30) not null,
     primary key (team_id),
     foreign key (league_id) references league(league_id)
 );
@@ -48,7 +48,7 @@ create table event(
 	rate_id bigint not null,
     payment TINYINT(4) default '0',
     percent double default '0',
-    win_percent int default 0,
+    win_percent double default 0,
 	primary key (event_id),
 	foreign key (competition_id) references competition(competition_id),
 	foreign key (rate_id) references rate_type (rate_id)

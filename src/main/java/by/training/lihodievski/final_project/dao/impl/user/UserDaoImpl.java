@@ -106,4 +106,35 @@ public class UserDaoImpl extends UserDaoAbstract  {
         }
         return list.iterator ().next ();
     }
+
+    @Override
+    public List<User> getLimitUsers(int numberPage) throws DaoException {
+        String query = getSelectSql ();
+        List<User> users = new ArrayList<> ();
+        try (ProxyConnection connection = connectionPool.takeConnection ();
+             PreparedStatement preparedStatement = connection.prepareStatement (query);){
+            preparedStatement.setInt (1, numberPage);
+            preparedStatement.setInt (2, PER_PAGE);
+            ResultSet resultSet = preparedStatement.executeQuery ();
+            users = parseResultSet (resultSet, users);
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in getLimitUsers in UserDaoImpl.class ", e);
+            throw new DaoException (e);
+        }
+        return users;
+    }
+
+    @Override
+    public int getCountUsers() throws DaoException {
+        String query = getCountUsersQuery ();
+        try (ProxyConnection connection = connectionPool.takeConnection ();
+             PreparedStatement preparedStatement = connection.prepareStatement (query);){
+            ResultSet resultSet = preparedStatement.executeQuery ();
+            resultSet.next ();
+            return  resultSet.getInt (USER_ID_ALIAS);
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in getCountActiveBetForUser in BetDaoImpl.class ", e);
+            throw new DaoException (e);
+        }
+    }
 }

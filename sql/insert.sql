@@ -43,7 +43,6 @@ insert into competition (team_first,team_second)
 	(5,7),
     (13,14),
     (3,11),
-    (13,14),
     (16,15),
     (17,18);
     
@@ -52,9 +51,9 @@ insert into event (competition_id, rate_id)
     (1,2),
     (2,1),
     (3,2),
+    (2,2),
     (4,2),
-    (5,2),
-    (6,2);
+    (5,2);
     
 
 

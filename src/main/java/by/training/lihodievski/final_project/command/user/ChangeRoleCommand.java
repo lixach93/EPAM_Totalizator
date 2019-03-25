@@ -18,7 +18,8 @@ import static by.training.lihodievski.final_project.util.Constants.*;
 public class ChangeRoleCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ChangeRoleCommand.class);
-    private static final String USERS = "users";
+    private static final String ROLE = "role";
+    private static final String USER_ID = "userId";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private UserService userServiceImpl = serviceFactory.getUserService ();
 
@@ -31,8 +32,8 @@ public class ChangeRoleCommand extends ActionCommand {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION,ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
-        String role = request.getParameter ("role");
-        String idStr = request.getParameter ("userId");
+        String role = request.getParameter (ROLE);
+        String idStr = request.getParameter (USER_ID);
         boolean status;
         try {
             status = userServiceImpl.changeRole(role, idStr);
@@ -41,12 +42,17 @@ public class ChangeRoleCommand extends ActionCommand {
             throw new CommandException (e);
         }
         HttpSession session = request.getSession ();
+
         if(status){
             session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );
         }else{
             session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_UN_SUCCESS );
         }
         String redirect = request.getParameter (PARAMETER_REDIRECT);
+        long userId = (long) session.getAttribute (SESSION_ATTRIBUTE_USER_ID);
+        if(userId == Long.parseLong (idStr)){
+            session.invalidate ();
+        }
         return new Respond (Respond.REDIRECT, redirect);
     }
 }

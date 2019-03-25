@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -30,6 +29,11 @@
                             <li>
                                 <a href="<c:url value="/totalizator/createLeague"/> ">
                                     <fmt:message bundle="${loc}" key="link.createLeague"/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<c:url value="/totalizator/deleteLeague"/> ">
+                                    <fmt:message bundle="${loc}" key="link.deleteLeague"/>
                                 </a>
                             </li>
                         </ul>
@@ -95,6 +99,9 @@
                             </c:when>
                             <c:when test="${requestScope.action eq 'users'}">
                                 <jsp:include page="../fragments/users.jsp"/>
+                            </c:when>
+                            <c:when test="${requestScope.action eq 'deleteLeague'}">
+                                <jsp:include page="../fragments/deleteLeague.jsp"/>
                             </c:when>
                         </c:choose>
                     </div>

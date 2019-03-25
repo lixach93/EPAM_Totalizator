@@ -44,7 +44,7 @@
                         <option value="moderator">Moderator</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-3 own-form_4">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                         <fmt:message bundle="${loc}" key="button.confirm"/>
                     </button>
@@ -55,4 +55,5 @@
         </div>
     </c:forEach>
 
-
+<c:set var="command" value="users" scope="request"/>
+<jsp:include page="../fragments/pagination.jsp"/>

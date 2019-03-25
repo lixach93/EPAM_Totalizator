@@ -1,13 +1,13 @@
-package by.training.lihodievski.final_project.command.team;
+package by.training.lihodievski.final_project.command.league;
 
 import by.training.lihodievski.final_project.bean.RoleType;
 import by.training.lihodievski.final_project.command.ActionCommand;
 import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
 import by.training.lihodievski.final_project.command.exception.PermissionException;
+import by.training.lihodievski.final_project.service.LeagueService;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
-import by.training.lihodievski.final_project.service.TeamService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,15 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import static by.training.lihodievski.final_project.util.Constants.*;
 
-public class CreateTeamCommand extends ActionCommand {
+public class DeleteLeagueCommand extends ActionCommand {
 
-    private static final Logger LOGGER = LogManager.getLogger (CreateTeamCommand.class);
+    private static final Logger LOGGER = LogManager.getLogger (DeleteLeagueCommand.class);
     private static final String LEAGUE_ID = "leagueId";
-    private static final String TEAM_NAME = "teamName";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private TeamService teamService = serviceFactory.getOpponentService();
-
-
+    private LeagueService leagueService = serviceFactory.getLeagueService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -33,15 +30,14 @@ public class CreateTeamCommand extends ActionCommand {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
-
-        String leagueIdStr = request.getParameter (LEAGUE_ID);
-        String teamName = request.getParameter (TEAM_NAME);
         String redirect = request.getParameter (PARAMETER_REDIRECT);
+        String leagueIdStr = request.getParameter (LEAGUE_ID);
         boolean status;
+
         try {
-            status = teamService.addTeam (leagueIdStr, teamName);
+            status = leagueService.deleteLeague (leagueIdStr);
         } catch (ServiceException e) {
-            LOGGER.error ("Exception in CreateTeamCommand.class ", e);
+            LOGGER.error ("Exception in DeleteLeagueCommand.class ", e);
             throw new CommandException (e);
         }
         HttpSession session = request.getSession ();

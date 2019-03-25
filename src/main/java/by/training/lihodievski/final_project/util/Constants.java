@@ -88,6 +88,7 @@ public class Constants {
     public static final String WIN_MONEY = "win_money";
     public static final String RATE_TYPE_NAME = "rate_type.name";
     public static final String USER_ID = "user_id";
+    public static final String USER_ID_ALIAS = "userId";
     public static final String USER_LOGIN = "login";
     public static final String USER_EMAIL = "email";
     public static final String USER_PASSWORD = "password";

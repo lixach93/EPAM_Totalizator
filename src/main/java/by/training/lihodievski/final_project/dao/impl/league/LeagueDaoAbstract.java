@@ -14,7 +14,7 @@ public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
 
     @Override
     protected String getDeleteSQL() throws DaoException {
-        throw new DaoException ("Operation not supported");
+        return "DELETE FROM league WHERE league_id = ?";
     }
 
     @Override
@@ -24,7 +24,10 @@ public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
 
     @Override
     protected String getSelectSql() throws DaoException {
-        throw new DaoException ("Operation not supported");
+        return "select  distinct league.league_id,league.name from league " +
+                "left  join team on " +
+                " league.league_id = team.league_id" +
+                " where team.name is null";
     }
 
     @Override

@@ -14,6 +14,10 @@ public class League implements Entity{
 
     }
 
+    public League(long id) {
+        this.id = id;
+    }
+
     public League(String leagueName, Category category) {
         this.leagueName = leagueName;
         this.category = category;

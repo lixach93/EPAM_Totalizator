@@ -6,7 +6,7 @@ import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
 import by.training.lihodievski.final_project.service.exception.ServiceException;
 import by.training.lihodievski.final_project.service.factory.ServiceFactory;
-import by.training.lihodievski.final_project.service.impl.TeamService;
+import by.training.lihodievski.final_project.service.TeamService;
 import by.training.lihodievski.final_project.util.JsonSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;

@@ -21,7 +21,7 @@ import static by.training.lihodievski.final_project.util.Constants.REQUEST_ATTRI
 public class ShowPersonalPageCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ShowPersonalPageCommand.class);
-    private static final String USER_INFO = "userInfo";
+    private static final String PERSONAL_INFO = "personalInfo";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private UserService userServiceImpl = serviceFactory.getUserService ();
 
@@ -41,13 +41,13 @@ public class ShowPersonalPageCommand extends ActionCommand {
         try {
             user = userServiceImpl.getUserById(id);
         } catch (ServiceException e) {
-            LOGGER.error ("Error in ShowPersonalPageCommand.class" ,e);
+            LOGGER.error ("Exception in ShowPersonalPageCommand.class" ,e);
             throw new CommandException (e);
         }
 
         request.setAttribute (REQUEST_ATTRIBUTE_USER, user);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_ONE, ACTIVE);
-        request.setAttribute (REQUEST_ATTRIBUTE_ACTION, USER_INFO);
+        request.setAttribute (REQUEST_ATTRIBUTE_ACTION, PERSONAL_INFO);
         return new Respond (Respond.PAGE, FORWARD_PERSONAL_PAGE);
     }
 }

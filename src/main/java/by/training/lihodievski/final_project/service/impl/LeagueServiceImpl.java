@@ -55,4 +55,30 @@ public class LeagueServiceImpl implements LeagueService {
             throw new ServiceException (e);
         }
     }
+
+    @Override
+    public List<League> getLeagues() throws ServiceException {
+        try {
+            return leagueDao.getAll ();
+        } catch (DaoException e) {
+            LOGGER.error ("Exception in getLeagues in LeagueServiceImpl.class ", e);
+            throw new ServiceException (e);
+        }
+    }
+
+    @Override
+    public boolean deleteLeague(String leagueIdStr) throws ServiceException {
+        if(!Validator.isId (leagueIdStr)){
+            return false;
+        }
+        long leagueId = Long.parseLong (leagueIdStr);
+        League league = new League (leagueId);
+        try {
+            leagueDao.delete (league);
+        } catch (DaoException e) {
+            LOGGER.error ("Exception in  deleteLeague in LeagueServiceImpl.class ", e);
+            throw new ServiceException (e);
+        }
+        return true;
+    }
 }

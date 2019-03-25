@@ -66,8 +66,8 @@
                     <c:when test="${requestScope.action eq 'result'}">
                         <jsp:include page="../fragments/result.jsp"/>
                     </c:when>
-                    <c:when test="${requestScope.action eq 'userInfo'}">
-                        <jsp:include page="../fragments/userInfo.jsp"/>
+                    <c:when test="${requestScope.action eq 'personalInfo'}">
+                        <jsp:include page="../fragments/personalInfo.jsp"/>
                     </c:when>
                     <c:when test="${requestScope.action eq 'fillBalance'}">
                         <jsp:include page="../fragments/fillBalance.jsp"/>

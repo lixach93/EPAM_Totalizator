@@ -12,7 +12,7 @@ public interface UserService {
    User login(String login , String password) throws ServiceException, UserException;
    User getUserById(long id) throws ServiceException;
    boolean updateBalance(long id, String cardNumberStr, String moneyStr) throws ServiceException;
-   List<User> getUsers() throws ServiceException;
-
-    boolean changeRole(String role, String idStr) throws ServiceException;
+   List<User> getUsers(int numberPage) throws ServiceException;
+   boolean changeRole(String role, String idStr) throws ServiceException;
+   int getCountUsers() throws ServiceException;
 }

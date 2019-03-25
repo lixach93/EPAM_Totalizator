@@ -34,9 +34,18 @@ public class ShowUsersPageCommand extends ActionCommand {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION,ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
+        String numberPageStr =  request.getParameter (PARAMETER_PAGE);
+        int numberPage;
+        if(numberPageStr != null){
+            numberPage = (Integer.parseInt (numberPageStr)-1)*2;
+        }else{
+            numberPage = 0;
+        }
+        int countPage;
         List<User> users;
         try {
-            users = userServiceImpl.getUsers();
+            countPage = userServiceImpl.getCountUsers();
+            users = userServiceImpl.getUsers(numberPage);
         } catch (ServiceException e) {
             LOGGER.error ("Exception in ShowUsersPageCommand.class ", e);
             throw new CommandException (e);
@@ -44,6 +53,7 @@ public class ShowUsersPageCommand extends ActionCommand {
         ;
         request.setAttribute (REQUEST_ATTRIBUTE_USERS, users);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_FIVE, ACTIVE);;
+        request.setAttribute (REQUEST_ATTRIBUTE_COUNT_PAGE, countPage);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTION, USERS );
         return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
     }

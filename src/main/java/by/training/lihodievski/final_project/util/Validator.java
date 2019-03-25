@@ -8,7 +8,7 @@ public class Validator {
 
     private static final String LEAGUE_PATTERN = "[a-zA-Z]+( [a-zA-Z]+)?";
     private static final String TEAM_PATTERN = "[a-zA-Z0-9]+( [a-zA-Z0-9]+)?";
-    private static final String MONEY_PATTERN = "^[1-9]\\d+([.][0-9]+)?$";
+    private static final String MONEY_PATTERN = "[1-9](\\d+)?(\\.\\d+)?";
     private static final String POSITIVE_NUMBER_PATTERN = "\\d+";
     private static final String PERCENT_PATTERN = "^([0-9]|[1][0-9]|20)$";
     private static final String CARD_NUMBER_PATTERN = "([\\d]{4}\\s[\\d]{4}\\s[\\d]{4}\\s[\\d]{4})|(\\d{4}){4}";

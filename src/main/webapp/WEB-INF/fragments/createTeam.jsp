@@ -48,7 +48,7 @@
                 </select>
             </div>
             <div class="form-group col-md-2 own-form_1">
-                <input type="text" name="teamName" pattern="[a-zA-Z0-9 ]+" class="form-control" required placeholder="<fmt:message bundle="${loc}" key="input.team"/>"/>
+                <input type="text" name="teamName" pattern="[a-zA-Z0-9]+( [a-zA-Z0-9]+)?" minlength="4" class="form-control" required placeholder="<fmt:message bundle="${loc}" key="input.team"/>"/>
             </div>
             <div class="form-group col-md-3 own-form_1">
                 <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="<fmt:message bundle="${loc}" key="button.confirm"/>">

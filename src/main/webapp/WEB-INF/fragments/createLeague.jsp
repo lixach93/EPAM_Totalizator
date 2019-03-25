@@ -31,7 +31,7 @@
                 </c:forEach>
             </select>
 
-            <input class="form-control mr-sm-2" type="text" name="leagueName" pattern="[a-zA-Z ]+" required placeholder="<fmt:message bundle="${loc}" key="input.newLeague" />"/>
+            <input class="form-control mr-sm-2" type="text" name="leagueName" pattern="[a-zA-Z]+( [a-zA-Z]+)?"  minlength="3" required placeholder="<fmt:message bundle="${loc}" key="input.newLeague" />"/>
             <p><input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="<fmt:message bundle="${loc}" key="button.confirm"/>"></p>
         </form>
     </nav>
