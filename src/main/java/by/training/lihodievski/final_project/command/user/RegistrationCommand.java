@@ -18,8 +18,6 @@ public class RegistrationCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (RegistrationCommand.class);
     private static final String CONFIRM_PASSWORD = "confirmPassword";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private UserService userServiceImpl = serviceFactory.getUserService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -29,8 +27,9 @@ public class RegistrationCommand extends ActionCommand {
         String email = request.getParameter (PARAMETER_EMAIL);
         String password = request.getParameter (PARAMETER_PASSWORD);
         String confirmPassword = request.getParameter (CONFIRM_PASSWORD);
+        UserService userService = ServiceFactory.getInstance ().getUserService ();
         try {
-            userServiceImpl.registration (login, email, password, confirmPassword);
+            userService.registration (login, email, password, confirmPassword);
         } catch (UserException e) {
             LOGGER.error ("Exception validate user ");
             session.setAttribute (SESSION_ATTRIBUTE_ERROR, e.getMessage ());

@@ -20,8 +20,6 @@ import static by.training.lihodievski.final_project.util.Constants.*;
 public class MakeBetCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (MakeBetCommand.class);
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private BetService betServiceImpl = serviceFactory.getBettingService ();
     private static final String PARAMETER_MONEY = "money";
     private static final String PARAMETER_FIRST_SCORE = "firstScore";
     private static final String PARAMETER_SECOND_SCORE = "secondScore";
@@ -41,14 +39,15 @@ public class MakeBetCommand extends ActionCommand {
         HttpSession session = request.getSession (false);
         long userId = (long) session.getAttribute (SESSION_ATTRIBUTE_USER_ID);
         boolean status;
+        BetService betService = ServiceFactory.getInstance ().getBettingService ();
         try{
             String teamStr = request.getParameter (PARAMETER_TEAM);
             if(Validator.isNull (teamStr)){
                 String firstScoreStr = request.getParameter (PARAMETER_FIRST_SCORE);
                 String secondScoreStr = request.getParameter (PARAMETER_SECOND_SCORE);
-                status = betServiceImpl.makeBet (userId, eventIdStr, firstScoreStr, secondScoreStr, moneyStr);
+                status = betService.makeBet (userId, eventIdStr, firstScoreStr, secondScoreStr, moneyStr);
             }else{
-                status = betServiceImpl.makeBet (userId, eventIdStr, teamStr, moneyStr);
+                status = betService.makeBet (userId, eventIdStr, teamStr, moneyStr);
             }
         }catch (ServiceException e){
             LOGGER.error ("Exception in MakeBetCommand ",e);

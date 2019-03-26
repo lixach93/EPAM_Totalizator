@@ -22,8 +22,6 @@ public class ShowPersonalPageCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ShowPersonalPageCommand.class);
     private static final String PERSONAL_INFO = "personalInfo";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private UserService userServiceImpl = serviceFactory.getUserService ();
 
 
     @Override
@@ -39,8 +37,9 @@ public class ShowPersonalPageCommand extends ActionCommand {
         HttpSession session = request.getSession ();
         long id = (long) session.getAttribute (SESSION_ATTRIBUTE_USER_ID);
         User user;
+        UserService userService = ServiceFactory.getInstance ().getUserService ();
         try {
-            user = userServiceImpl.getUserById(id);
+            user = userService.getUserById(id);
         } catch (ServiceException e) {
             LOGGER.error ("Exception in ShowPersonalPageCommand.class" ,e);
             throw new CommandException (e);

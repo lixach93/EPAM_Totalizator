@@ -22,9 +22,6 @@ public class ShowUsersPageCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ShowUsersPageCommand.class);
     private static final String USERS = "users";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private UserService userServiceImpl = serviceFactory.getUserService ();
-
 
     @Override
     public Respond execute() throws CommandException {
@@ -44,9 +41,10 @@ public class ShowUsersPageCommand extends ActionCommand {
         }
         int countPage;
         List<User> users;
+        UserService userService = ServiceFactory.getInstance ().getUserService ();
         try {
-            countPage = userServiceImpl.getCountUsers();
-            users = userServiceImpl.getUsers(numberPage);
+            countPage = userService.getCountUsers();
+            users = userService.getUsers(numberPage);
         } catch (ServiceException e) {
             LOGGER.error ("Exception in ShowUsersPageCommand.class ", e);
             throw new CommandException (e);

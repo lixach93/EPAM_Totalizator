@@ -19,9 +19,6 @@ import static by.training.lihodievski.final_project.util.Constants.*;
 public class CloseEventCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (CloseEventCommand.class);
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private EventService eventService = serviceFactory.getEventService ();
-
 
     @Override
     public Respond execute() throws CommandException {
@@ -35,6 +32,7 @@ public class CloseEventCommand extends ActionCommand {
         String eventIdStr = request.getParameter (PARAMETER_EVENT_ID);
         String redirect = request.getParameter (PARAMETER_REDIRECT);
         boolean status;
+        EventService eventService = ServiceFactory.getInstance ().getEventService ();
         try {
             status = eventService.payments(eventIdStr);
         } catch (ServiceException e) {

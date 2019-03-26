@@ -20,8 +20,7 @@ public class ShowPayoutsPageCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ShowPayoutsPageCommand.class);
     private static final String PAYOUTS = "payouts";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private EventService eventService = serviceFactory.getEventService ();
+
 
 
     @Override
@@ -40,6 +39,7 @@ public class ShowPayoutsPageCommand extends ActionCommand {
         }else{
             numberPage = 0;
         }
+        EventService eventService = ServiceFactory.getInstance ().getEventService ();
         List<Event> events;
         int countPage;
         try {

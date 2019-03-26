@@ -23,8 +23,7 @@ public class ShowChargesPage extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (ShowChargesPage.class);
     private static final String EVENTS = "events";
     private static final String CHARGES = "charges";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private EventService eventService = serviceFactory.getEventService ();
+
 
     @Override
     public Respond execute() throws CommandException {
@@ -35,7 +34,6 @@ public class ShowChargesPage extends ActionCommand {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_MODERATOR_PAGE);
         }
-        HttpSession session = request.getSession ();
         String numberPageStr =  request.getParameter (PARAMETER_PAGE);
         int numberPage;
         if(numberPageStr != null){
@@ -44,6 +42,7 @@ public class ShowChargesPage extends ActionCommand {
             numberPage = 0;
         }
         int countPage;
+        EventService eventService = ServiceFactory.getInstance ().getEventService ();
         List<Event> events;
         try {
             countPage =  eventService.getCountPageClosedEvents();

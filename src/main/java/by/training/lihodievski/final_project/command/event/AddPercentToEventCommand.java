@@ -19,8 +19,6 @@ public class AddPercentToEventCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (AddPercentToEventCommand.class);
     private static final String PERCENT = "percent";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private EventService eventService = serviceFactory.getEventService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -28,6 +26,7 @@ public class AddPercentToEventCommand extends ActionCommand {
         String percentStr = request.getParameter (PERCENT);
         String redirect = request.getParameter (PARAMETER_REDIRECT);
         boolean status;
+        EventService eventService = ServiceFactory.getInstance ().getEventService ();
         try {
             status = eventService.addPercent(eventIdStr, percentStr);
         } catch (ServiceException e) {

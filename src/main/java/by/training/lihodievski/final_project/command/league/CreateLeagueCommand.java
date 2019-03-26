@@ -20,8 +20,6 @@ public class CreateLeagueCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (CreateLeagueCommand.class);
     private static final String CATEGORY_NAME = "categoryName";
     private static final String LEAGUE_NAME = "leagueName";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private LeagueService leagueService = serviceFactory.getLeagueService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -36,7 +34,7 @@ public class CreateLeagueCommand extends ActionCommand {
         String categoryName = request.getParameter (CATEGORY_NAME);
         String leagueName = request.getParameter (LEAGUE_NAME);
         boolean status;
-
+        LeagueService leagueService = ServiceFactory.getInstance ().getLeagueService ();
         try {
             status = leagueService.createLeague (categoryName, leagueName);
         } catch (ServiceException e) {

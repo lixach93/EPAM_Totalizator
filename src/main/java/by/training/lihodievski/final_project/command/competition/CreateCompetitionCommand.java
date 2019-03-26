@@ -23,9 +23,6 @@ public class CreateCompetitionCommand extends ActionCommand {
     private static final String TEAM_FIRST_ID = "teamFirstId";
     private static final String TEAM_SECOND_ID = "teamSecondId";
     private static final String RATE = "rate";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private EventService eventService = serviceFactory.getEventService ();
-
 
     @Override
     public Respond execute() throws CommandException {
@@ -41,6 +38,7 @@ public class CreateCompetitionCommand extends ActionCommand {
         String teamSecondIdStr = request.getParameter (TEAM_SECOND_ID);
         String typeRate = request.getParameter (RATE);
         boolean status;
+        EventService eventService = ServiceFactory.getInstance ().getEventService ();
         try {
             status = eventService.createEvent (teamFirstIdStr, teamSecondIdStr, typeRate);
         } catch (ServiceException e) {

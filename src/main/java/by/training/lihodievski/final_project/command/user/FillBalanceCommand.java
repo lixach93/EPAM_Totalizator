@@ -19,8 +19,6 @@ public class FillBalanceCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (FillBalanceCommand.class);
     private static final String FILL_BALANCE = "fillBalance";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private UserService userServiceImpl = serviceFactory.getUserService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -37,8 +35,9 @@ public class FillBalanceCommand extends ActionCommand {
         String cardNumberStr = request.getParameter ("cardNumber");
         String moneyStr = request.getParameter ("money");
         boolean status;
+        UserService userService = ServiceFactory.getInstance ().getUserService ();
         try {
-             status = userServiceImpl.updateBalance(id, cardNumberStr, moneyStr);
+             status = userService.updateBalance(id, cardNumberStr, moneyStr);
         } catch (ServiceException e) {
             LOGGER.error ("Exception in ShowUserInfoPageCommand " ,e);
             throw new CommandException (e);

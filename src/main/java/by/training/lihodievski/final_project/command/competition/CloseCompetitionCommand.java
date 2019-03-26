@@ -22,8 +22,6 @@ public class CloseCompetitionCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (CloseCompetitionCommand.class);
     private static final String COMPETITION_ID = "competitionId";
     private static final String COMPETITION = "competition";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private CompetitionService competitionService = serviceFactory.getCompetitionService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -38,6 +36,7 @@ public class CloseCompetitionCommand extends ActionCommand {
         String  competitionIdStr = request.getParameter (COMPETITION_ID);
         String redirect = request.getParameter (PARAMETER_REDIRECT);
         Competition competition;
+        CompetitionService competitionService = ServiceFactory.getInstance ().getCompetitionService ();
         try {
             HttpSession session = request.getSession ();
             competition = competitionService.closeCompetition (competitionIdStr);

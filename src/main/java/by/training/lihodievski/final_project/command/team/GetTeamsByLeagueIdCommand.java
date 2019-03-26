@@ -20,13 +20,12 @@ public class GetTeamsByLeagueIdCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (GetTeamsByLeagueIdCommand.class);
     private static final String LEAGUE_ID = "leagueId";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private TeamService teamService = serviceFactory.getTeamService ();
 
     @Override
     public Respond execute() throws CommandException {
         long id = Long.parseLong (request.getParameter (LEAGUE_ID));
         List<Team> teams;
+        TeamService teamService = ServiceFactory.getInstance ().getTeamService ();
         try {
             teams = teamService.getTeamByLeague (id);
             request.setAttribute (REQUEST_ATTRIBUTE_JSON, JsonSerializer.json (teams));

@@ -21,8 +21,6 @@ public class ShowActiveEventPageCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (ShowActiveEventPageCommand.class);
     private static final String EVENTS = "events";
     private static final String ACTIVE_EVENT = "activeEvent";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private EventService eventService = serviceFactory.getEventService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -33,7 +31,7 @@ public class ShowActiveEventPageCommand extends ActionCommand {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_MODERATOR_PAGE);
         }
-
+        EventService eventService = ServiceFactory.getInstance ().getEventService ();
         List<Event> events;
         try {
             events = eventService.getActiveEvents ();

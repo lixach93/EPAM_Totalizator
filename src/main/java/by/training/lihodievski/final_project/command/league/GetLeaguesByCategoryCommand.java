@@ -21,14 +21,12 @@ public class GetLeaguesByCategoryCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (GetLeaguesByCategoryCommand.class);
     private static final String CATEGORY_ID = "categoryId";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private LeagueService leagueService = serviceFactory.getLeagueService ();
-
 
     @Override
     public Respond execute() throws CommandException {
         long categoryId = Long.parseLong (request.getParameter (CATEGORY_ID));
         List<League> leagues;
+        LeagueService leagueService = ServiceFactory.getInstance ().getLeagueService ();
         try {
             leagues = leagueService.getLeagueByCategory (categoryId);
             request.setAttribute (REQUEST_ATTRIBUTE_JSON, JsonSerializer.json (leagues));

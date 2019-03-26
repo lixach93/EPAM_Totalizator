@@ -23,8 +23,6 @@ public class ShowDeleteLeaguePageCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (ShowDeleteLeaguePageCommand.class);
     private static final String DELETE_LEAGUE = "deleteLeague";
     private static final String LEAGUES = "leagues";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private LeagueService leagueService = serviceFactory.getLeagueService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -35,6 +33,7 @@ public class ShowDeleteLeaguePageCommand extends ActionCommand {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
+        LeagueService leagueService = ServiceFactory.getInstance ().getLeagueService ();
         List<League> leagues;
         try {
              leagues =  leagueService.getLeagues();

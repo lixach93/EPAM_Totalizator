@@ -20,8 +20,6 @@ import static by.training.lihodievski.final_project.util.Constants.*;
 public class ShowTeamEventPageCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ShowTeamEventPageCommand.class);
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private EventService eventService = serviceFactory.getEventService ();
     private static final String EVENTS = "events";
 
     @Override
@@ -36,6 +34,7 @@ public class ShowTeamEventPageCommand extends ActionCommand {
         }
         List<Event> events;
         int countPage;
+        EventService eventService = ServiceFactory.getInstance ().getEventService ();
         try {
             countPage =  eventService.getCountPage (category);
             events = eventService.getEventsByCategory(category, numberPage);

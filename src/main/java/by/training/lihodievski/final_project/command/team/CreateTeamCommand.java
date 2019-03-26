@@ -20,8 +20,6 @@ public class CreateTeamCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (CreateTeamCommand.class);
     private static final String LEAGUE_ID = "leagueId";
     private static final String TEAM_NAME = "teamName";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private TeamService teamService = serviceFactory.getTeamService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -37,6 +35,7 @@ public class CreateTeamCommand extends ActionCommand {
         String teamName = request.getParameter (TEAM_NAME);
         String redirect = request.getParameter (PARAMETER_REDIRECT);
         boolean status;
+        TeamService teamService = ServiceFactory.getInstance ().getTeamService ();
         try {
             status = teamService.addTeam (leagueIdStr, teamName);
         } catch (ServiceException e) {

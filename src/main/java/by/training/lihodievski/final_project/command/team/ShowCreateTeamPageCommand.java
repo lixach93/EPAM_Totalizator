@@ -22,8 +22,6 @@ public class ShowCreateTeamPageCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (ShowCreateTeamPageCommand.class);
     private static final String CREATE_TEAM = "createTeam";
     private static final String CATEGORIES = "categories";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private CategoryService categoryService = serviceFactory.getCategoryService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -34,6 +32,7 @@ public class ShowCreateTeamPageCommand extends ActionCommand {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
+        CategoryService categoryService = ServiceFactory.getInstance ().getCategoryService ();
         List<Category> categories;
         try {
             categories = categoryService.getCategories ();

@@ -21,8 +21,7 @@ public class ShowCloseCompetitionPage extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ShowCreateCompetitionPageCommand.class);
     private static final String CLOSE_COMPETITION = "closeCompetition";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private CompetitionService competitionService = serviceFactory.getCompetitionService ();
+
 
     @Override
     public Respond execute() throws CommandException {
@@ -33,6 +32,7 @@ public class ShowCloseCompetitionPage extends ActionCommand {
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
+        CompetitionService competitionService = ServiceFactory.getInstance ().getCompetitionService ();
         List<Competition> competitions;
         try{
             competitions = competitionService.getCompetition ();

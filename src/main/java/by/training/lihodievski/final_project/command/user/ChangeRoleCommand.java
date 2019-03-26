@@ -20,8 +20,6 @@ public class ChangeRoleCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (ChangeRoleCommand.class);
     private static final String ROLE = "role";
     private static final String USER_ID = "userId";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private UserService userServiceImpl = serviceFactory.getUserService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -35,8 +33,9 @@ public class ChangeRoleCommand extends ActionCommand {
         String role = request.getParameter (ROLE);
         String idStr = request.getParameter (USER_ID);
         boolean status;
+        UserService userService = ServiceFactory.getInstance ().getUserService ();
         try {
-            status = userServiceImpl.changeRole(role, idStr);
+            status = userService.changeRole(role, idStr);
         } catch (ServiceException e) {
             LOGGER.error ("Exception in ChangeRoleCommand.class", e);
             throw new CommandException (e);

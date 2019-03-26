@@ -19,8 +19,6 @@ public class DeleteLeagueCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (DeleteLeagueCommand.class);
     private static final String LEAGUE_ID = "leagueId";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private LeagueService leagueService = serviceFactory.getLeagueService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -34,7 +32,7 @@ public class DeleteLeagueCommand extends ActionCommand {
         String redirect = request.getParameter (PARAMETER_REDIRECT);
         String leagueIdStr = request.getParameter (LEAGUE_ID);
         boolean status;
-
+        LeagueService leagueService = ServiceFactory.getInstance ().getLeagueService ();
         try {
             status = leagueService.deleteLeague (leagueIdStr);
         } catch (ServiceException e) {

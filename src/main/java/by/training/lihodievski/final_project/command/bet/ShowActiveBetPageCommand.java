@@ -23,8 +23,6 @@ public class ShowActiveBetPageCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (ShowActiveBetPageCommand.class);
     private static final String ACTIVE_BET = "activeBet";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private BetService betService = serviceFactory.getBettingService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -46,6 +44,7 @@ public class ShowActiveBetPageCommand extends ActionCommand {
         }
         List<Bet> bets;
         int countPage;
+        BetService betService = ServiceFactory.getInstance ().getBettingService ();
         try {
             countPage = betService.getCountPage (userId);
             bets = betService.getActiveBet(userId, numberPage );

@@ -19,8 +19,6 @@ public class LoginCommand extends ActionCommand {
 
     private static final Logger LOGGER = LogManager.getLogger (LoginCommand.class);
     private static final String PARAMETER_REDIRECT_ERROR = "redirectError";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private UserService userServiceImpl = serviceFactory.getUserService ();
 
     @Override
     public Respond execute() throws CommandException {
@@ -29,8 +27,9 @@ public class LoginCommand extends ActionCommand {
         String password = request.getParameter (PARAMETER_PASSWORD);
         User user = null;
         HttpSession session = request.getSession ();
+        UserService userService = ServiceFactory.getInstance ().getUserService ();
         try {
-            user = userServiceImpl.login (login,password);
+            user = userService.login (login,password);
         }catch (UserException e) {
             LOGGER.error ("Exception validate user ");
             redirect = request.getParameter (PARAMETER_REDIRECT_ERROR);
