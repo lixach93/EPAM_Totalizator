@@ -12,16 +12,16 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label>
-                    <c:out value="${bet.event.competition.firstTeam.nameTeam}"/> -
-                    <c:out value="${bet.event.competition.secondTeam.nameTeam}"/>
+                    <c:out value="${bet.event.competition.firstTeam.teamName}"/> -
+                    <c:out value="${bet.event.competition.secondTeam.teamName}"/>
                 </label>
             </div>
             <div class="form-group col-md-3">
                 <label><fmt:message bundle="${loc}" key="p.bet"/></label>
         <c:if test="${bet.event.rate.value eq 'total'}">
             <label><fmt:message bundle="${loc}" key="p.score"/></label>
-            <c:out value="${bet.opponentFirstScore}"/> :
-            <c:out value="${bet.opponentSecondScore}"/>
+            <c:out value="${bet.teamFirstScore}"/> :
+            <c:out value="${bet.teamSecondScore}"/>
         </c:if>
         <c:if test="${bet.event.rate.value eq 'team'}">
             <c:choose>

@@ -32,6 +32,7 @@ public class RegistrationCommand extends ActionCommand {
         try {
             userServiceImpl.registration (login, email, password, confirmPassword);
         } catch (UserException e) {
+            LOGGER.error ("Exception validate user ");
             session.setAttribute (SESSION_ATTRIBUTE_ERROR, e.getMessage ());
             return new Respond (Respond.REDIRECT, redirect);
         }catch (ServiceException e) {

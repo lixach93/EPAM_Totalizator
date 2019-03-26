@@ -4,6 +4,8 @@ import by.training.lihodievski.final_project.command.ActionCommand;
 import by.training.lihodievski.final_project.command.Respond;
 import by.training.lihodievski.final_project.command.exception.CommandException;
 import by.training.lihodievski.final_project.command.factory.ActionFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +18,8 @@ import java.io.IOException;
 @WebServlet( urlPatterns = {"/totalizator","/totalizator/*"})
 public class Controller extends HttpServlet {
 
-    private static final long serialVersionUID = 7301674936598633360L;
+    private static final Logger LOGGER = LogManager.getLogger (Controller.class);
+    private static final long serialVersionUID = 3600900093362800280L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +39,7 @@ public class Controller extends HttpServlet {
         try {
             respond = command.execute ();
         } catch (CommandException e) {
+            LOGGER.error ("Exception in Controller.class ", e);
             throw new ServletException (e);
         }
         switch (respond.getStatus ()) {

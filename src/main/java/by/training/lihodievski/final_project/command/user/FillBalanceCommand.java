@@ -22,12 +22,12 @@ public class FillBalanceCommand extends ActionCommand {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private UserService userServiceImpl = serviceFactory.getUserService ();
 
-
     @Override
     public Respond execute() throws CommandException {
         try {
             checkRole (request,new RoleType[]{RoleType.USER});
         } catch (PermissionException e) {
+            LOGGER.error (e.getMessage ());
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_PERSONAL_PAGE);
         }
@@ -40,10 +40,9 @@ public class FillBalanceCommand extends ActionCommand {
         try {
              status = userServiceImpl.updateBalance(id, cardNumberStr, moneyStr);
         } catch (ServiceException e) {
-            LOGGER.error ("Error in ShowUserInfoPageCommand " ,e);
+            LOGGER.error ("Exception in ShowUserInfoPageCommand " ,e);
             throw new CommandException (e);
         }
-
 
         if(status){
             session.setAttribute (SESSION_ATTRIBUTE_STATUS, STATUS_SUCCESS );

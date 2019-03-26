@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email"><fmt:message bundle="${loc}" key="label.email"/>:</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="<fmt:message bundle="${loc}" key="placeholder.email"/>">
+                        <input type="email" name="email" class="form-control" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}" id="email" required placeholder="<fmt:message bundle="${loc}" key="placeholder.email"/>">
                     </div>
                     <div class="form-group">
                         <label for="pwd" class="block"><fmt:message bundle="${loc}" key="label.password"/>:</label>

@@ -10,10 +10,10 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label><c:out value="${event.id}"/></label>
-                <label><c:out value="${event.competition.firstTeam.nameTeam}"/></label>
-                <label><c:out value="${event.competition.firstOpponentResult}"/></label> :
-                <label><c:out value="${event.competition.secondOpponentResult}"/></label>
-                <label><c:out value="${event.competition.secondTeam.nameTeam}"/></label>
+                <label><c:out value="${event.competition.firstTeam.teamName}"/></label>
+                <label><c:out value="${event.competition.firstTeamResult}"/></label> :
+                <label><c:out value="${event.competition.secondTeamResult}"/></label>
+                <label><c:out value="${event.competition.secondTeam.teamName}"/></label>
             </div>
             <div class="form-group col-md-3">
                 <c:if test="${event.rate.value eq 'total'}">

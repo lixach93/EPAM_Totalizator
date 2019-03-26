@@ -1,11 +1,9 @@
 package by.training.lihodievski.final_project.connection;
 
-
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-
 import by.training.lihodievski.final_project.connection.exception.ConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +13,10 @@ import static by.training.lihodievski.final_project.util.Constants.DB_POOL;
 
 public class ConnectionPool {
 
-    private final static Logger LOGGER = LogManager.getLogger (ConnectionPool.class);
+    private static final Logger LOGGER = LogManager.getLogger (ConnectionPool.class);
     private BlockingQueue<ProxyConnection> unUseConnections;
     private BlockingQueue<ProxyConnection> useConnections;
-    private final static ConnectionPool INSTANCE = new ConnectionPool ();
+    private static final ConnectionPool INSTANCE = new ConnectionPool ();
 
     private ConnectionPool()  {
     }

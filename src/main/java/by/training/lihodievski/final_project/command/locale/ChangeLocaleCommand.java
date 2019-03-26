@@ -11,6 +11,7 @@ public class ChangeLocaleCommand extends ActionCommand {
 
     private static final String REFERER = "referer";
     private static final String LANGUAGE = "language";
+
     @Override
     public Respond execute() throws CommandException {
         HttpSession session = request.getSession ();

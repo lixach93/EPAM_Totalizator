@@ -31,6 +31,7 @@ public class ShowUsersPageCommand extends ActionCommand {
         try {
             checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {
+            LOGGER.error (e.getMessage ());
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION,ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
@@ -50,7 +51,7 @@ public class ShowUsersPageCommand extends ActionCommand {
             LOGGER.error ("Exception in ShowUsersPageCommand.class ", e);
             throw new CommandException (e);
         }
-        ;
+
         request.setAttribute (REQUEST_ATTRIBUTE_USERS, users);
         request.setAttribute (REQUEST_ATTRIBUTE_ACTIVE_FIVE, ACTIVE);;
         request.setAttribute (REQUEST_ATTRIBUTE_COUNT_PAGE, countPage);

@@ -21,7 +21,7 @@ public class GetTeamsByLeagueIdCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (GetTeamsByLeagueIdCommand.class);
     private static final String LEAGUE_ID = "leagueId";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private TeamService teamService = serviceFactory.getOpponentService ();
+    private TeamService teamService = serviceFactory.getTeamService ();
 
     @Override
     public Respond execute() throws CommandException {

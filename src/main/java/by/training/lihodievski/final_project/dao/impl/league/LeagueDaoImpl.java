@@ -2,6 +2,8 @@ package by.training.lihodievski.final_project.dao.impl.league;
 
 import by.training.lihodievski.final_project.bean.Category;
 import by.training.lihodievski.final_project.bean.League;
+import by.training.lihodievski.final_project.connection.AutoRollback;
+import by.training.lihodievski.final_project.connection.AutoSetAutoCommit;
 import by.training.lihodievski.final_project.connection.ProxyConnection;
 import by.training.lihodievski.final_project.connection.exception.ConnectionPoolException;
 import by.training.lihodievski.final_project.dao.exception.DaoException;
@@ -90,5 +92,31 @@ public class LeagueDaoImpl extends LeagueDaoAbstract {
             throw new DaoException (e);
         }
         return leagues.iterator ().next ();
+    }
+
+    @Override
+    public boolean deleteLeague(League league) throws DaoException {
+        String deleteQuery = getDeleteSQL ();
+        String unUsedLeagueQuery = getUnUsedLeagueQuery();
+        try (ProxyConnection connection = connectionPool.takeConnection ();
+             AutoSetAutoCommit autoSetAutoCommit = new AutoSetAutoCommit (connection,false);
+             AutoRollback rollback = new AutoRollback (connection);
+             PreparedStatement deleteStatement = connection.prepareStatement (deleteQuery);
+             PreparedStatement selectStatement = connection.prepareStatement (unUsedLeagueQuery);){
+
+            selectStatement.setLong (1, league.getId ());
+            ResultSet resultSet = selectStatement.executeQuery ();
+            if (resultSet.next ()) {
+                deleteStatement.setLong (1,league.getId ());
+                deleteStatement.execute ();
+                rollback.commit ();
+                return true;
+            }else {
+                return false;
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            LOGGER.error ("Exception in deleteLeague in LeagueDaoImpl.class ", e);
+            throw new DaoException (e);
+        }
     }
 }

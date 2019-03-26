@@ -32,7 +32,7 @@ public class TeamDaoImpl extends TeamDaoAbstract {
     protected void preparedStatementInsert(PreparedStatement preparedStatement, Team object) throws DaoException {
         try{
             preparedStatement.setLong (1, object.getLeague ().getId ());
-            preparedStatement.setString (2, object.getNameTeam ());
+            preparedStatement.setString (2, object.getTeamName ());
         }catch (SQLException e){
             LOGGER.error ("Exception in insert in TeamDaoImpl.class ", e);
             throw new DaoException (e);
@@ -50,7 +50,7 @@ public class TeamDaoImpl extends TeamDaoAbstract {
             while (resultSet.next ()){
                 Team team = new Team ();
                 team.setId (resultSet.getLong (TEAM_ID));
-                team.setNameTeam (resultSet.getString (TEAM_NAME));
+                team.setTeamName (resultSet.getString (TEAM_NAME));
                 list.add (team);
             }
         } catch (SQLException e) {

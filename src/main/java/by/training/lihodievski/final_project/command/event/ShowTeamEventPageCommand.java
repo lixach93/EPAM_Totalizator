@@ -22,16 +22,12 @@ public class ShowTeamEventPageCommand extends ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger (ShowTeamEventPageCommand.class);
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private EventService eventService = serviceFactory.getEventService ();
-    private static final String CATEGORY = "category";
     private static final String EVENTS = "events";
-
-
-
 
     @Override
     public Respond execute() throws CommandException {
         String category = UrlEncoder.getAction (request.getPathInfo ());
-        String numberPageStr =  request.getParameter ("page");
+        String numberPageStr =  request.getParameter (PARAMETER_PAGE);
         int numberPage;
         if(numberPageStr != null){
             numberPage = (Integer.parseInt (numberPageStr)-1)*2;

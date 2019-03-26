@@ -74,11 +74,10 @@ public class LeagueServiceImpl implements LeagueService {
         long leagueId = Long.parseLong (leagueIdStr);
         League league = new League (leagueId);
         try {
-            leagueDao.delete (league);
+            return leagueDao.deleteLeague (league);
         } catch (DaoException e) {
             LOGGER.error ("Exception in  deleteLeague in LeagueServiceImpl.class ", e);
             throw new ServiceException (e);
         }
-        return true;
     }
 }

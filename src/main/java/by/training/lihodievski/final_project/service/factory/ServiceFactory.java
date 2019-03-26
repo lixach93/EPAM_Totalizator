@@ -17,22 +17,27 @@ public class ServiceFactory {
     public UserService getUserService(){
         return UserServiceImpl.getInstance ();
     }
+
     public CategoryService getCategoryService(){
         return CategoryServiceImpl.getInstance ();
     }
+
     public LeagueService getLeagueService(){
         return LeagueServiceImpl.getInstance ();
     }
 
-    public TeamService getOpponentService() {
-        return TeamServiceImpl.getInstance();}
+    public TeamService getTeamService() {
+        return TeamServiceImpl.getInstance();
+    }
 
     public EventService getEventService() {
         return EventServiceImpl.getInstance();
     }
+
     public BetService getBettingService(){
         return BetServiceImpl.getInstance ();
     }
+
     public CompetitionService getCompetitionService(){
         return CompetitionServiceImpl.getInstance();
     }

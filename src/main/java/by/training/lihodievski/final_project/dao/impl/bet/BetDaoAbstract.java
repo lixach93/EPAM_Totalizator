@@ -44,6 +44,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
     String getUpdateUserBalanceQuery(){
         return "UPDATE totalizator.user SET money = ? WHERE user_id = ?";
     }
+
     String getPaymentQuery(){
         return "UPDATE totalizator.bet b inner join user u" +
                 " on b.user_id = u.user_id" +
@@ -52,6 +53,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " SET  b.win_money = ?,u.money = u.money + ?,e.payment = ?,e.win_percent = ?" +
                 " WHERE b.user_id = ? and b.event_id = ? and b.bet_id = ?";
     }
+
     String getBetMoneyByEventQuery(){
         return "SELECT sum(money) as money from totalizator.bet where event_id = ?";
     }
@@ -117,6 +119,7 @@ public abstract class BetDaoAbstract extends AbstractGenericDao<Bet> {
                 " rate_type.rate_id = event.rate_id"+
                 " where competition.status = 'new' and bet.user_id = ? limit ?,?";
     }
+
     String getResultQuery(){
         return  "SELECT bet.bet_id,event.event_id,competition.competition_id," +
                 "bet.user_id,t1.name,t2.name,competition.team_first_result," +

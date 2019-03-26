@@ -73,11 +73,11 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     private void findWinner(Competition competition, int score) {
         Random random = new Random ();
-        competition.setFirstOpponentResult (random.nextInt (score));
-        competition.setSecondOpponentResult (random.nextInt (score));
-        if(competition.getFirstOpponentResult () > competition.getSecondOpponentResult ()){
+        competition.setFirstTeamResult (random.nextInt (score));
+        competition.setSecondTeamResult (random.nextInt (score));
+        if(competition.getFirstTeamResult () > competition.getSecondTeamResult ()){
             competition.setWinner (1);
-        }else if(competition.getFirstOpponentResult () < competition.getSecondOpponentResult ()){
+        }else if(competition.getFirstTeamResult () < competition.getSecondTeamResult ()){
             competition.setWinner (2);
         }else{
             competition.setWinner (0);

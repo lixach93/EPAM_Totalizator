@@ -38,32 +38,26 @@ public class Constants {
     public static final String FORWARD_MODERATOR_PAGE = "/WEB-INF/view/moderator.jsp";
     public static final String FORWARD_ADMIN_PAGE = "/WEB-INF/view/admin.jsp";
     public static final String FORWARD_MAIN_PAGE = "/WEB-INF/view/main.jsp";
-    public static final String FORWARD_ERROR_PAGE = "/WEB-INF/error/error500.jsp";
     public static final String FORWARD_EVENT_PAGE = "/WEB-INF/view/event.jsp";
     public static final String FORWARD_JSON_PAGE = "/WEB-INF/ajax/json.jsp";
     public static final String FORWARD_LOGIN_PAGE = "/WEB-INF/view/login.jsp";
     public static final String FORWARD_REGISTRATION_PAGE = "/WEB-INF/view/registration.jsp";
 
     public static final String ERROR_INPUT_LOGIN_NOT_VALID = "error.login.notValid";
+    public static final String ERROR_INPUT_EMAIL_NOT_VALID = "error.email.notValid";
     public static final String ERROR_LOGIN_USED = "error.login.used";
     public static final String ERROR_EMAIL_USED= "error.email.used";
     public static final String ERROR_INPUT_USER_IS_NOT_EXISTS = "error.user.null";
     public static final String ERROR_INPUT_PASSWORD_NOT_VALID = "error.password.notValid";
     public static final String ERROR_INPUT_PASSWORD_IS_NOT_EQUALS = "error.password.isNotEquals";
-    public static final String ERROR_MESSAGE = "error.message";
     public static final String ERROR_NO_MONEY = "error.money";
     public static final String ERROR_PERMISSION_INFO = "error.permission";
 
     public static final String STATUS_SUCCESS = "info.successful";
     public static final String STATUS_UN_SUCCESS = "info.unsuccessful";
 
-    public static final String LEAGUE = "league";
-    public static final String BETTING = "bet";
-    public static final String PERSONAL = "personal";
-    public static final String TEAM = "team";
     public static final String ACTIVE = "active";
     public static final String JSON = "json";
-    public static final String EVENT = "event";
     public static final String EVENTS = "events";
     public static final String CATEGORIES = "categories";
     public static final String COMPETITIONS = "competitions";

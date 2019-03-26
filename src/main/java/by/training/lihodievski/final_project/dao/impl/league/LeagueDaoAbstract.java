@@ -11,6 +11,8 @@ public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
 
     public abstract List<League> getLeaguesByCategory(Category category) throws DaoException;
     public abstract League getLeagueById(long leagueId) throws DaoException;
+    public abstract boolean deleteLeague(League league) throws DaoException;
+
 
     @Override
     protected String getDeleteSQL() throws DaoException {
@@ -38,10 +40,15 @@ public abstract class LeagueDaoAbstract extends AbstractGenericDao<League> {
     String getLeagueByCategoryQuery() {
         return "SELECT league_id,name FROM totalizator.league WHERE category_id = ?";
     }
+
     String getLeagueByIdQuery() {
         return "SELECT league_id,name FROM totalizator.league WHERE league_id = ?";
     }
 
-
-
+    String getUnUsedLeagueQuery() {
+        return "select  distinct league.league_id,league.name from league " +
+                "left  join team on " +
+                " league.league_id = team.league_id" +
+                " where team.name is null and league.league_id = ?";
+    }
 }

@@ -6,8 +6,8 @@ public class Competition implements Entity {
     private Team firstTeam;
     private Team secondTeam;
     private String status;
-    private int firstOpponentResult;
-    private int secondOpponentResult;
+    private int firstTeamResult;
+    private int secondTeamResult;
     private int winner;
 
     public Competition() {
@@ -52,20 +52,20 @@ public class Competition implements Entity {
         this.status = status;
     }
 
-    public int getFirstOpponentResult() {
-        return firstOpponentResult;
+    public int getFirstTeamResult() {
+        return firstTeamResult;
     }
 
-    public void setFirstOpponentResult(int firstOpponentResult) {
-        this.firstOpponentResult = firstOpponentResult;
+    public void setFirstTeamResult(int firstTeamResult) {
+        this.firstTeamResult = firstTeamResult;
     }
 
-    public int getSecondOpponentResult() {
-        return secondOpponentResult;
+    public int getSecondTeamResult() {
+        return secondTeamResult;
     }
 
-    public void setSecondOpponentResult(int secondOpponentResult) {
-        this.secondOpponentResult = secondOpponentResult;
+    public void setSecondTeamResult(int secondTeamResult) {
+        this.secondTeamResult = secondTeamResult;
     }
 
     public void setWinner(int winner) {
@@ -91,10 +91,10 @@ public class Competition implements Entity {
         if (id != that.id) {
             return false;
         }
-        if (firstOpponentResult != that.firstOpponentResult) {
+        if (firstTeamResult != that.firstTeamResult) {
             return false;
         }
-        if (secondOpponentResult != that.secondOpponentResult) {
+        if (secondTeamResult != that.secondTeamResult) {
             return false;
         }
         if (winner != that.winner) {
@@ -115,8 +115,8 @@ public class Competition implements Entity {
         result = 31 * result + firstTeam.hashCode ();
         result = 31 * result + secondTeam.hashCode ();
         result = 31 * result + status.hashCode ();
-        result = 31 * result + firstOpponentResult;
-        result = 31 * result + secondOpponentResult;
+        result = 31 * result + firstTeamResult;
+        result = 31 * result + secondTeamResult;
         result = 31 * result + winner;
         return result;
     }

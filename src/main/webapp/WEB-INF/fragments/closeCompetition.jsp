@@ -7,11 +7,11 @@
         <c:when test="${sessionScope.status eq 'info.successful'}">
             <div class="alert alert-success">
                 <strong><fmt:message bundle="${loc}" key="status.successfulgame"/> </strong>
-                <label><c:out value="${competition.firstTeam.nameTeam}"/></label>
-                <label><c:out value="${competition.firstOpponentResult}"/></label>
+                <label><c:out value="${competition.firstTeam.teamName}"/></label>
+                <label><c:out value="${competition.firstTeamResult}"/></label>
                 :
-                <label><c:out value="${competition.secondOpponentResult}"/></label>
-                <label><c:out value="${competition.secondTeam.nameTeam}"/></label>
+                <label><c:out value="${competition.secondTeamResult}"/></label>
+                <label><c:out value="${competition.secondTeam.teamName}"/></label>
             </div>
         </c:when>
         <c:when test="${sessionScope.status eq 'info.unsuccessful'}">
@@ -34,9 +34,9 @@
             <div class="form-row">
                     <div class="form-group col-md-3">
                     <label><c:out value="${competition.id}"/></label>
-                    <label><c:out value="${competition.firstTeam.nameTeam}"/></label>
+                    <label><c:out value="${competition.firstTeam.teamName}"/></label>
                     :
-                    <label><c:out value="${competition.secondTeam.nameTeam}"/></label>
+                    <label><c:out value="${competition.secondTeam.teamName}"/></label>
                 </div>
                 <div class="form-group col-md-2">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">

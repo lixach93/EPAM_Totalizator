@@ -34,8 +34,8 @@ public class BetServiceImpl implements BetService {
     }
 
     @Override
-    public boolean makeBet(long userId, String eventIdStr, String opponentStr, String moneyStr) throws ServiceException, UserException {
-        if (!Validator.isPositiveNumber (eventIdStr) || !Validator.isPositiveNumber (opponentStr)
+    public boolean makeBet(long userId, String eventIdStr, String teamStr, String moneyStr) throws ServiceException, UserException {
+        if (!Validator.isPositiveNumber (eventIdStr) || !Validator.isPositiveNumber (teamStr)
                 || !Validator.isMoney (moneyStr)) {
             return false;
         }
@@ -50,8 +50,8 @@ public class BetServiceImpl implements BetService {
             }
             long eventId = Long.parseLong (eventIdStr);
             Event event = new Event (eventId);
-            int opponent = Integer.parseInt (opponentStr);
-            Bet betting = new Bet (user, event, opponent, money);
+            int team = Integer.parseInt (teamStr);
+            Bet betting = new Bet (user, event, team, money);
             return bettingDao.insertBet (betting);
         } catch (DaoException e) {
             LOGGER.error ("Exception in makeBet in BetServiceImpl.class ", e);

@@ -229,8 +229,8 @@ public class EventServiceImpl implements EventService {
                }
                break;
             case TOTAL:
-                if(currentBet.getOpponentFirstScore () == competition.getFirstOpponentResult ()
-                    && currentBet.getOpponentSecondScore () == competition.getSecondOpponentResult ()){
+                if(currentBet.getTeamFirstScore () == competition.getFirstTeamResult ()
+                    && currentBet.getTeamSecondScore () == competition.getSecondTeamResult ()){
                     winner.add (currentBet);
                 }
                 break;

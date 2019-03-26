@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
     public void registration(String login, String email, String password, String confirmPassword) throws ServiceException,UserException {
         checkLogin (login);
         checkPassword(password,confirmPassword);
+        checkEmail (email);
         password = BCryptUtil.hashString (password);
         User user = new User (login, email, password);
         try {
@@ -161,6 +162,11 @@ public class UserServiceImpl implements UserService {
     private void checkLogin(String login) throws UserException {
         if(!login.matches ("\\w{4,20}")){
             throw new UserException (ERROR_INPUT_LOGIN_NOT_VALID);
+        }
+    }
+    private void checkEmail(String login) throws UserException {
+        if(!login.matches ("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")){
+            throw new UserException (ERROR_INPUT_EMAIL_NOT_VALID);
         }
     }
 

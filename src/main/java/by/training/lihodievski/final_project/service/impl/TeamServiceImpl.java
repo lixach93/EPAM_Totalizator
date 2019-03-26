@@ -39,7 +39,7 @@ public class TeamServiceImpl implements TeamService {
             League league = leagueDao.getLeagueById(leagueId);
             Team team = new Team ();
             team.setLeague (league);
-            team.setNameTeam (teamName);
+            team.setTeamName (teamName);
             teamDao.insert (team);
         } catch (DaoException e) {
             LOGGER.error ("Exception in addTeam in TeamServiceImpl.class ", e);

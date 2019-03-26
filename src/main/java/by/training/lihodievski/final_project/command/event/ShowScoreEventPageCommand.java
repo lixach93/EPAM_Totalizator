@@ -22,12 +22,9 @@ public class ShowScoreEventPageCommand extends ActionCommand {
     private EventService eventService = serviceFactory.getEventService ();
     private static final String EVENTS = "events";
 
-
-
-
     @Override
     public Respond execute() throws CommandException {
-        String numberPageStr =  request.getParameter ("page");
+        String numberPageStr =  request.getParameter (PARAMETER_PAGE);
         int numberPage;
         if(numberPageStr != null){
             numberPage = (Integer.parseInt (numberPageStr)-1)*2;
@@ -44,7 +41,7 @@ public class ShowScoreEventPageCommand extends ActionCommand {
             throw new CommandException (e);
         }
 
-        request.setAttribute ("countPage", countPage);
+        request.setAttribute (REQUEST_ATTRIBUTE_COUNT_PAGE, countPage);
         request.setAttribute (EVENTS, events);
         return new Respond (Respond.PAGE, FORWARD_EVENT_PAGE);
     }

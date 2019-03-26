@@ -44,5 +44,4 @@ public abstract class CompetitionDaoAbstract extends AbstractGenericDao<Competit
                 " WHERE competition_id = ?";
     }
 
-
 }

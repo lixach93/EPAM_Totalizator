@@ -7,7 +7,7 @@ public class Team implements Entity{
     @JsonProperty("id")
     private long id;
     @JsonProperty("name")
-    private String nameTeam;
+    private String teamName;
     private League league;
 
     public Team() {
@@ -22,12 +22,12 @@ public class Team implements Entity{
         this.id = id;
     }
 
-    public String getNameTeam() {
-        return nameTeam;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setNameTeam(String nameTeam) {
-        this.nameTeam = nameTeam;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     public League getLeague() {
@@ -52,7 +52,7 @@ public class Team implements Entity{
         if (id != team.id) {
             return false;
         }
-        if (nameTeam != null ? !nameTeam.equals (team.nameTeam) : team.nameTeam != null) {
+        if (teamName != null ? !teamName.equals (team.teamName) : team.teamName != null) {
             return false;
         }
         return league != null ? league.equals (team.league) : team.league == null;
@@ -61,7 +61,7 @@ public class Team implements Entity{
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (nameTeam != null ? nameTeam.hashCode () : 0);
+        result = 31 * result + (teamName != null ? teamName.hashCode () : 0);
         result = 31 * result + (league != null ? league.hashCode () : 0);
         return result;
     }

@@ -11,10 +11,10 @@
     <p><label>ID:</label> <c:out value="${bet.id}"/></p>
     <div class="row">
         <div class="form-group col-md-3">
-            <label> <c:out value="${bet.event.competition.firstTeam.nameTeam}"/></label>
-            <c:out value="${bet.event.competition.firstOpponentResult}"/> :
-            <c:out value="${bet.event.competition.secondOpponentResult}"/>
-            <label><c:out value="${bet.event.competition.secondTeam.nameTeam}"/></label>
+            <label> <c:out value="${bet.event.competition.firstTeam.teamName}"/></label>
+            <c:out value="${bet.event.competition.firstTeamResult}"/> :
+            <c:out value="${bet.event.competition.secondTeamResult}"/>
+            <label><c:out value="${bet.event.competition.secondTeam.teamName}"/></label>
         </div>
     </div>
     <div class="form-row">
@@ -26,8 +26,8 @@
     <c:choose>
         <c:when test="${bet.event.rate.value eq 'total'}">
             <fmt:message bundle="${loc}" key="p.score"/>
-            <c:out value="${bet.opponentFirstScore}"/> :
-            <c:out value="${bet.opponentSecondScore}"/>
+            <c:out value="${bet.teamFirstScore}"/> :
+            <c:out value="${bet.teamSecondScore}"/>
         </c:when>
         <c:when test="${bet.event.rate.value eq 'team'}">
             <c:choose>

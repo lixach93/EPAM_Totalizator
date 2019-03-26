@@ -21,6 +21,7 @@ public abstract class UserDaoAbstract extends AbstractGenericDao<User> {
 
     @Override
     protected String getUpdateSql() {
+
         return "UPDATE totalizator.user SET money = ?,role = ?  WHERE user_id = ?";
     }
 

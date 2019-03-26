@@ -32,6 +32,7 @@ public class LoginCommand extends ActionCommand {
         try {
             user = userServiceImpl.login (login,password);
         }catch (UserException e) {
+            LOGGER.error ("Exception validate user ");
             redirect = request.getParameter (PARAMETER_REDIRECT_ERROR);
             session.setAttribute (SESSION_ATTRIBUTE_ERROR, e.getMessage ());
             return new Respond (Respond.REDIRECT, redirect);

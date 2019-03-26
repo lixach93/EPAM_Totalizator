@@ -50,12 +50,11 @@ insert into event (competition_id, rate_id)
 	values 
     (1,2),
     (2,1),
-    (3,2),
     (2,2),
+    (3,2),
     (4,2),
     (5,2);
     
-
 
 insert into user (login,email,password,role)
 	values

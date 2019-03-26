@@ -6,8 +6,8 @@ public class Bet implements Entity {
     private User user;
     private Event event;
     private int winner;
-    private int opponentFirstScore;
-    private int opponentSecondScore;
+    private int teamFirstScore;
+    private int teamSecondScore;
     private double money;
     private double winMoney;
 
@@ -21,11 +21,11 @@ public class Bet implements Entity {
         this.money = money;
     }
 
-    public Bet(User user, Event event, int opponentFirstScore, int opponentSecondScore, double money) {
+    public Bet(User user, Event event, int teamFirstScore, int teamSecondScore, double money) {
         this.user = user;
         this.event = event;
-        this.opponentFirstScore = opponentFirstScore;
-        this.opponentSecondScore = opponentSecondScore;
+        this.teamFirstScore = teamFirstScore;
+        this.teamSecondScore = teamSecondScore;
         this.money = money;
     }
 
@@ -54,20 +54,20 @@ public class Bet implements Entity {
         this.winner = winner;
     }
 
-    public int getOpponentFirstScore() {
-        return opponentFirstScore;
+    public int getTeamFirstScore() {
+        return teamFirstScore;
     }
 
-    public void setOpponentFirstScore(int opponentFirstScore) {
-        this.opponentFirstScore = opponentFirstScore;
+    public void setTeamFirstScore(int teamFirstScore) {
+        this.teamFirstScore = teamFirstScore;
     }
 
-    public int getOpponentSecondScore() {
-        return opponentSecondScore;
+    public int getTeamSecondScore() {
+        return teamSecondScore;
     }
 
-    public void setOpponentSecondScore(int opponentSecondScore) {
-        this.opponentSecondScore = opponentSecondScore;
+    public void setTeamSecondScore(int teamSecondScore) {
+        this.teamSecondScore = teamSecondScore;
     }
 
     public User getUser() {
@@ -111,10 +111,10 @@ public class Bet implements Entity {
         if (winner != bet.winner) {
             return false;
         }
-        if (opponentFirstScore != bet.opponentFirstScore) {
+        if (teamFirstScore != bet.teamFirstScore) {
             return false;
         }
-        if (opponentSecondScore != bet.opponentSecondScore) {
+        if (teamSecondScore != bet.teamSecondScore) {
             return false;
         }
         if (Double.compare (bet.money, money) != 0){
@@ -137,8 +137,8 @@ public class Bet implements Entity {
         result = 31 * result + user.hashCode ();
         result = 31 * result + event.hashCode ();
         result = 31 * result + winner;
-        result = 31 * result + opponentFirstScore;
-        result = 31 * result + opponentSecondScore;
+        result = 31 * result + teamFirstScore;
+        result = 31 * result + teamSecondScore;
         temp = Double.doubleToLongBits (money);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits (winMoney);

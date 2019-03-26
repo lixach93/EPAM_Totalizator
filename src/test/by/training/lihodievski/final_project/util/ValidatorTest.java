@@ -50,4 +50,20 @@ public class ValidatorTest {
 
     }
 
+    @Test(dataProvider = "validateCardNumber", dataProviderClass = ValidatorTestData.class)
+    public void testIsCardNumber_String_boolean(String value, boolean expected)  {
+
+        boolean result = Validator.isCardNumber (value);
+
+        Assert.assertEquals (result, expected);
+    }
+
+    @Test(dataProvider = "validatePercent", dataProviderClass = ValidatorTestData.class)
+    public void testIsPercent_String_boolean(String value, boolean expected)  {
+
+        boolean result = Validator.isPercent (value);
+
+        Assert.assertEquals (result, expected);
+    }
+
 }

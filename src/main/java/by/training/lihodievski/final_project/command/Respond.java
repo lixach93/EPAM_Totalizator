@@ -8,7 +8,6 @@ public class Respond {
     private String status;
     private String value;
 
-
     public Respond(String status, String value) {
         this.status = status;
         this.value = value;

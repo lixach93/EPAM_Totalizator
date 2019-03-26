@@ -29,9 +29,9 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label><c:out value="${event.id}"/></label>
-                <label><c:out value="${event.competition.firstTeam.nameTeam}"/></label>
+                <label><c:out value="${event.competition.firstTeam.teamName}"/></label>
                 :
-                <label><c:out value="${event.competition.secondTeam.nameTeam}"/></label>
+                <label><c:out value="${event.competition.secondTeam.teamName}"/></label>
             </div>
             <div class="form-group col-md-5">
                 <label for="percent${event.id}">

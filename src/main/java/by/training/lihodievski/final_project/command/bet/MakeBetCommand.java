@@ -33,6 +33,7 @@ public class MakeBetCommand extends ActionCommand {
         try {
             checkRole (request,new RoleType[]{RoleType.USER});
         } catch (PermissionException e) {
+            LOGGER.error (e.getMessage ());
             return new Respond (Respond.REDIRECT, redirect);
         }
         String moneyStr = request.getParameter (PARAMETER_MONEY);
@@ -53,6 +54,7 @@ public class MakeBetCommand extends ActionCommand {
             LOGGER.error ("Exception in MakeBetCommand ",e);
             throw new CommandException (e);
         } catch (UserException e) {
+            LOGGER.error ("Exception validate user");
             session.setAttribute (SESSION_ATTRIBUTE_ERROR, e.getMessage ());
             return new Respond (Respond.REDIRECT, redirect);
         }

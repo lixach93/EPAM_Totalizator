@@ -31,6 +31,7 @@ public class ShowActiveBetPageCommand extends ActionCommand {
         try {
             checkRole (request,new RoleType[]{RoleType.USER});
         } catch (PermissionException e) {
+            LOGGER.error (e.getMessage ());
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_PERSONAL_PAGE);
         }

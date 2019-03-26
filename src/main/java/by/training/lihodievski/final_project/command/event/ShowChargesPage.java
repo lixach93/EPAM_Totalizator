@@ -31,11 +31,11 @@ public class ShowChargesPage extends ActionCommand {
         try {
             checkRole (request,new RoleType[]{RoleType.MODERATOR});
         } catch (PermissionException e) {
+            LOGGER.error (e.getMessage ());
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_MODERATOR_PAGE);
         }
         HttpSession session = request.getSession ();
-        long userId = (long) session.getAttribute (SESSION_ATTRIBUTE_USER_ID);
         String numberPageStr =  request.getParameter (PARAMETER_PAGE);
         int numberPage;
         if(numberPageStr != null){

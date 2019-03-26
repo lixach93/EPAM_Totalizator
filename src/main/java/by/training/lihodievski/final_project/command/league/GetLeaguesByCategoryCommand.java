@@ -25,7 +25,6 @@ public class GetLeaguesByCategoryCommand extends ActionCommand {
     private LeagueService leagueService = serviceFactory.getLeagueService ();
 
 
-
     @Override
     public Respond execute() throws CommandException {
         long categoryId = Long.parseLong (request.getParameter (CATEGORY_ID));

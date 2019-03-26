@@ -91,7 +91,7 @@
                             </span>
                             <label>
                                 <fmt:message bundle="${loc}" key="link.team"/>
-                                <c:out value="${event.competition.firstTeam.nameTeam}"/>
+                                <c:out value="${event.competition.firstTeam.teamName}"/>
                             </label>
                         </div>
                         <div class="form-group col-md-1">
@@ -104,7 +104,7 @@
                             </span>
                             <label>
                                 <fmt:message bundle="${loc}" key="link.team"/>
-                                <c:out value="${event.competition.secondTeam.nameTeam}"/>
+                                <c:out value="${event.competition.secondTeam.teamName}"/>
                             </label>
                         </div>
                     </div>

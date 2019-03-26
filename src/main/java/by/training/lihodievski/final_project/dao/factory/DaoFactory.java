@@ -28,22 +28,31 @@ public class DaoFactory {
     public CategoryDaoAbstract getCategoryDao(){
         return CategoryDaoImpl.getInstance ();
     }
+
     public LeagueDaoAbstract getLeagueDao(){
         return LeagueDaoImpl.getInstance ();
     }
+
     public CompetitionDaoAbstract getCompetitionDao(){
         return CompetitionDaoImpl.getInstance ();
     }
+
     public EventDaoAbstract getEventDao(){
         return EventDaoImpl.getInstance ();
     }
-    public UserDaoAbstract getUserDao(){return UserDaoImpl.getInstance();}
+
+    public UserDaoAbstract getUserDao(){
+        return UserDaoImpl.getInstance();
+    }
+
     public TeamDaoAbstract getTeamDao() {
         return TeamDaoImpl.getInstance();
     }
+
     public BetDaoAbstract getBetDao(){
         return BetDaoImpl.getInstance ();
     }
+
 }
 
 

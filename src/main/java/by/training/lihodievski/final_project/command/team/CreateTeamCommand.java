@@ -21,15 +21,14 @@ public class CreateTeamCommand extends ActionCommand {
     private static final String LEAGUE_ID = "leagueId";
     private static final String TEAM_NAME = "teamName";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
-    private TeamService teamService = serviceFactory.getOpponentService();
-
-
+    private TeamService teamService = serviceFactory.getTeamService ();
 
     @Override
     public Respond execute() throws CommandException {
         try {
             checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {
+            LOGGER.error (e.getMessage ());
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }

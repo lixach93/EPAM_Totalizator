@@ -2,7 +2,6 @@ package by.training.lihodievski.final_project.command.exception;
 
 public class PermissionException extends Exception {
 
-
     private static final long serialVersionUID = 5596409502746710306L;
 
     public PermissionException() {

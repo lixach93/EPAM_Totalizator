@@ -34,6 +34,7 @@ public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
     String getCategoryByIdQuery(){
         return "SELECT category.name FROM totalizator.category WHERE category_id = ? ";
     }
+
     String getCategoryByCompetitionQuery(){
         return " SELECT category.name FROM competition c" +
                 " JOIN team t1 on " +
@@ -50,5 +51,4 @@ public abstract class CategoryDaoAbstract extends AbstractGenericDao<Category> {
                 " category2.category_id = l2.category_id" +
                 " WHERE  category.name = category2.name and c.competition_id = ?";
     }
-
 }

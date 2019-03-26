@@ -49,11 +49,11 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
             while (resultSet.next ()){
                 Competition competition = new Competition ();
                 competition.setId (resultSet.getLong (COMPETITION_ID));
-                competition.getFirstTeam ().setNameTeam (resultSet.getString (TEAM_FIRST_NAME));
-                competition.getSecondTeam ().setNameTeam (resultSet.getString (TEAM_SECOND_NAME));
+                competition.getFirstTeam ().setTeamName (resultSet.getString (TEAM_FIRST_NAME));
+                competition.getSecondTeam ().setTeamName (resultSet.getString (TEAM_SECOND_NAME));
                 competition.setStatus (resultSet.getString (STATUS));
-                competition.setFirstOpponentResult (resultSet.getInt (TEAM_FIRST_RESULT));
-                competition.setSecondOpponentResult (resultSet.getInt (TEAM_SECOND_RESULT));
+                competition.setFirstTeamResult (resultSet.getInt (TEAM_FIRST_RESULT));
+                competition.setSecondTeamResult (resultSet.getInt (TEAM_SECOND_RESULT));
                 list.add (competition);
             }
         }catch (SQLException e){
@@ -76,8 +76,8 @@ public class CompetitionDaoImpl extends CompetitionDaoAbstract {
             select.setLong (1,competition.getId ());
             ResultSet resultSet = select.executeQuery ();
             if(resultSet.next () && resultSet.getString (STATUS).equals (STATUS_NEW)){
-                update.setInt (1,competition.getFirstOpponentResult ());
-                update.setInt (2,competition.getSecondOpponentResult ());
+                update.setInt (1,competition.getFirstTeamResult ());
+                update.setInt (2,competition.getSecondTeamResult ());
                 update.setInt (3,competition.getWinner ());
                 update.setLong (4,competition.getId ());
                 update.executeUpdate ();

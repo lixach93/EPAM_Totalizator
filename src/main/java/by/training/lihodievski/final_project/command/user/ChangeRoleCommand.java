@@ -23,12 +23,12 @@ public class ChangeRoleCommand extends ActionCommand {
     private ServiceFactory serviceFactory = ServiceFactory.getInstance ();
     private UserService userServiceImpl = serviceFactory.getUserService ();
 
-
     @Override
     public Respond execute() throws CommandException {
         try {
             checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {
+            LOGGER.error (e.getMessage ());
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION,ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }

@@ -30,6 +30,7 @@ public class ShowCreateTeamPageCommand extends ActionCommand {
         try {
             checkRole (request,new RoleType[]{RoleType.ADMINISTRATOR});
         } catch (PermissionException e) {
+            LOGGER.error (e.getMessage ());
             request.setAttribute (REQUEST_ATTRIBUTE_PERMISSION, ERROR_PERMISSION_INFO);
             return new Respond (Respond.PAGE, FORWARD_ADMIN_PAGE);
         }
